@@ -4,7 +4,7 @@ body{
 }
 
 .hero{
-	background: url('.otherfilefolder/images/cosmic_calender.jpg') no-repeat center fixed;
+	background: url('otherfilefolder/images/cosmic_calender.jpg') no-repeat center fixed;
 	
 	background-color:#bbbbbb;
 	-webkit-background-size: cover;

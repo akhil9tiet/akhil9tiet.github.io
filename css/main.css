@@ -4,9 +4,9 @@ body{
 }
 
 .hero{
-	background: url('otherfilefolder/images/cosmic_calender.jpg') no-repeat center fixed;
+	background: url('../otherFileFolder/images/cosmic_calender.jpg') no-repeat center fixed;
 	
-	background-color:#bbbbbb;
+	background-color:#555555;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -53,7 +53,7 @@ body{
 	color: white; 
 }
 #nav li a:hover {
-	background-color: rgba(230, 230, 230,0.1);
+	background-color: /*rgba(230, 230, 230,0.1);*/rgba(255,49,49,.3);
 	border-radius: 3px;
 }
 /*.navbar{
@@ -69,7 +69,7 @@ body{
 
 /*........................Projects......................*/
 .projects{
-  background-image: url("./images/back_12.jpg");
+  background-image: url("../otherFileFolder/images/back_12.jpg");
 }
 
 .section{
@@ -81,7 +81,7 @@ body{
 	margin-bottom: 30px;
 }
 .project-tile{
-	border: 1px solid rgb(226, 226, 226);;
+	border: 1px solid rgb(66, 226, 226);;
 	border-radius: 4px;
 	width: 100%;
 	height: 300px;
@@ -213,7 +213,7 @@ figure.effect-sadie:hover a {
 }
 
 .skills{
-	background-image: url("./images/skills12.jpg");
+	background-image: url("../otherFileFolder/images/skills12.jpg");
 }
 
 /*.front-end{
@@ -232,8 +232,8 @@ figure.effect-sadie:hover a {
 /*................Contact..........................*/
 
 .contact{
-   background: url('./images/contact_back.jpg') ;
-  /*#background-color: #ff4b07;*/
+   /*background: url('../otherFileFolder/images/') ;*/
+  background-color: #ff5050;
 	color:white;
 	font-size: 20px;
 }

@@ -218,17 +218,18 @@ figure.effect-sadie:hover a {
 
 .front-end:hover{
 	
-	opacity: .8;
+	opacity: .5;
 }
 
-.back-end{
-    opacity: .8;
-	background-image: url("http://cdn1.bestpsdfreebies.com/wp-content/uploads/2014/05/shards_pattern.jpg");
+.back-end:hover{
+    opacity: .5;
+    background-image: url("../otherFileFolder/images/skills_image.jpg");
+	
 }
 
 .misc{
-    opacity: .8;
-	background-image: url("../img/pyramid.png");	
+    opacity: .5;
+		
 }
 
 /*................Contact..........................*/

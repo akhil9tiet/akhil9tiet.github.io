@@ -223,12 +223,12 @@ figure.effect-sadie:hover a {
 }
 
 .back-end:hover{
-    opacity: .5;
+    opacity: .6;
     background-image: url("../otherFileFolder/images/skills_image.jpg");	
 }
 
 .misc:hover{
-    opacity: .5;
+    opacity: .6;
     background-image: url("../otherFileFolder/images/skills_image.jpg");		
 }
 

@@ -218,18 +218,18 @@ figure.effect-sadie:hover a {
 
 .front-end:hover{
 	
-	opacity: .5;
+	opacity: .6;
+    background-image: url("../otherFileFolder/images/skills_image.jpg");
 }
 
 .back-end:hover{
     opacity: .5;
-    background-image: url("../otherFileFolder/images/skills_image.jpg");
-	
+    background-image: url("../otherFileFolder/images/skills_image.jpg");	
 }
 
-.misc{
+.misc:hover{
     opacity: .5;
-		
+    background-image: url("../otherFileFolder/images/skills_image.jpg");		
 }
 
 /*................Contact..........................*/

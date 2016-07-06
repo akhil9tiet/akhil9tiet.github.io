@@ -216,7 +216,7 @@ figure.effect-sadie:hover a {
 	background-image: url("../otherFileFolder/images/skills12.jpg");
 }
 
-.front-end::hover{
+.front-end:hover{
 	
 	opacity: .5;
 }

@@ -73,5 +73,7 @@ a{
     text-align: center;
     background-color: #660000;
 }
-/*.shift{padding-left: 800px;
-padding-top: 0px;}*/
+.shift{
+    color:white;
+    font-family: Segoe UI;
+}

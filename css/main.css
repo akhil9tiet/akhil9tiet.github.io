@@ -15,6 +15,19 @@ body{
 	padding:2rem 0 19rem;
 	color: white;
 }
+
+.hero1{
+	background: url('../otherFileFolder/images/social1.jpg') no-repeat center fixed;
+	
+	background-color:#bbbbbb;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-position: left top;
+	padding:2rem 0 19rem;
+	color: white;
+}
 .hero h4{
 	font-size: 35px;	
 }

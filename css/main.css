@@ -4,7 +4,7 @@ body{
 }
 
 .hero{
-	background: url('../otherFileFolder/images/social1.jpg') no-repeat center fixed;
+	background: url('../otherFileFolder/images/cosmic.jpg') no-repeat center fixed;
 	
 	background-color:#bbbbbb;
 	-webkit-background-size: cover;

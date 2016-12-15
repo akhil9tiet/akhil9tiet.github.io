@@ -231,6 +231,19 @@
         <div class="row">
         	<div class="cold-md-4">
         		<iframe src="http://githubbadge.appspot.com/akhil9tiet" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameBorder="0"></iframe>
+        		<script>
+        			$.ajax({
+    type: 'GET',
+    url: 'http://githubbadge.appspot.com/badge/torvalds',
+    dataType: 'jsonp',
+    success: function(json) {
+        var result = '<h3>' + json.user.login + '</h3>' +
+                     '<p>Languages: ' + json.languages + '</p>' +
+                     '<p>Followers: ' + json.user.followers + '</p>';
+        $('#badge').append(result);
+    }
+});
+        		</script>
         	</div>
          	<div class="cold-md-4">
          		<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>

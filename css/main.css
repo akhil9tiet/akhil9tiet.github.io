@@ -219,21 +219,24 @@ figure.effect-sadie:hover a {
 }*/
 
 .front-end:hover{
-	
-	opacity: .6;
     background-image: url("../otherFileFolder/images/skills12.jpg");
+     text-decoration-color: :#FF5756;
+    text-decoration: 
 }
 
 .back-end:hover{
-    opacity: .6;
-    background-image: url("../otherFileFolder/images/skills_image.jpg");	
+    
+    background-image: url("../otherFileFolder/images/skills12.jpg");	
+     text-decoration-color: :#FF5756;
+    text-decoration: 
 }
 
 .misc:hover{
-    opacity: .6;
-    background-image: url("../otherFileFolder/images/skills_image.jpg");
-    COLOR:#FF5756;
-    font-size: 22px;	
+    
+    background-image: url("../otherFileFolder/images/skills12.jpg");
+    text-decoration-color: :#FF5756;
+    text-decoration: 
+    	
 }
 
 /*................Contact..........................*/

@@ -274,6 +274,13 @@
 <footer div="foot">
     <p>&copy Akhil Gupta 2016</p>
 </footer >
+
+<script>
+			// For Demo purposes only (show hover effect on mobile devices)
+			[].slice.call( document.querySelectorAll('a[href="#"') ).forEach( function(el) {
+				el.addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+			} );
+		</script>
     
 </body>
 

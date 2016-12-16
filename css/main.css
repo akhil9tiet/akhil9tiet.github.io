@@ -135,7 +135,7 @@ box-shadow:         inset 0px 0px 30px 0px rgba(50, 50, 50, 0.10);
 /***** Sadie *****/
 /*---------------*/
 
-figure.effect-sadie figcaption::before {
+/*figure.effect-sadie figcaption::before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -201,6 +201,7 @@ figure.effect-sadie:hover p {
 figure.effect-sadie:hover a {
 	color:rgb(129, 179, 255);
 }
+*/
 
 /*...................Skills........................*/
 .skills .project-tile{

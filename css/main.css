@@ -73,10 +73,11 @@ body{
   -webkit-border-radius:20px;
   border-radius:20px;
   border: #solid 10px #000;
-  background-color: rgba(21,32,32,0.8);
+  background-color: rgba(55,21,22,0.6);
   width:50%;
   margin-left: auto ;
   margin-right: auto ;
+  position-top: 30px;
 }
 
 /*........................Projects......................*/

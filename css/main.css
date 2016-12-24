@@ -68,21 +68,11 @@ body{
 	font-size: 30px;
 }
 
-#hero{
-  -moz-border-radius:20px;
-  -webkit-border-radius:20px;
-  border-radius:20px;
-  border: #solid 10px #000;
-  background-color: rgba(55,21,22,0.6);
-  width:50%;
-  margin-left: auto ;
-  margin-right: auto ;
-  position-top: 30px;
-}
+
 
 /*........................Projects......................*/
 .projects{
-  background-image: url("../otherFileFolder/images/back_12.jpg");
+  background-image: url("../otherFileFolder/images/Subtle.jpg");
 }
 
 .section{

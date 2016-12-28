@@ -13,8 +13,29 @@ body{
 	background-size: cover;
 	background-position: left top;
 	padding:2rem 0 19rem;
-	color: white;
+	color: #fff;
 }
+
+#highlight {
+    background: rgba(255, 80, 80, 0.6);
+    padding: 3px 5px;
+    margin: -3px -5px;
+    line-height: 1.7;
+    border-radius: 5px;
+    display:inline;
+}
+
+#highlight:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color:rgb(255,80,80);
+    padding: 3px 5px;
+    margin: -3px -5px;
+    line-height: 1.7;
+    border-radius: 5px;
+    display:inline;
+}
+
+
 
 .hero h4{
 	font-size: 35px;	
@@ -51,10 +72,11 @@ body{
 	text-decoration: none;
 	font-weight: bold;
 	margin:0;
-	color: white; 
+	color: rgb(255,80,80); 
 }
 #nav li a:hover {
-	background-color: rgba(230, 230, 230,0.1);
+	background-color: rgba(255, 80, 80,0.4);
+	color:#fff;
 	border-radius: 3px;
 }
 /*.navbar{

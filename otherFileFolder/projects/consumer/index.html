@@ -27,6 +27,25 @@
     <!-- Theme CSS -->
     <link href="css/new-age.min.css" rel="stylesheet">
 
+    <!-- Tableau Integration-->
+    <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
+    <script type="text/javascript">
+    function initViz() {
+            var containerDiv = document.getElementById("vizContainer"),
+                url = "http://public.tableau.com/views/RegionalSampleWorkbook/Storms",
+                options = {
+                    hideTabs: true,
+                    onFirstInteractive: function () {
+                        console.log("Run this code when the viz has finished loading.");
+                    }
+                };
+            
+            // Create a viz object and embed it in the container div.
+            var viz = new tableau.Viz(containerDiv, url, options); 
+        }
+    </script>
+    <!--/Tableau Integration-->
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -118,13 +137,13 @@
                     <p>Number of complaints are displayed geographically.</p>
                     <hr>
                 </div>
-                <div class="col-md-10">
-                <img src="img/Capture1.jpg">
+                <div class="col-md-8 col-md-offset-2">                
+                <div class='tableauPlaceholder' id='viz1484283190209' style='position: relative'><noscript><a href='#'><img alt='Heatmap of Number of Complaints ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;co&#47;consumercomplaintsheatmap&#47;Sheet2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='path' value='views&#47;consumercomplaintsheatmap&#47;Sheet2?:embed=y&amp;:display_count=y' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;co&#47;consumercomplaintsheatmap&#47;Sheet2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484283190209');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
                 </div>
 
                 <div class="col-md-8 col-md-offset-2">
                   <br>  
-                    <p>It is clearly evident that the highest number of complaints are from California.</p>
+                    <p>It is clearly evident that the highest number of complaints are from California, followed by Florida, New Yok and Texas.</p>
                 </div>
             </div>
         </div>
@@ -138,13 +157,13 @@
                     <p>Number of complaints are based on company</p>
                     <hr>
                 </div>
-                <div class="col-md-10">
-                <img src="img/Capture2.jpg">
+                <div class="col-md-8 col-md-offset-2">
+                <div class='tableauPlaceholder' id='viz1484284216209' style='position: relative'><noscript><a href='#'><img alt='Complaints reported to Company ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsreportedtocompany&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintsreportedtocompany&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsreportedtocompany&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484284216209');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
                 </div>
 
                 <div class="col-md-8 col-md-offset-2">
                     <br>
-                    <p>The companies facing the highest complaints are shown in the biggest blocks.</p>
+                    <p>In this graph we have displayed which companies are getting the maximum number of coplaints. Bank of America tops the list, followed by Wells Fargo &amp Company, Equifax, Experian and JPMorgan Chanse &amp Co.</p>
                 </div>
             </div>
         </div>
@@ -158,13 +177,19 @@
                     <p>Number of complaints with Time-series analysis</p>
                     <hr>
                 </div>
-                <div class="col-md-10" style="position: center; margin-left: 0px; padding-left: 5px;">
-                <img src="img/Capture3.jpg">
+                <!--<div class="col-md-10" style="position: center;">
+                <div class='tableauPlaceholder' id='viz1484287828290' style='position: relative'><noscript><a href='#'><img alt='#complaints time series analysis ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysis&#47;Sheet3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintstimeseriesanalysis&#47;Sheet3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysis&#47;Sheet3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484287828290');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
                 </div>
+                <br /> <br/>-->
 
-                <div class="col-md-8">
+                 <div class="col-md-8 col-md-offset-2">
+                    <div class='tableauPlaceholder' id='viz1484288296142' style='position: relative'><noscript><a href='#'><img alt='#complaints time series analysis (monthly) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysismonthlyanalysis&#47;Sheet3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintstimeseriesanalysismonthlyanalysis&#47;Sheet3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysismonthlyanalysis&#47;Sheet3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484288296142');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                 </div>
+
+                <div class="col-md-8 col-md-offset-2">
                     <br>
-                    <p>Number of complaints will decrease in 2017.</p>
+                    <p>Time series analysis of #complaints is very crucial. Here we observe how the number of complaints generally peak in mid year.</p>
+                    <p>The forecast for 2017 is shown in red color. We can observe that the number of complaints will be lower than the previous years if we go by the preictions. Happy yeah, eh!!</p>
                 </div>
             </div>
         </div>
@@ -178,13 +203,13 @@
                     <p>Number of complaints reported via different mediums</p>
                     <hr>
                 </div>
-                <div class="col-md-10" style="position: center; margin-left: 0px; padding-left: 5px;">
-                <img src="img/Capture4.jpg">
+                <div class="col-md-8 col-md-offset-2" >
+                <div class='tableauPlaceholder' id='viz1484289307853' style='position: relative'><noscript><a href='#'><img alt='#complaints submitted via ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintssubmittedvia&#47;Sheet4&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintssubmittedvia&#47;Sheet4' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintssubmittedvia&#47;Sheet4&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484289307853');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-8 col-md-offset-2">
                     <br>
-                    <p>Number of complaints reported via web are the highest.</p>
+                    <p>Number of complaints reported via web are the highest. It is really interesting to note that as the #complaints increase via web, the other mediums shrink.</p>
                 </div>
             </div>
         </div>
@@ -198,13 +223,13 @@
                     <p>Timely error reporting spread acoss different products.</p>
                     <hr>
                 </div>
-                <div class="col-md-10" style="position: center; margin-left: 0px; padding-left: 5px;">
-                <img src="img/Capture5.jpg">
+                <div class="col-md-8 col-md-offset-2">
+                <div class='tableauPlaceholder' id='viz1484290789965' style='position: relative'><noscript><a href='#'><img alt='Sheet 5 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsproductwise&#47;Sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintsproductwise&#47;Sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsproductwise&#47;Sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484290789965');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-8 col-md-offset-2">
                     <br>
-                    <p>It is highly subjective for any report to be declared delayed or on time. If it is very crucial, a delay of even one day may be seen as a huge delay.</p>
+                    <p>When #complaints are soreted based on the products, we notice, mortage related complaints are the higest. This is followed by Debt collection which has the higest number of dis-satisfied consumers as they report untimely response.</p>
                 </div>
             </div>
         </div>
@@ -243,15 +268,15 @@
                             <div class="col-md-6">
                                 <div class="feature-item">
                                     <i class="icon-globe text-primary"></i>
-                                    <h3>California reports the higest complaints</h3>
-                                    <p class="text-muted">However this does not mean they get the highest complaints. It depends on the reported complaints also and also on the number people living there. </p>
+                                    <h3>California reports the highest complaints</h3>
+                                    <p class="text-muted">States where most of cities are located (centres of commerce and business), report the higest #complaints. Makes sense as the top complaints are about mortgage. </p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="feature-item">
                                     <i class="icon-target text-primary"></i>
                                     <h3>Web is the preferred way to report complaints</h3>
-                                    <p class="text-muted">Maximum number of complaints reported have been through web.</p>
+                                    <p class="text-muted">This not only shows that web has high penetration but also has shown capabilities to resolve issues faster.</p>
                                 </div>
                             </div>
                         </div>
@@ -259,15 +284,15 @@
                             <div class="col-md-6">
                                 <div class="feature-item">
                                     <i class="icon-credit-card text-primary"></i>
-                                    <h3>Banks have to receive maximum number of complaints.</h3>
-                                    <p class="text-muted">Afterall, they are the ones handling finance.</p>
+                                    <h3>Morgate related complaints top the chart</h3>
+                                    <p class="text-muted">From the analysis, it is seen that mortgages and loans are the biggest areas facing complaints.</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="feature-item">
                                     <i class="icon-diamond text-primary"></i>
-                                    <h3>Forecast</h3>
-                                    <p class="text-muted">Forecasts predict, the number of complaints will decrease in 2017. More happy customers.</p>
+                                    <h3>Forecasts</h3>
+                                    <p class="text-muted">Forecasts predict, the number of complainst will decrease in 2017. More happy customers.</p>
                                 </div>
                             </div>
                         </div>

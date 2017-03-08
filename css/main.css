@@ -343,21 +343,3 @@ figure.effect-sadie:hover a {
 
 /**********************************************/
 
-#cl-effect-10 a {
-	color: rgba(0,0,0,0.2);
-	font-weight: 700;
-	text-shadow: none;
-}
-
-#cl-effect-10 a::before {
-	color: #fff;
-	content: attr(data-hover);
-	position: absolute;
-	transition: transform 0.3s, opacity 0.3s;
-}
-
-#cl-effect-10 a:hover::before,
-#cl-effect-10 a:focus::before {
-	transform: scale(0.9);
-	opacity: 0;
-}

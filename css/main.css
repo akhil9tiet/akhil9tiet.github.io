@@ -328,7 +328,8 @@ figure.effect-sadie:hover a {
 
 .contact{
   /* background: url('./images/contact_back.jpg') ;*/
-    background-color: #4d4d3f;
+    /*background-color: #4d4d3f;*/
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 	color:white;
 	font-size: 20px;
 }
@@ -342,21 +343,21 @@ figure.effect-sadie:hover a {
 
 /**********************************************/
 
-.cl-effect-10 a {
+#cl-effect-10 a {
 	color: rgba(0,0,0,0.2);
 	font-weight: 700;
 	text-shadow: none;
 }
 
-.cl-effect-10 a::before {
+#cl-effect-10 a::before {
 	color: #fff;
 	content: attr(data-hover);
 	position: absolute;
 	transition: transform 0.3s, opacity 0.3s;
 }
 
-.cl-effect-10 a:hover::before,
-.cl-effect-10 a:focus::before {
+#cl-effect-10 a:hover::before,
+#cl-effect-10 a:focus::before {
 	transform: scale(0.9);
 	opacity: 0;
 }

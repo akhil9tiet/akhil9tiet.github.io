@@ -5,7 +5,7 @@ body{
 
 .hero{
 	background: url('../otherFileFolder/images/social1.jpg') no-repeat center fixed;
-	
+
 	background-color:#feb255;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -38,7 +38,7 @@ body{
 
 
 .hero h4{
-	font-size: 35px;	
+	font-size: 35px;
 }
 .hero p{
 	font-size: 20px;
@@ -58,13 +58,13 @@ body{
   /*width: 40%;*/
 	float: right;
 	margin: 0px 20px 0px 0px ;
-	list-style: none; 
+	list-style: none;
 	position: absolute;
     top: 50px;
     right: 0px;
 }
 #nav li {		/*this is making it become horizontal*/
-	float: left; 
+	float: left;
 }
 #nav li a { /*spacing and coloring of navbar*/
 	display: block;
@@ -72,7 +72,7 @@ body{
 	text-decoration: none;
 	font-weight: bold;
 	margin:0;
-	color: rgb(255,80,80); 
+	color: rgb(255,80,80);
 }
 #nav li a:hover {
 	background-color: rgba(255, 80, 80,0.4);
@@ -84,7 +84,7 @@ body{
 }*/
 
 .hero h4{
-	font-size: 50px;	
+	font-size: 50px;
 }
 .hero p{
 	font-size: 30px;
@@ -94,7 +94,7 @@ body{
 
 /*........................Projects......................*/
 .projects{
-  background-image: url("../otherFileFolder/images/back.JPG");
+  background-image: url("../otherFileFolder/images/Subtle.JPG");
 }
 
 .section{
@@ -245,22 +245,22 @@ figure.effect-sadie:hover a {
 .front-end:hover{
     background-image: url("../otherFileFolder/images/skills12.jpg");
      text-decoration-color: :#FF5756;
-    text-decoration: 
+    text-decoration:
 }
 
 .back-end:hover{
-    
-    background-image: url("../otherFileFolder/images/skills12.jpg");	
+
+    background-image: url("../otherFileFolder/images/skills12.jpg");
      text-decoration-color: :#FF5756;
-    text-decoration: 
+    text-decoration:
 }
 
 .misc:hover{
-    
+
     background-image: url("../otherFileFolder/images/skills12.jpg");
     text-decoration-color: :#FF5756;
-    text-decoration: 
-    	
+    text-decoration:
+
 }
 /*..............Python............................*/
 .python{
@@ -277,7 +277,7 @@ figure.effect-sadie:hover a {
 	line-height: 1;
 	color: #00b2ff;
 	display: inline-block;
-	
+
 }
 .link--kukuri {
 	text-transform: uppercase;
@@ -289,7 +289,7 @@ figure.effect-sadie:hover a {
 
 .link--kukuri:hover {
 	color: #b2ff00;
-	
+
 }
 
 .link--kukuri::after {
@@ -342,4 +342,3 @@ figure.effect-sadie:hover a {
 
 
 /**********************************************/
-

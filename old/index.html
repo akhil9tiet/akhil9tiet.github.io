@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" type="image/png" href="./otherFileFolder/images/ag1.png">
+
+<style>
+.link--kumya {
+font-family: 'Syncopate', sans-serif;
+font-size: 6.5em;
+overflow: hidden;
+padding: 50px 20px 50px -5px;
+line-height: 1;
+color: #fdf015;
+}
+
+.link--kumya:hover {
+color: #fdf015;
+}
+
+.link--kumya::after {
+content: '';
+position: absolute;
+height: 100%;
+width: 100%;
+top: 0;
+right: 0;
+z-index: -1;
+background: #fdf015;
+-webkit-transform: translate3d(101%,0,0);
+transform: translate3d(101%,0,0);
+-webkit-transition: -webkit-transform 0.5s;
+transition: transform 0.5s;
+-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.link--kumya:hover::after {
+-webkit-transform: translate3d(0,0,0);
+transform: translate3d(0,0,0);
+}
+
+.link--kumya span {
+display: block;
+position: relative;
+}
+
+.link--kumya span::before {
+content: attr(data-letters);
+position: absolute;
+color: #000;
+left: 0;
+overflow: hidden;
+white-space: nowrap;
+width: 0%;
+-webkit-transition: width 0.5s;
+transition: width 0.5s;
+-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.link--kumya:hover span::before {
+width: 100%;
+}
+
+</style>
+
+</head>
+
+<body data-gr-c-s-loaded= "true">
+	<div class="hero">
+		<div class="container">
+			<nav class="navbar">
+				<ul id="nav">
+					<li><a href="#">Home</a></li>
+					<li><a href="#projects">Projects</a></li>
+					<li><a href="#skills">Skills</a></li>
+					<li><a href="#python">Python</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</nav>
+
+			<div class="row">
+				<div class="col-md-12" style="margin: 20% 15% 0%; text-shadow: 0px 0px 16px rgb(255, 255, 255) !important; display: block;">
+                    <h4><blockquote><p><span id="highlight">"Hello World!"</span></p><p><span id="highlight">-Akhil Gupta</span></p></blockquote></h4>
+                    <div class="grid__item">
+				              <a class="link link--kumya" href="#"><span data-letters="Akhil">Akhil</span></a>
+			              </div>
+                    <p><span id="highlight">Business Analyst</span> | <span id="highlight">Software Developer</span> | <span id="highlight">Data Analytics Enthusiast</span></p>
+                    <p><span id="highlight">I am interested in solving real-world problems using code and data science.</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--....................Projects.............-->
+
+	<div id="projects" class="section projects">
+		<div class="container">
+			<h3 class="section-header">Projects</h3>
+			<div class= "row" style="background-color: rgb(252, 223, 33); padding: 8px;">
+			<!--..............Non Profit Conect.................-->
+				<h3> Public Choice Award-Daemon Dash 2017 Hackathon- Computer Science- University of Maryland</h3>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/arrow.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Non Profit<span> Connect</span></h2>
+								<p>NPO collaborate with each other.<br> Built using PHP, SQL.<br>
+								<a href= "https://github.com/akhil9tiet/DaemonDash2017">View Code</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+			</div>
+			<br>
+			<hr style="color:rgb(252, 223, 33);">
+			<br>
+
+			<div class="row">
+
+                <!--..............Live Resume.................-->
+				<!--<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/resume.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Live Resume<span></span></h2>
+								<p>Windows live tiles style.<br> Built using HTML, CSS, jQuery.<br>
+								<a href= "./otherFileFolder/projects/live_resume/index.htm">Visit</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>-->
+
+        <!--..............MBS Pool Search.................-->
+        <div class="col-md-4 col-xs-12">
+          <div class="grid">
+            <figure class="effect-sadie">
+              <img src="./otherFileFolder/images/mbs.jpg" alt="./otherFileFolder/images/ag.png">
+              <figcaption>
+                <h2>Mortgage<span>Based Secutrities</span></h2>
+                <p>Pool Search Webapp<br> Built using Django, Python<br>
+                <a href= "http://finance2.2stmm32mck.us-west-2.elasticbeanstalk.com/">Visit</a></p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+				<!--..............Stock Price Prediction.................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/stockprice.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Stock Price<span> Classifier</span></h2>
+								<p><br> Built using Python<br>
+								<a href= "https://github.com/akhil9tiet/Python_for_finance/">View the code</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+
+				<!--..............Search engine.................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/search.jpeg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Search research <span>projects</span></h2>
+								<p><br> Built using PHP and SQL.<br>
+								<a href= "https://github.com/akhil9tiet/Web_dev_on_the_go/tree/master/16.%20php_search_engine">View the code</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!--..............Consumer Complaint.................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/consumer.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Consumer Complaint<span> Analysis</span></h2>
+								<p>View useful insights on consumer complaint behaviour.<br> Built using Tableau.<br>
+								<a href= "https://akhil9tiet.github.io/otherFileFolder/projects/consumer/index.html">Visit</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!--..............Instagram download.................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/instagram.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Download Instagram<span> Images</span></h2>
+								<p>Download your recent images into a local file.<br> Built using PHP.<br>
+								<a href= "https://youtu.be/LeMoyLDz1MA">View Demo</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+                 <!--............IMDB...................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/graph1.jpeg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>IMDB Top Rated<span>Movies</span></h2>
+								<p>Top rated movies per category.<br>Built using Jekyll and Tableau.<br>
+								<a href= "https://akhil9tiet.github.io/otherFileFolder/projects/imdb/pages/imdb.html">Visit</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+                <!--..............World Development Indicator.................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/worldDev.jpg">
+							<figcaption>
+								<h2>World Development Indicators<span></span></h2>
+								<p>Dynamic report generator.<br>Built using SQL and PHP.<br>
+								<a href= "https://www.youtube.com/watch?v=A8zeR5We8GY">View Demo</a></p>
+							</figcaption>
+						</figure>
+					</div>
+                </div>
+				<!--............Sentiment Analysis...................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/sentiments.png" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>Sentiment Analysis<span> of Twitter feed</span></h2>
+								<p>Useful insights on what people think on a certain topic<br>Built using Python.<br>
+								<a href= "https://www.linkedin.com/pulse/sentiment-analysis-tweets-akhil-gupta?published=t">View</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+                <!--..............god view.................-->
+				<!--<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="https://lh4.googleusercontent.com/x4w7ippMRJ0xFTMXVIPX6rIuReynuh-CBdXuoxBmTsA4YLpTqiVUA-jCPdkGJfYrINF9WXOhr70L6EGAPeE2xjKKnioW3nZbidH5fJdYW6xkGKWrwMIk-cI_Dnc7I9otWclNGLi6" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2>God<span>View</span></h2>
+								<p>View your site visitors dynamicallybr>Built using PHP.<br>
+								<a href= "./otherFileFolder/projects/GodView/firstpage.php">View</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>-->
+
+				<!--..............Web Crawler.................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/spider.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2 style="color:white">Web<span>Crawler</span></h2>
+								<p>Stores all the links on a website in a local file<br>Built using Python.<br>
+								<a href= "https://github.com/akhil9tiet/Learn_Python_on_the_go/tree/master/WEB%20CRAWLER">View the code</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+               <!--............Posters...................-->
+				<div class="col-md-4 col-xs-12">
+					<div class="grid">
+						<figure class="effect-sadie">
+							<img src="./otherFileFolder/images/poster.jpg" alt="./otherFileFolder/images/ag.png">
+							<figcaption>
+								<h2><span>Posters</span></h2>
+								<p>Poster art <br>Built using Adobe Photoshop<br>
+								<a href= "./otherFileFolder/projects/pinterest.htm">View</a></p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!--...............................-->
+
+			</div>
+		</div>
+	</div>
+
+	<!--.................Skills....................-->
+
+
+<div id="skills" class="hero">
+
+		<div class="container">
+			<h3 class="section-header">Skills</h3>
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="project-tile front-end">
+						<p>Front-end</p>
+						<ul>
+							<li>HTML, CSS</li>
+							<li>JS, jQuery</li>
+							<li>Bootstrap</li>
+							<li>Drupal</li>
+                        	<li>Jekyll</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="project-tile back-end">
+						<p>Back-end</p>
+						<ul>
+							<li>Python</li>
+                        	<li>PHP</li>
+							<li>SAP-ABAP</li>
+							<li>C, C++</li>
+							<li>SQL</li>
+							<li>Git</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="project-tile misc">
+						<p>Data Analysis</p>
+						<ul>
+							<li>R</li>
+							<li>Advanced Excel</li>
+							<li>Tableau</li>
+							<li>MATLAB</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</div>
+
+
+
+	<!--.................Love for Python.................-->
+<div id="python" class="section python">
+	<div class="container">
+	<h2 class="section-header">I <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Python</h2>
+
+	<div class="row">
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Numpy">Numpy</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Pandas">Pandas</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Pickle">Pickle</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Requests">Requests</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Matplotlib">Matplotlib</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="BeautifulSoup">BeautifulSoup</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Tweepy">Tweepy</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Scikit-Learn">Scikit-Learn</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Graphlab">Graphlab</a></div>
+		<div class="col-md-6 col-sm-12"><a class="link link--kukuri" href="#" data-letters="Django">Django</a></div>
+	</div>
+	</div>
+
+
+</div>
+
+
+	<!--.................Contact....................-->
+<div id="contact" class="section contact">
+	<div class="container">
+		<h3 class="section-header">Contact</h3>
+		<table>
+			<tbody>
+				<tr>
+					<td>Email: </td><td><a href="mailto:akhil.gupta@rhsmith.umd.edu">akhil.gupta@rhsmith.umd.edu</a></td>
+				</tr>
+				<tr>
+					<td>Phone: </td> <td>+1 (240).476.7867 </td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<table div="icons" class="col-md-12 col-sm-12">
+
+			<tbody>
+				<tr >
+					<td><a href="https://github.com/akhil9tiet"><img src="./otherFileFolder/icons/github.png" height="100px;"></a></td>
+
+					<td><a href="https://in.linkedin.com/in/akhil-gupta"><img src="./otherFileFolder/icons/linkedin.png" height="100px;"></a></td>
+
+					<td><a href="https://www.facebook.com/akhil9tiet"><img src="./otherFileFolder/icons/facebook.png" height="100px;"></a></td>
+
+					<td><a href="https://twitter.com/spkrSilntMjorty"><img src="./otherFileFolder/icons/twitter.png" height="100px;"></a></td>
+
+					<td><a href="https://in.pinterest.com/akhil9tiet/"><img src="./otherFileFolder/icons/pinterest.png" height="100px;"></a></td>
+				</tr>
+			<tbody>
+
+		</table>
+
+        <!--<hr>
+
+        <table>
+        	<tr>
+        		<td>
+         			<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+					<script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/akhil-gupta" data-format="inline" data-related="false"></script>
+				</td>
+			</tr>
+		</table>
+
+		<hr><br/>
+
+         			<div class="github-card" data-user="akhil9tiet"></div>
+					<script src="http://lab.lepture.com/github-cards/widget.js"></script>-->
+
+
+
+    </div>
+</div>
+
+<footer div="foot">
+    <p>&copy Akhil Gupta 2016</p>
+</footer >
+
+<script>
+			// For Demo purposes only (show hover effect on mobile devices)
+			[].slice.call( document.querySelectorAll('a[href="#"') ).forEach( function(el) {
+				el.addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+			} );
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90772417-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>

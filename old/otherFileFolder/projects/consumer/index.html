@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="customerdatainsights">
+    <meta author="akhil-gupta" content="">
+
+    <title>Consumer Complaint Insights</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="vendor/device-mockups/device-mockups.min.css">
+
+    <!-- Theme CSS -->
+    <link href="css/new-age.min.css" rel="stylesheet">
+
+    <!-- Tableau Integration-->
+    <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
+    <script type="text/javascript">
+    function initViz() {
+            var containerDiv = document.getElementById("vizContainer"),
+                url = "http://public.tableau.com/views/RegionalSampleWorkbook/Storms",
+                options = {
+                    hideTabs: true,
+                    onFirstInteractive: function () {
+                        console.log("Run this code when the viz has finished loading.");
+                    }
+                };
+            
+            // Create a viz object and embed it in the container div.
+            var viz = new tableau.Viz(containerDiv, url, options); 
+        }
+    </script>
+    <!--/Tableau Integration-->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Consumer Complaint Insights</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#1">Statewise</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#2">Company wise</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#3">TimeSeries Analysis</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#4">Reported via</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#5">Productwise</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#6">Summary</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <h1>Analysis of Consumer Complaint Database.</h1>
+                            <br>
+                            <h2>A project by Akhil Gupta.</h2>
+                            <h3>Data Source:<a href="https://catalog.data.gov/dataset/consumer-complaint-database#topic=consumer_navigation">Data.gov</a></h3>
+                            <h3> Data Analysis done via Tableau</h3>
+                            <a href="https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.csv?accessType=DOWNLOAD" class="btn btn-outline btn-xl page-scroll">Download Database</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                    <img src="img/trr.jpg" class="img-responsive" alt="">
+                                </div>
+                                <div class="button"><a href="#1"></a>
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="1" class="download bg-primary text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Graph 1</h2>
+                    <p>Number of complaints are displayed geographically.</p>
+                    <hr>
+                </div>
+                <div class="col-md-8 col-md-offset-2">                
+                <div class='tableauPlaceholder' id='viz1484283190209' style='position: relative'><noscript><a href='#'><img alt='Heatmap of Number of Complaints ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;co&#47;consumercomplaintsheatmap&#47;Sheet2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='path' value='views&#47;consumercomplaintsheatmap&#47;Sheet2?:embed=y&amp;:display_count=y' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;co&#47;consumercomplaintsheatmap&#47;Sheet2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484283190209');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                  <br>  
+                    <p>It is clearly evident that the highest number of complaints are from California, followed by Florida, New Yok and Texas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="2" class="download text-center" style="background-color: #3eaaea; !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Graph 2</h2>
+                    <p>Number of complaints are based on company</p>
+                    <hr>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                <div class='tableauPlaceholder' id='viz1484284216209' style='position: relative'><noscript><a href='#'><img alt='Complaints reported to Company ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsreportedtocompany&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintsreportedtocompany&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsreportedtocompany&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484284216209');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                    <br>
+                    <p>In this graph we have displayed which companies are getting the maximum number of coplaints. Bank of America tops the list, followed by Wells Fargo &amp Company, Equifax, Experian and JPMorgan Chanse &amp Co.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="3" class="download text-center" style="background-color: #aaeabb; !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Graph 3</h2>
+                    <p>Number of complaints with Time-series analysis</p>
+                    <hr>
+                </div>
+                <!--<div class="col-md-10" style="position: center;">
+                <div class='tableauPlaceholder' id='viz1484287828290' style='position: relative'><noscript><a href='#'><img alt='#complaints time series analysis ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysis&#47;Sheet3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintstimeseriesanalysis&#47;Sheet3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysis&#47;Sheet3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484287828290');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                </div>
+                <br /> <br/>-->
+
+                 <div class="col-md-8 col-md-offset-2">
+                    <div class='tableauPlaceholder' id='viz1484288296142' style='position: relative'><noscript><a href='#'><img alt='#complaints time series analysis (monthly) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysismonthlyanalysis&#47;Sheet3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintstimeseriesanalysismonthlyanalysis&#47;Sheet3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintstimeseriesanalysismonthlyanalysis&#47;Sheet3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484288296142');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                 </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                    <br>
+                    <p>Time series analysis of #complaints is very crucial. Here we observe how the number of complaints generally peak in mid year.</p>
+                    <p>The forecast for 2017 is shown in red color. We can observe that the number of complaints will be lower than the previous years if we go by the preictions. Happy yeah, eh!!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="4" class="download text-center" style="background-color: #eeaaaa; !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Graph 4</h2>
+                    <p>Number of complaints reported via different mediums</p>
+                    <hr>
+                </div>
+                <div class="col-md-8 col-md-offset-2" >
+                <div class='tableauPlaceholder' id='viz1484289307853' style='position: relative'><noscript><a href='#'><img alt='#complaints submitted via ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintssubmittedvia&#47;Sheet4&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintssubmittedvia&#47;Sheet4' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintssubmittedvia&#47;Sheet4&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484289307853');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                    <br>
+                    <p>Number of complaints reported via web are the highest. It is really interesting to note that as the #complaints increase via web, the other mediums shrink.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="5" class="download text-center" style="background-color: #24eded; !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Graph 5</h2>
+                    <p>Timely error reporting spread acoss different products.</p>
+                    <hr>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                <div class='tableauPlaceholder' id='viz1484297540148' style='position: relative'><noscript><a href='#'><img alt='Sheet 5 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsproductwise&#47;Sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Complaintsproductwise&#47;Sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;Complaintsproductwise&#47;Sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1484297540148');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                    <br>
+                    <p>When #complaints are soreted based on the products, we notice, mortage related complaints are the higest. This is followed by Debt collection which has the higest number of dis-satisfied consumers as they report untimely response.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="6" class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Summary</h2>
+                        <!--<p></p>-->
+                        <hr>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    
+                                    <img src="img/Capture6mob.png" class="img-responsive" alt=""> </div>
+                                <div class="button">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-globe text-primary"></i>
+                                    <h3>California reports the highest complaints</h3>
+                                    <p class="text-muted">States where most of the cities are located (centers of commerce and business), report the highest #complaints. Makes sense as the top complaints are about mortgage and loans. </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-target text-primary"></i>
+                                    <h3>Web is the preferred way to report complaints</h3>
+                                    <p class="text-muted">Web is the preferred way to report complaints. This shows that web has high penetration and high confidence among consumers.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-credit-card text-primary"></i>
+                                    <h3>Morgate related complaints top the chart</h3>
+                                    <p class="text-muted">From the analysis, it is seen that mortgages and loans are the biggest areas facing complaints./p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-diamond text-primary"></i>
+                                    <h3>Forecasts</h3>
+                                    <p class="text-muted">Forecasts predict, the #complaints will decrease in 2017. More happy customers in 2017.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!--<section class="cta">
+        <div class="cta-content">
+            <div class="container">
+                <h2>Stop waiting.<br>Start building.</h2>
+                <a href="#contact" class="btn btn-outline btn-xl page-scroll">Let's Get Started!</a>
+            </div>
+        </div>
+        <div class="overlay"></div>
+    </section>-->
+
+    <section id="contact" class="contact bg-primary">
+        <div class="container">
+            <h2>For  m<i class="fa fa-heart"></i>re analysis. Follow me!</h2>
+            <ul class="list-inline list-social">
+                <li class="social-twitter">
+                    <a href="https://twitter.com/spkrSilntMjorty"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="social-facebook">
+                    <a href="https://www.facebook.com/akhil9tiet"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li class="social-google-plus">
+                    <a href="https://github.com/akhil9tiet"><i class="fa fa-github"></i></a>
+                </li>
+                <li class="social-twitter">
+                    <a href="https://www.linkedin.com/in/akhil-gupta"><i class="fa fa-linkedin"></i></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Akhil Gupta</p>
+            <ul class="list-inline">
+                <li>
+                    <a href="#">Contact: (240).476.7867</a>
+                </li>
+                <li>
+                    <a href="#">Email: akhil.gupta@rhsmith.umd.edu</a>
+                </li>
+                
+            </ul>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/new-age.min.js"></script>
+
+</body>
+
+</html>

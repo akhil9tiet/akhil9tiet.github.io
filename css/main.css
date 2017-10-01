@@ -1,12 +1,11 @@
 /*Akhil Gupta website CSS file*/
 body{
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Lato', sans-serif;
 }
 
 .hero{
 	background: url('../otherFileFolder/images/social1.jpg') no-repeat center fixed;
 
-	background-color:#feb255;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -17,7 +16,8 @@ body{
 }
 
 #highlight {
-    background: rgba(255, 80, 80, 0.6);
+    background: #fff200;
+		opacity: .4;
     padding: 3px 5px;
     margin: -3px -5px;
     line-height: 1.7;
@@ -26,8 +26,8 @@ body{
 }
 
 #highlight:hover {
-    background: rgba(255, 255, 255, 0.8);
-    color:rgb(255,80,80);
+    background: #fff200;
+    color:#444745;
     padding: 3px 5px;
     margin: -3px -5px;
     line-height: 1.7;
@@ -72,11 +72,13 @@ body{
 	text-decoration: none;
 	font-weight: bold;
 	margin:0;
-	color: rgb(255,80,80);
+	font-size:25px;
+	color: #fff200;
 }
 #nav li a:hover {
-	background-color: rgba(255, 80, 80,0.4);
-	color:#fff;
+	background-color: #fff200;
+	color:#444745;
+	font-size:25px;
 	border-radius: 3px;
 }
 /*.navbar{
@@ -226,6 +228,9 @@ figure.effect-sadie:hover a {
 	color:rgb(129, 179, 255);
 }
 
+/*...................Vlogging........................*/
+
+
 
 /*...................Skills........................*/
 .skills .project-tile{
@@ -262,11 +267,12 @@ figure.effect-sadie:hover a {
     text-decoration:
 
 }
-/*..............Python............................*/
-.python{
+/*..............opensource............................*/
+.opensource{
 	background-color: #1f2933;
 	color:#00b2ff;
 	font-size: 2em;
+	font-family: 'coda';
 }
 
 .link {
@@ -298,6 +304,7 @@ figure.effect-sadie:hover a {
 	height: 16px;
 	width: 100%;
 	top: 50%;
+	/*margin-top: -8px;*/
 	margin-top: -8px;
 	right: 0;
 	background: #1f2933;

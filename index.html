@@ -23,6 +23,16 @@
 
 <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-17ZPH02RNC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-17ZPH02RNC');
+</script>
+
 <style>
 @keyframes blink {
   0%, 50% { opacity: 1; }
@@ -584,6 +594,103 @@
     padding: 0;
   }
 }
+
+/* Contact Section with Dithered Background */
+#contact {
+  position: relative;
+  background: #333;
+  overflow: hidden;
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 4px 4px, rgba(255, 255, 255, 0.18) 2px, transparent 0);
+  background-size: 
+    96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px,
+    96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px,
+    96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px,
+    96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px, 96px 32px;
+  background-position:
+    0 0, 24px 8px, 48px 16px, 72px 24px, 16px 4px, 40px 12px,
+    64px 20px, 88px 28px, 8px 2px, 32px 10px, 56px 18px, 80px 26px,
+    12px 6px, 36px 14px, 60px 22px, 84px 30px, 4px 0px, 28px 8px,
+    52px 16px, 76px 24px, 20px 4px, 44px 12px, 68px 20px, 92px 28px;
+  animation: ditherScroll 15s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes ditherScroll {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-8px) translateX(4px);
+  }
+  50% {
+    transform: translateY(-16px) translateX(0px);
+  }
+  75% {
+    transform: translateY(-8px) translateX(-4px);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+}
+
+#contact .container {
+  position: relative;
+  z-index: 2;
+}
+
+#contact .section-header {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#contact table {
+  color: #fff;
+}
+
+#contact table td {
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+
+#contact table a {
+  color: #fff200;
+  text-decoration: none;
+}
+
+#contact table a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+#contact table[div="icons"] {
+  width: auto;
+  margin: 0 auto;
+}
+
+#contact table[div="icons"] td {
+  padding: 0.5rem 0.3rem;
+  text-align: center;
+}
+
+#contact table[div="icons"] img {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#contact table[div="icons"] img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
 </style>
 
 </head>
@@ -1092,16 +1199,7 @@
 			} );
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-90772417-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 <!--Smooth Scroll-->
 <script>
 // Select all links with hashes

@@ -23,6 +23,13 @@
 
 <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
 
+<style>
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+</style>
+
 </head>
 
 <body data-gr-c-s-loaded= "true">
@@ -41,7 +48,8 @@
         <div class="col-md-12">
           <h2 class="content__title content__title--center">
   					<div id="rev-1" class="content__title__inner" style="color: #fff200">"Hello World"</div><br/>
-  					<div id="rev-2" class="content__title__inner content__title__inner--offset-1" style="color: #fff200; font-size: .9em;">Akhil Gupta</div>
+  					<div id="rev-2" class="content__title__inner content__title__inner--offset-1" style="color: #fff200; font-size: .9em;">Akhil Gupta<span id="cursor" style="opacity: 0; color: #fff200; animation: blink 1s infinite;">|</span></div>
+
   				</h2>
         </div>
       </div>
@@ -434,7 +442,7 @@
 </div>
 
 <footer div="foot">
-    <p>&copy Akhil Gupta 2017</p>
+    <p>&copy Akhil Gupta 2025</p>
 </footer >
 
 <script>
@@ -524,6 +532,14 @@ $('a[href*="#"]')
         delay: 250,
         onCover: function(contentEl, revealerEl) {
           contentEl.style.opacity = 1;
+          // Show cursor after animation completes
+          setTimeout(() => {
+            const cursor = document.getElementById('cursor');
+            if (cursor) {
+              cursor.style.opacity = 1;
+              console.log('Cursor shown');
+            }
+          }, 200);
         }
       }
     });

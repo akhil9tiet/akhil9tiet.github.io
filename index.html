@@ -446,6 +446,7 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   transition: all 0.3s ease;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
+  height: 160px;
 }
 
 .marquee-menu-item:last-child {
@@ -483,16 +484,16 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background: #000000;
-  transform: translate3d(0, 101%, 0);
-  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  background: transparent;
+  transform: translate3d(0, 0%, 0);
+  transition: none;
 }
 
 .marquee-inner-wrap {
   height: 100%;
   width: 100%;
-  transform: translate3d(0, -101%, 0);
-  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translate3d(0, 0%, 0);
+  transition: none;
 }
 
 .marquee-inner {
@@ -501,7 +502,7 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   align-items: center;
   display: flex;
   position: relative;
-  animation: marqueeScroll 30s linear infinite;
+  animation: marqueeScrollReverse 30s linear infinite;
   will-change: transform;
 }
 
@@ -510,7 +511,16 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
     transform: translate3d(0%, 0, 0);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeScrollReverse {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(50%, 0, 0);
   }
 }
 
@@ -524,9 +534,9 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 
 .marquee span {
   white-space: nowrap;
-  color: #ffffff;
+  color: #000000;
   font-weight: 600;
-  font-size: 2.4rem;
+  font-size: 3.8rem;
   padding: 0 3rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -534,30 +544,31 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 
 .marquee-tech {
   display: inline-block;
-  background: #000000;
-  color: #ffffff;
-  padding: 0.8rem 2rem;
-  border-radius: 30px;
-  margin: 0 1.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  min-width: 130px;
+  background: #ffffff;
+  color: #000000;
+  padding: 1.5rem 3.5rem;
+  border-radius: 50px;
+  margin: 0 2.5rem;
+  border: none;
+  min-width: 200px;
   text-align: center;
+  font-size: 1.8rem;
 }
 
 .category-python .marquee {
-  background: #000000;
+  background: transparent;
 }
 
 .category-js .marquee {
-  background: #000000;
+  background: transparent;
 }
 
 .category-data .marquee {
-  background: #000000;
+  background: transparent;
 }
 
 .category-tools .marquee {
-  background: #000000;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -1035,12 +1046,26 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 <div id="opensource" class="marquee-menu">
 	<div class="marquee-menu-wrap">
 		<h2 class="marquee-header">Open Source Technologies</h2>
-		
 		<div class="marquee-menu-item category-python">
-			<a class="marquee-menu-item-link" href="#">Python Ecosystem</a>
 			<div class="marquee">
-				<div class="marquee-inner-wrap">
+					<div class="marquee-inner-wrap">
 					<div class="marquee-inner" aria-hidden="true">
+						<span class="marquee-tech">AutoGen</span>
+						<span class="marquee-tech">CrewAI</span>
+						<span class="marquee-tech">OpenAI</span>
+						<span class="marquee-tech">LangChain</span>
+						<span class="marquee-tech">Transformers</span>
+						<span class="marquee-tech">PyTorch</span>
+						<span class="marquee-tech">TensorFlow</span>
+						<span class="marquee-tech">Anthropic</span>
+						<span class="marquee-tech">LlamaIndex</span>
+						<span class="marquee-tech">Streamlit</span>
+						<span class="marquee-tech">Gradio</span>
+						<span class="marquee-tech">Pinecone</span>
+						<span class="marquee-tech">ChromaDB</span>
+						<span class="marquee-tech">Ollama</span>
+						<span class="marquee-tech">AutoGen</span>
+						<span class="marquee-tech">CrewAI</span>
 						<span class="marquee-tech">OpenAI</span>
 						<span class="marquee-tech">LangChain</span>
 						<span class="marquee-tech">Transformers</span>
@@ -1075,10 +1100,24 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 		</div>
 		
 		<div class="marquee-menu-item category-js">
-			<a class="marquee-menu-item-link" href="#">JavaScript & Frontend</a>
 			<div class="marquee">
 				<div class="marquee-inner-wrap">
 					<div class="marquee-inner" aria-hidden="true">
+						<span class="marquee-tech">Vercel AI SDK</span>
+						<span class="marquee-tech">React</span>
+						<span class="marquee-tech">Next.js</span>
+						<span class="marquee-tech">TypeScript</span>
+						<span class="marquee-tech">Vite</span>
+						<span class="marquee-tech">Tailwind CSS</span>
+						<span class="marquee-tech">Prisma</span>
+						<span class="marquee-tech">tRPC</span>
+						<span class="marquee-tech">Zustand</span>
+						<span class="marquee-tech">Framer Motion</span>
+						<span class="marquee-tech">Shadcn/ui</span>
+						<span class="marquee-tech">Drizzle ORM</span>
+						<span class="marquee-tech">Zod</span>
+						<span class="marquee-tech">Playwright</span>
+						<span class="marquee-tech">Vercel AI SDK</span>
 						<span class="marquee-tech">React</span>
 						<span class="marquee-tech">Next.js</span>
 						<span class="marquee-tech">TypeScript</span>
@@ -1113,10 +1152,25 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 		</div>
 		
 		<div class="marquee-menu-item category-data">
-			<a class="marquee-menu-item-link" href="#">Backend Ecosystem</a>
 			<div class="marquee">
 				<div class="marquee-inner-wrap">
 					<div class="marquee-inner" aria-hidden="true">
+						<span class="marquee-tech">Microservices</span>
+						<span class="marquee-tech">Spring Boot</span>
+						<span class="marquee-tech">Spring Security</span>
+						<span class="marquee-tech">Hibernate</span>
+						<span class="marquee-tech">Maven</span>
+						<span class="marquee-tech">Gradle</span>
+						<span class="marquee-tech">FastAPI</span>
+						<span class="marquee-tech">Django</span>
+						<span class="marquee-tech">Flask</span>
+						<span class="marquee-tech">Pydantic</span>
+						<span class="marquee-tech">SQLAlchemy</span>
+						<span class="marquee-tech">.NET Core</span>
+						<span class="marquee-tech">ASP.NET</span>
+						<span class="marquee-tech">Entity Framework</span>
+						<span class="marquee-tech">NuGet</span>
+						<span class="marquee-tech">Microservices</span>
 						<span class="marquee-tech">Spring Boot</span>
 						<span class="marquee-tech">Spring Security</span>
 						<span class="marquee-tech">Hibernate</span>
@@ -1153,10 +1207,19 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 		</div>
 		
 		<div class="marquee-menu-item category-tools">
-			<a class="marquee-menu-item-link" href="#">DevOps & Tools</a>
 			<div class="marquee">
 				<div class="marquee-inner-wrap">
 					<div class="marquee-inner" aria-hidden="true">
+						<span class="marquee-tech">Nginx</span>
+						<span class="marquee-tech">Docker</span>
+						<span class="marquee-tech">Kubernetes</span>
+						<span class="marquee-tech">Git</span>
+						<span class="marquee-tech">GitHub Actions</span>
+						<span class="marquee-tech">AWS</span>
+						<span class="marquee-tech">Azure</span>
+						<span class="marquee-tech">Terraform</span>
+						<span class="marquee-tech">Jenkins</span>
+						<span class="marquee-tech">Nginx</span>
 						<span class="marquee-tech">Docker</span>
 						<span class="marquee-tech">Kubernetes</span>
 						<span class="marquee-tech">Git</span>

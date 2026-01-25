@@ -57,6 +57,449 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   51%, 100% { opacity: 0; }
 }
 
+/* AI Scrollytelling Section */
+.ai-scrollytelling {
+  position: relative;
+  background: #0a0a0a;
+}
+
+.ai-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: center center;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.ai-scrollytelling-active .ai-background-container {
+  /* Opacity and scale are now controlled by JavaScript */
+  pointer-events: auto;
+}
+
+/* GIF Background - positioned on right */
+.ai-gif-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  z-index: 1;
+}
+
+.ai-gif-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* Left gradient fade overlay */
+.ai-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(10, 10, 10, 1) 0%,
+    rgba(10, 10, 10, 0.98) 15%,
+    rgba(10, 10, 10, 0.95) 25%,
+    rgba(10, 10, 10, 0.85) 35%,
+    rgba(10, 10, 10, 0.6) 45%,
+    rgba(10, 10, 10, 0.3) 55%,
+    rgba(10, 10, 10, 0.1) 70%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Cinematic vignette overlay */
+.ai-vignette-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.3) 70%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Scrollytelling content layer */
+.ai-scroll-content {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* AI Intro Section - Before Scrollytelling */
+.ai-intro-section {
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.ai-intro-background {
+  display: none;
+}
+
+.ai-intro-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ai-intro-content {
+  position: relative;
+  z-index: 1;
+}
+
+.ai-intro-image {
+  max-width: 700px;
+  width: 90%;
+  height: auto;
+  opacity: 0;
+  transform: translateY(30px) scale(1.1);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  mix-blend-mode: screen;
+}
+
+.ai-intro-section.visible .ai-intro-image {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ai-story-container {
+  padding: 0 5%;
+  pointer-events: auto;
+}
+
+/* Story points */
+.ai-story-point {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.ai-story-point:first-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ai-story-point.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Story cards */
+.ai-story-card {
+  max-width: 450px;
+  padding: 40px;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.ai-story-number {
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.9;
+  line-height: 1;
+  margin-bottom: 15px;
+}
+
+.ai-story-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.ai-story-text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Scroll progress indicator */
+.ai-scroll-progress {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: none;
+}
+
+.ai-scrollytelling-active .ai-scroll-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.ai-progress-track {
+  display: none;
+}
+
+.ai-progress-fill {
+  display: none;
+}
+
+.ai-progress-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.ai-progress-dot {
+  width: 30px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.ai-progress-dot:hover {
+  width: 40px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.ai-progress-dot.active {
+  width: 50px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* Static section at the end */
+.ai-static-section {
+  min-height: 100vh;
+  background: #0a0a0a;
+  position: relative;
+  z-index: 20;
+  padding: 80px 5%;
+  display: flex;
+  align-items: center;
+}
+
+.ai-static-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ai-static-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.ai-static-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.ai-static-header p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ai-code-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.ai-code-card {
+  background: rgba(20, 20, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-code-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.ai-code-card-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-code-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.ai-code-card-tag {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ai-code-block {
+  padding: 20px 25px;
+  background: rgba(0, 0, 0, 0.3);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+  overflow-x: auto;
+}
+
+.ai-code-block code {
+  display: block;
+  white-space: pre;
+}
+
+.ai-code-block .comment {
+  color: #6a9955;
+}
+
+.ai-code-block .keyword {
+  color: #569cd6;
+}
+
+.ai-code-block .string {
+  color: #ce9178;
+}
+
+.ai-code-block .function {
+  color: #dcdcaa;
+}
+
+.ai-code-block .variable {
+  color: #9cdcfe;
+}
+
+.ai-code-card-footer {
+  padding: 15px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ai-code-card-footer a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.ai-code-card-footer a:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .ai-static-section {
+    padding: 60px 20px;
+  }
+  
+  .ai-static-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .ai-code-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* GIF animation states - removed to prevent flickering */
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .ai-gif-background {
+    width: 100%;
+    opacity: 0.4;
+  }
+  
+  .ai-gradient-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 10, 10, 0.85) 0%,
+      rgba(10, 10, 10, 0.7) 50%,
+      rgba(10, 10, 10, 0.85) 100%
+    );
+  }
+  
+  .ai-story-point {
+    justify-content: center;
+  }
+  
+  .ai-story-card {
+    max-width: 90%;
+    padding: 30px;
+  }
+  
+  .ai-story-number {
+    font-size: 3rem;
+  }
+  
+  .ai-story-title {
+    font-size: 1.4rem;
+  }
+  
+  .ai-story-text {
+    font-size: 1rem;
+  }
+  
+  .ai-scroll-progress {
+    right: 15px;
+  }
+  
+  .ai-progress-track {
+    height: 150px;
+  }
+}
+
 /* Neumorphism Skills Section */
 .skills-neuro {
   background: linear-gradient(135deg, 
@@ -749,6 +1192,7 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 				<ul id="nav">
 					<li><a href="#">Home</a></li>
 					<li><a href="#projects">Projects</a></li>
+          <li><a href="#AI">AI</a></li>
 					<li><a href="#skills">Skills</a></li>
 					<li><a href="#opensource">OpenSource</a></li>
 					<li><a href="#contact">Contact</a></li>
@@ -1027,6 +1471,173 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 			</div>
 		</div>
 	</div>
+
+  <!--....................AI .............-->
+
+<!-- AI Intro Section with Title -->
+<div id="AI" class="ai-intro-section">
+  <div class="ai-intro-background">
+    <img src="./otherFileFolder/images/ai_engineering.png" alt="">
+  </div>
+  <div class="ai-intro-content">
+    <img src="./otherFileFolder/images/ai_engineering.png" alt="AI Engineering" class="ai-intro-image">
+  </div>
+</div>
+
+<div class="ai-scrollytelling">
+  <!-- Background layers -->
+  <div class="ai-background-container">
+    <!-- GIF Background on right -->
+    <div class="ai-gif-background">
+      <img src="./otherFileFolder/images/default-firstframe.gif" alt="AI Neural Network" class="ai-gif-image" id="ai-gif">
+    </div>
+    <!-- Left gradient fade -->
+    <div class="ai-gradient-overlay"></div>
+    <!-- Vignette overlay -->
+    <div class="ai-vignette-overlay"></div>
+  </div>
+  
+  <!-- Scrollytelling content -->
+  <div class="ai-scroll-content">
+    <div class="ai-story-container">
+      <!-- Story Point 1 -->
+      <div class="ai-story-point" data-story="1">
+        <div class="ai-story-card">
+          <div class="ai-story-number">01</div>
+          <h2 class="ai-story-title">AI & Machine Learning</h2>
+          <p class="ai-story-text">Passionate about building intelligent systems that transform raw data into actionable insights. From neural networks to decision trees, I craft solutions that learn and evolve.</p>
+        </div>
+      </div>
+      
+      <!-- Story Point 2 -->
+      <div class="ai-story-point" data-story="2">
+        <div class="ai-story-card">
+          <div class="ai-story-number">02</div>
+          <h2 class="ai-story-title">RAG & LLM Integration</h2>
+          <p class="ai-story-text">Specializing in Retrieval-Augmented Generation systems that combine the power of large language models with domain-specific knowledge bases for accurate, citation-backed responses.</p>
+        </div>
+      </div>
+      
+      <!-- Story Point 3 -->
+      <div class="ai-story-point" data-story="3">
+        <div class="ai-story-card">
+          <div class="ai-story-number">03</div>
+          <h2 class="ai-story-title">Agentic Frameworks</h2>
+          <p class="ai-story-text">Building autonomous AI agents using CrewAI, AutoGen, and LangChain that can reason, plan, and execute complex multi-step tasks with minimal human intervention.</p>
+        </div>
+      </div>
+      
+      <!-- Story Point 4 -->
+      <div class="ai-story-point" data-story="4">
+        <div class="ai-story-card">
+          <div class="ai-story-number">04</div>
+          <h2 class="ai-story-title">Vector Embeddings & Search</h2>
+          <p class="ai-story-text">Implementing semantic search solutions using text embeddings, ChromaDB, and Pinecone to enable intelligent document retrieval and knowledge discovery at scale.</p>
+        </div>
+      </div>
+      
+      <!-- Story Point 5 -->
+      <div class="ai-story-point" data-story="5">
+        <div class="ai-story-card">
+          <div class="ai-story-number">05</div>
+          <h2 class="ai-story-title">Model Context Protocol</h2>
+          <p class="ai-story-text">Pioneering the integration of MCP (Model Context Protocol) to create seamless connections between AI models and external tools, APIs, and data sources.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll progress indicator - horizontal lines -->
+    <div class="ai-scroll-progress">
+      <div class="ai-progress-dots">
+        <span class="ai-progress-dot active" data-story="1"></span>
+        <span class="ai-progress-dot" data-story="2"></span>
+        <span class="ai-progress-dot" data-story="3"></span>
+        <span class="ai-progress-dot" data-story="4"></span>
+        <span class="ai-progress-dot" data-story="5"></span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Static Section: Code Snippets & Resources -->
+  <div class="ai-static-section">
+    <div class="ai-static-content">
+      <div class="ai-static-header">
+        <h2>Code & Resources</h2>
+        <p>Explore some of my AI implementations and useful code patterns</p>
+      </div>
+      
+      <div class="ai-code-grid">
+        <!-- Code Card 1: RAG Implementation -->
+        <div class="ai-code-card">
+          <div class="ai-code-card-header">
+            <h3>RAG Pipeline</h3>
+            <span class="ai-code-card-tag">Python</span>
+          </div>
+          <div class="ai-code-block">
+            <code><span class="comment"># Simple RAG with LangChain</span>
+<span class="keyword">from</span> langchain.chains <span class="keyword">import</span> RetrievalQA
+<span class="keyword">from</span> langchain.vectorstores <span class="keyword">import</span> Chroma
+
+<span class="variable">vectorstore</span> = Chroma.from_documents(
+    documents, embedding_model
+)
+<span class="variable">qa_chain</span> = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=vectorstore.as_retriever()
+)</code>
+          </div>
+          <div class="ai-code-card-footer">
+            <a href="https://github.com/akhil9tiet" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+        
+        <!-- Code Card 2: Agent Setup -->
+        <div class="ai-code-card">
+          <div class="ai-code-card-header">
+            <h3>AI Agent Setup</h3>
+            <span class="ai-code-card-tag">CrewAI</span>
+          </div>
+          <div class="ai-code-block">
+            <code><span class="comment"># CrewAI Agent Definition</span>
+<span class="keyword">from</span> crewai <span class="keyword">import</span> Agent, Task, Crew
+
+<span class="variable">researcher</span> = Agent(
+    role=<span class="string">'Research Analyst'</span>,
+    goal=<span class="string">'Find accurate information'</span>,
+    backstory=<span class="string">'Expert researcher...'</span>,
+    tools=[search_tool, scrape_tool]
+)</code>
+          </div>
+          <div class="ai-code-card-footer">
+            <a href="https://github.com/akhil9tiet" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+        
+        <!-- Code Card 3: Embeddings -->
+        <div class="ai-code-card">
+          <div class="ai-code-card-header">
+            <h3>Text Embeddings</h3>
+            <span class="ai-code-card-tag">OpenAI</span>
+          </div>
+          <div class="ai-code-block">
+            <code><span class="comment"># Generate embeddings</span>
+<span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI
+
+<span class="variable">client</span> = OpenAI()
+<span class="variable">response</span> = client.embeddings.create(
+    model=<span class="string">"text-embedding-3-small"</span>,
+    input=<span class="string">"Your text here"</span>
+)
+<span class="variable">embedding</span> = response.data[0].embedding</code>
+          </div>
+          <div class="ai-code-card-footer">
+            <a href="https://github.com/akhil9tiet" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 	<!--.................Skills....................-->
 
@@ -1873,6 +2484,161 @@ function initWorldMapBackground() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initWorldMapBackground);
+
+// ************************ AI Scrollytelling Section ********************************
+
+function initAIScrollytelling() {
+  const aiSection = document.querySelector('.ai-scrollytelling');
+  if (!aiSection) return;
+  
+  const storyPoints = document.querySelectorAll('.ai-story-point');
+  const progressDots = document.querySelectorAll('.ai-progress-dot');
+  const gifImage = document.getElementById('ai-gif');
+  const scrollContent = document.querySelector('.ai-scroll-content');
+  const backgroundContainer = document.querySelector('.ai-background-container');
+  const staticSection = document.querySelector('.ai-static-section');
+  const introSection = document.querySelector('.ai-intro-section');
+  
+  // Store original GIF src for animation restart
+  const originalGifSrc = gifImage ? gifImage.src : '';
+  
+  function updateScrollProgress() {
+    const sectionRect = aiSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const scrollContentHeight = scrollContent ? scrollContent.offsetHeight : 0;
+    const sectionHeight = scrollContentHeight - windowHeight;
+    
+    // Animate intro image when in view
+    if (introSection) {
+      const introRect = introSection.getBoundingClientRect();
+      if (introRect.top < windowHeight * 0.8 && introRect.bottom > 0) {
+        introSection.classList.add('visible');
+      }
+    }
+    
+    // Calculate reveal progress based on intro section's BOTTOM position
+    // Only start revealing when the BOTTOM of intro section exits the TOP of viewport
+    let revealProgress = 0;
+    if (introSection) {
+      const introRect = introSection.getBoundingClientRect();
+      // Start reveal when intro section's bottom is at or above viewport top (introRect.bottom <= 0)
+      // revealProgress = 0 when introRect.bottom = 0 (just exited)
+      // revealProgress = 1 when introRect.bottom = -revealDistance
+      if (introRect.bottom <= 0) {
+        // Intro section bottom has exited viewport top - start revealing
+        const revealDistance = windowHeight * 0.5; // How much scroll needed for full reveal
+        revealProgress = Math.abs(introRect.bottom) / revealDistance;
+        revealProgress = Math.max(0, Math.min(1, revealProgress));
+      }
+    }
+    
+    // Check if static section is in viewport
+    let staticSectionProgress = 0;
+    if (staticSection) {
+      const staticRect = staticSection.getBoundingClientRect();
+      // Calculate how much of static section is visible (0 = not visible, 1 = fully in view)
+      if (staticRect.top < windowHeight) {
+        staticSectionProgress = Math.max(0, Math.min(1, (windowHeight - staticRect.top) / (windowHeight * 0.5)));
+      }
+    }
+    
+    // Apply reveal animation with scale and opacity
+    if (backgroundContainer) {
+      // Scale from 0.9 to 1.0 as reveal progresses
+      const scale = 0.9 + (revealProgress * 0.1);
+      // Opacity goes from 0 to 1 during reveal, then fades out for static section
+      const baseOpacity = revealProgress;
+      const finalOpacity = baseOpacity * (1 - staticSectionProgress);
+      
+      backgroundContainer.style.opacity = finalOpacity;
+      backgroundContainer.style.transform = 'scale(' + scale + ')';
+    }
+    
+    // Check if we're in the AI section (intro section bottom must have exited viewport top)
+    const introExited = introSection && introSection.getBoundingClientRect().bottom <= 0;
+    const isInSection = introExited && sectionRect.bottom >= windowHeight * 0.5;
+    
+    // Toggle body class for fixed background and progress indicator
+    // But hide progress indicator when in static section
+    if (isInSection && staticSectionProgress < 0.5) {
+      document.body.classList.add('ai-scrollytelling-active');
+    } else {
+      document.body.classList.remove('ai-scrollytelling-active');
+    }
+    
+    // Calculate scroll progress within section (0 to 1)
+    let scrollProgress = 0;
+    if (sectionRect.top <= 0 && sectionHeight > 0) {
+      scrollProgress = Math.abs(sectionRect.top) / sectionHeight;
+      scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+    }
+    
+    // Determine which story point is active
+    const activeIndex = Math.floor(scrollProgress * storyPoints.length);
+    const clampedIndex = Math.min(activeIndex, storyPoints.length - 1);
+    
+    // Update story points visibility
+    storyPoints.forEach((point, index) => {
+      const pointProgress = (scrollProgress * storyPoints.length) - index;
+      
+      if (pointProgress >= -0.5 && pointProgress <= 1.5) {
+        point.classList.add('active');
+        
+        // Calculate opacity based on position
+        let opacity = 1;
+        if (pointProgress < 0.3) {
+          opacity = (pointProgress + 0.5) / 0.8;
+        } else if (pointProgress > 0.7) {
+          opacity = 1 - ((pointProgress - 0.7) / 0.8);
+        }
+        point.style.opacity = Math.max(0, Math.min(1, opacity));
+        point.style.transform = 'translateY(' + (20 - pointProgress * 40) + 'px)';
+      } else {
+        point.classList.remove('active');
+        point.style.opacity = 0;
+      }
+    });
+    
+    // Update progress dots - only highlight current active story
+    progressDots.forEach((dot, index) => {
+      if (index === clampedIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+  
+  // Add click handlers for progress lines
+  progressDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      const scrollContentHeight = scrollContent ? scrollContent.offsetHeight : 0;
+      const targetScroll = aiSection.offsetTop + (scrollContentHeight - window.innerHeight) * (index / (storyPoints.length - 1));
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+    });
+  });
+  
+  // Throttled scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateScrollProgress();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Initial call
+  updateScrollProgress();
+}
+
+// Initialize AI Scrollytelling when DOM is ready
+document.addEventListener('DOMContentLoaded', initAIScrollytelling);
 </script>
 
 </body>

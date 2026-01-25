@@ -91,13 +91,18 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   width: 60%;
   height: 100%;
   z-index: 1;
+  overflow: hidden;
 }
 
-.ai-gif-image {
+.ai-gif-image,
+.ai-video-background {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.8;
+  transform-origin: center center;
+  transition: transform 0.3s ease-out;
+  display: block;
 }
 
 /* Left gradient fade overlay */
@@ -177,8 +182,8 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   max-width: 700px;
   width: 90%;
   height: auto;
-  opacity: 0;
-  transform: translateY(30px) scale(1.1);
+  opacity: 1;
+  transform: translateY(0) scale(1);
   transition: opacity 0.8s ease, transform 0.8s ease;
   mix-blend-mode: screen;
 }
@@ -1487,9 +1492,17 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 <div class="ai-scrollytelling">
   <!-- Background layers -->
   <div class="ai-background-container">
-    <!-- GIF Background on right -->
+    <!-- Video Background on right (for scroll-controlled playback) -->
     <div class="ai-gif-background">
-      <img src="./otherFileFolder/images/default-firstframe.gif" alt="AI Neural Network" class="ai-gif-image" id="ai-gif">
+      <video 
+        class="ai-video-background" 
+        id="ai-video"
+        src="./otherFileFolder/images/default-firstframe.mp4" 
+        muted 
+        playsinline
+        preload="metadata"
+        poster="./otherFileFolder/images/default-firstframe.gif"
+      ></video>
     </div>
     <!-- Left gradient fade -->
     <div class="ai-gradient-overlay"></div>
@@ -2542,16 +2555,47 @@ function initAIScrollytelling() {
       }
     }
     
+    // Calculate scroll progress within section (0 to 1) - moved up before it's used
+    let scrollProgress = 0;
+    if (sectionRect.top <= 0 && sectionHeight > 0) {
+      scrollProgress = Math.abs(sectionRect.top) / sectionHeight;
+      scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+    }
+    
     // Apply reveal animation with scale and opacity
     if (backgroundContainer) {
-      // Scale from 0.9 to 1.0 as reveal progresses
-      const scale = 0.9 + (revealProgress * 0.1);
+      // Base scale from 0.9 to 1.0 as reveal progresses
+      // Additional scale based on story point (each story adds 0.03)
+      const baseScale = 0.9 + (revealProgress * 0.1);
+      const storyScale = scrollProgress * 0.15; // 0 to 0.15 extra scale across all stories
+      const totalScale = baseScale + storyScale;
+      
       // Opacity goes from 0 to 1 during reveal, then fades out for static section
       const baseOpacity = revealProgress;
       const finalOpacity = baseOpacity * (1 - staticSectionProgress);
       
       backgroundContainer.style.opacity = finalOpacity;
-      backgroundContainer.style.transform = 'scale(' + scale + ')';
+      backgroundContainer.style.transform = 'scale(' + totalScale + ')';
+      
+      // Control video playback based on scroll
+      const video = document.getElementById('ai-video');
+      const gifFallback = document.getElementById('ai-gif');
+      
+      if (video) {
+        // Map scroll progress to video time
+        if (video.readyState >= 2 && video.duration) {
+          const videoDuration = video.duration;
+          const targetTime = scrollProgress * videoDuration;
+          
+          // Seek to the target time based on scroll
+          if (Math.abs(video.currentTime - targetTime) > 0.05) {
+            video.currentTime = targetTime;
+          }
+        }
+        
+        // Apply additional scale to video element itself
+        video.style.transform = 'scale(' + (1 + storyScale * 0.3) + ')';
+      }
     }
     
     // Check if we're in the AI section (intro section bottom must have exited viewport top)
@@ -2564,13 +2608,6 @@ function initAIScrollytelling() {
       document.body.classList.add('ai-scrollytelling-active');
     } else {
       document.body.classList.remove('ai-scrollytelling-active');
-    }
-    
-    // Calculate scroll progress within section (0 to 1)
-    let scrollProgress = 0;
-    if (sectionRect.top <= 0 && sectionHeight > 0) {
-      scrollProgress = Math.abs(sectionRect.top) / sectionHeight;
-      scrollProgress = Math.max(0, Math.min(1, scrollProgress));
     }
     
     // Determine which story point is active

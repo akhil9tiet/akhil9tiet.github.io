@@ -1058,133 +1058,67 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   }
 }
 
-/* Contact Section with Animated Dots Background */
+/* Contact Section - Simple Static */
 #contact {
   position: relative;
-  background: #111;
-  overflow: hidden;
-  min-height: 100vh;
+  min-height: 60vh;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%);
+  padding: 80px 20px;
 }
 
 #contact .container {
   position: relative;
   z-index: 10;
-  max-width: 1200px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 0 15px;
-}
-
-#worldMapCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
+  text-align: center;
 }
 
 #contact .section-header {
   color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  font-size: 4rem;
-  margin-bottom: 3rem;
-  text-align: left;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
 }
 
-#contact table {
-  color: #fff;
-  margin: 0;
-  font-size: 1.8rem;
+#contact .contact-info {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  line-height: 2;
 }
 
-#contact table td {
-  color: #fff;
-  padding: 1rem 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-#contact table a {
-  color: #00d4ff;
+#contact .contact-info a {
+  color: #64b5f6;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-#contact table a:hover {
+#contact .contact-info a:hover {
   color: #fff;
-  text-decoration: underline;
 }
 
-#contact hr {
-  display: none;
+#contact .social-links {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-#contact table[div="icons"] {
-  width: auto;
-  margin: 2rem auto 0;
-  background: linear-gradient(45deg, #ff4500, #ff6600, #ff8c00, #ffa500);
-  background-size: 400% 400%;
-  animation: fieryGlow 3s ease-in-out infinite;
-  border-radius: 15px;
-  padding: 1rem;
-  box-shadow: 
-    0 0 20px rgba(255, 69, 0, 0.6),
-    0 0 40px rgba(255, 140, 0, 0.4),
-    0 0 60px rgba(255, 165, 0, 0.2),
-    inset 0 0 20px rgba(255, 69, 0, 0.1);
+#contact .social-links a img {
+  height: 32px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-@keyframes fieryGlow {
-  0%, 100% {
-    background-position: 0% 50%;
-    box-shadow: 
-      0 0 20px rgba(255, 69, 0, 0.6),
-      0 0 40px rgba(255, 140, 0, 0.4),
-      0 0 60px rgba(255, 165, 0, 0.2),
-      inset 0 0 20px rgba(255, 69, 0, 0.1);
-  }
-  50% {
-    background-position: 100% 50%;
-    box-shadow: 
-      0 0 30px rgba(255, 69, 0, 0.8),
-      0 0 50px rgba(255, 140, 0, 0.6),
-      0 0 80px rgba(255, 165, 0, 0.3),
-      inset 0 0 30px rgba(255, 69, 0, 0.2);
-  }
-}
-
-#contact table[div="icons"] td {
-  padding: 0.5rem 0.8rem;
-  text-align: center;
-}
-
-#contact table[div="icons"] img {
-  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-  filter: brightness(0.8);
-}
-
-#contact table[div="icons"] img:hover {
-  transform: scale(1.2);
+#contact .social-links a img:hover {
   opacity: 1;
-  filter: brightness(1.2);
-}
-
-/* Orange halation effect for GitHub and LinkedIn icons */
-#contact table[div="icons"] a[href*="github"] img,
-#contact table[div="icons"] a[href*="linkedin"] img {
-  filter: brightness(0.8) sepia(1) saturate(2) hue-rotate(25deg);
-  box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
-}
-
-#contact table[div="icons"] a[href*="github"] img:hover,
-#contact table[div="icons"] a[href*="linkedin"] img:hover {
-  filter: brightness(1.2) sepia(1) saturate(2) hue-rotate(25deg);
-  box-shadow: 0 0 30px rgba(255, 165, 0, 0.9), 0 0 60px rgba(255, 165, 0, 0.4);
+  transform: scale(1.1);
 }
 </style>
 
@@ -1272,20 +1206,6 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
           </figure>
         </div>
       </div>
-
-                <!--..............Live Resume.................-->
-				<!--<div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/resume.jpg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2>Live Resume<span></span></h2>
-								<p>Windows live tiles style.<br> Built using HTML, CSS, jQuery.<br>
-								<a href= "./otherFileFolder/projects/live_resume/index.htm">Visit</a></p>
-							</figcaption>
-						</figure>
-					</div>
-        </div>-->
         <!--.....................Daemon Dash..................-->
         <div class="col-md-4 col-xs-12">
 					<div class="grid">
@@ -1299,47 +1219,7 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 						</figure>
 					</div>
 				</div>
-        <!--.....................90's coolish overkill..................-->
-        <!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/coolishoverkill.jpg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2 style="color:white">90's <span>Coolish Overkill</span></h2>
-								<p>An article exploring how 90's is dominating the pop culture.<br>
-								<a href= "https://www.linkedin.com/pulse/90s-coolish-overkill-akhil-gupta/">Read</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
 
-        <!--..............Spam App Search.................-->
-        <div class="col-md-4 col-xs-12">
-          <div class="grid">
-            <figure class="effect-sadie">
-              <img src="./otherFileFolder/images/datamining.png" alt="./otherFileFolder/images/ag.png">
-              <figcaption>
-                <h2>Spam <span> App Classifier</span></h2>
-                <p>Detect Spam Apps<br> Built using R, Python<br>
-                <a href= "https://github.com/akhil9tiet/DataMiningProject">Visit</a></p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <!--..............MBS Pool Search.................-->
-        <div class="col-md-4 col-xs-12">
-          <div class="grid">
-            <figure class="effect-sadie">
-              <img src="./otherFileFolder/images/mbs.jpg" alt="./otherFileFolder/images/ag.png">
-              <figcaption>
-                <h2>Mortgage <span>Based Securities</span></h2>
-                <p>Pool Search Webapp<br> Built using Django, Python<br>
-                <a href= "http://finance2.2stmm32mck.us-west-2.elasticbeanstalk.com/">Visit</a></p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
 				<!--..............Stock Price Prediction.................-->
 				<div class="col-md-4 col-xs-12">
 					<div class="grid">
@@ -1353,46 +1233,6 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 						</figure>
 					</div>
 				</div>
-
-				<!--..............Search engine.................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/search.jpeg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2>Search research <span>projects</span></h2>
-								<p><br> Built using PHP and SQL.<br>
-								<a href= "https://github.com/akhil9tiet/Web_dev_on_the_go/tree/master/16.%20php_search_engine">View the code</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
-				<!--..............Consumer Complaint.................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/consumer.jpg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2>Consumer Complaint <span> Analysis</span></h2>
-								<p>View useful insights on consumer complaint behaviour.<br> Built using Tableau.<br>
-								<a href= "https://akhil9tiet.github.io/otherFileFolder/projects/consumer/index.html">Visit</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
-				<!--..............Instagram download.................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/instagram.jpg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2>Download Instagram <span> Images</span></h2>
-								<p>Download your recent images into a local file.<br> Built using PHP.<br>
-								<a href= "https://youtu.be/LeMoyLDz1MA">View Demo</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
                  <!--............IMDB...................-->
 				<div class="col-md-4 col-xs-12">
 					<div class="grid">
@@ -1406,73 +1246,6 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 						</figure>
 					</div>
 				</div>
-                <!--..............World Development Indicator.................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/worldDev.jpg">
-							<figcaption>
-								<h2>World Development Indicators<span></span></h2>
-								<p>Dynamic report generator.<br>Built using SQL and PHP.<br>
-								<a href= "https://www.youtube.com/watch?v=A8zeR5We8GY">View Demo</a></p>
-							</figcaption>
-						</figure>
-					</div>
-        </div> -->
-				<!--............Sentiment Analysis...................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/sentiments.png" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2>Sentiment Analysis<span> of Twitter feed</span></h2>
-								<p>Useful insights on what people think on a certain topic<br>Built using Python.<br>
-								<a href= "https://www.linkedin.com/pulse/sentiment-analysis-tweets-akhil-gupta?published=t">View</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
-                <!--..............god view.................-->
-				<!--<div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="https://lh4.googleusercontent.com/x4w7ippMRJ0xFTMXVIPX6rIuReynuh-CBdXuoxBmTsA4YLpTqiVUA-jCPdkGJfYrINF9WXOhr70L6EGAPeE2xjKKnioW3nZbidH5fJdYW6xkGKWrwMIk-cI_Dnc7I9otWclNGLi6" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2>God<span>View</span></h2>
-								<p>View your site visitors dynamicallybr>Built using PHP.<br>
-								<a href= "./otherFileFolder/projects/GodView/firstpage.php">View</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div>-->
-
-				<!--..............Web Crawler.................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/spider.jpg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2 style="color:white">Web<span>Crawler</span></h2>
-								<p>Stores all the links on a website in a local file<br>Built using Python.<br>
-								<a href= "https://github.com/akhil9tiet/Learn_Python_on_the_go/tree/master/WEB%20CRAWLER">View the code</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
-               <!--............Posters...................-->
-				<!-- <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-							<img src="./otherFileFolder/images/poster.jpg" alt="./otherFileFolder/images/ag.png">
-							<figcaption>
-								<h2><span>Posters</span></h2>
-								<p>Poster art <br>Built using Adobe Photoshop<br>
-								<a href= "./otherFileFolder/projects/pinterest.htm">View</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div> -->
-				<!--...............................-->
 			</div>
 		</div>
 	</div>
@@ -1921,60 +1694,21 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 
 	<!--.................Contact....................-->
 <div id="contact" class="section contact">
-	<canvas id="worldMapCanvas"></canvas>
 	<div class="container">
 		<h3 class="section-header">Contact</h3>
-		<table>
-			<tbody>
-				<tr>
-					<td>Email: </td><td><a href="mailto:akhilgupta.swe@gmail.com">akhilgupta.swe@gmail.com</a></td>
-				</tr>
-				<tr>
-					<td>Phone: </td> <td>+1 (240).476.7867 </td>
-				</tr>
-			</tbody>
-		</table>
-		<table div="icons" class="col-md-12 col-sm-12">
-
-			<tbody>
-				<tr >
-					<td><a href="https://github.com/akhil9tiet"><img src="./otherFileFolder/icons/github.png" height="30px;"></a></td>
-
-					<td><a href="https://in.linkedin.com/in/akhil-gupta"><img src="./otherFileFolder/icons/linkedin.png" height="30px;"></a></td>
-
-					<td><a href="https://www.facebook.com/akhil9tiet"><img src="./otherFileFolder/icons/facebook.png" height="30px;"></a></td>
-
-					<td><a href="https://twitter.com/spkrSilntMjorty"><img src="./otherFileFolder/icons/twitter.png" height="30px;"></a></td>
-
-					<td><a href="https://in.pinterest.com/akhil9tiet/"><img src="./otherFileFolder/icons/pinterest.png" height="30px;"></a></td>
-				</tr>
-			<tbody>
-
-		</table>
-
-        <!--<hr>
-
-        <table>
-        	<tr>
-        		<td>
-         			<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-					<script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/akhil-gupta" data-format="inline" data-related="false"></script>
-				</td>
-			</tr>
-		</table>
-
-		<hr><br/>
-
-         			<div class="github-card" data-user="akhil9tiet"></div>
-					<script src="http://lab.lepture.com/github-cards/widget.js"></script>-->
-
-
-
+		<div class="contact-info">
+			<p><a href="mailto:akhilgupta.swe@gmail.com">akhilgupta.swe@gmail.com</a></p>
+			<p>+1 (240) 476-7867</p>
+		</div>
+		<div class="social-links">
+			<a href="https://github.com/akhil9tiet"><img src="./otherFileFolder/icons/github.png" alt="GitHub"></a>
+			<a href="https://in.linkedin.com/in/akhil-gupta"><img src="./otherFileFolder/icons/linkedin.png" alt="LinkedIn"></a>
+		</div>
     </div>
 </div>
 
 <footer div="foot">
-    <p>&copy Akhil Gupta 2025</p>
+    <p>&copy Akhil Gupta 2026</p>
 </footer >
 
 <script>
@@ -2027,7 +1761,6 @@ $('a[href*="#"]')
 
 <!--Block Reveal-->
 <script src="js/blockreveal/anime.min.js"></script>
-<script src="js/blockreveal/scrollMonitor.js"></script>
 <script src="js/blockreveal/main.js"></script>
 <script>
 (function() {
@@ -2036,8 +1769,6 @@ $('a[href*="#"]')
 
   function init() {
     document.body.classList.remove('loading');
-
-    //************************ Example 1 - reveal on load ********************************
 
     var rev1 = new RevealFx(document.querySelector('#rev-1'), {
       revealSettings : {
@@ -2060,444 +1791,17 @@ $('a[href*="#"]')
             const cursor = document.getElementById('cursor');
             if (cursor) {
               cursor.style.opacity = 1;
-              console.log('Cursor shown');
             }
           }, 200);
         }
       }
     });
     rev2.reveal();
-
-    //************************ Example 2 - reveal on scroll ********************************
-
-    var scrollElemToWatch_1 = document.getElementById('rev-3'),
-      watcher_1 = scrollMonitor.create(scrollElemToWatch_1, -300),
-      rev3 = new RevealFx(scrollElemToWatch_1, {
-        revealSettings : {
-          bgcolor: '#fff200',
-          direction: 'rl',
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-      rev4 = new RevealFx(document.querySelector('#rev-4'), {
-        revealSettings : {
-          bgcolor: '#444745',
-          delay: 250,
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-      rev5 = new RevealFx(document.querySelector('#rev-5'), {
-        revealSettings : {
-          bgcolor: '#444745',
-          delay: 500,
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-
-      scrollElemToWatch_2 = document.getElementById('rev-6'),
-      watcher_2 = scrollMonitor.create(scrollElemToWatch_2, -300),
-      rev6 = new RevealFx(scrollElemToWatch_2, {
-        revealSettings : {
-          bgcolor: '#fff200',
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-      rev7 = new RevealFx(document.querySelector('#rev-7'), {
-        revealSettings : {
-          bgcolor: '#444745',
-          direction: 'rl',
-          delay: 250,
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-      rev8 = new RevealFx(document.querySelector('#rev-8'), {
-        revealSettings : {
-          bgcolor: '#444745',
-          direction: 'rl',
-          delay: 500,
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-
-      scrollElemToWatch_3 = document.getElementById('rev-9'),
-      watcher_3 = scrollMonitor.create(scrollElemToWatch_3, -300),
-      rev9 = new RevealFx(scrollElemToWatch_3, {
-        revealSettings : {
-          bgcolor: '#fff200',
-          direction: 'rl',
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-      rev10 = new RevealFx(document.querySelector('#rev-10'), {
-        revealSettings : {
-          bgcolor: '#444745',
-          delay: 250,
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      }),
-      rev11 = new RevealFx(document.querySelector('#rev-11'), {
-        revealSettings : {
-          bgcolor: '#444745',
-          delay: 500,
-          onCover: function(contentEl, revealerEl) {
-            contentEl.style.opacity = 1;
-          }
-        }
-      });
-
-    watcher_1.enterViewport(function() {
-      rev3.reveal();
-      rev4.reveal();
-      rev5.reveal();
-      watcher_1.destroy();
-    });
-    watcher_2.enterViewport(function() {
-      rev6.reveal();
-      rev7.reveal();
-      rev8.reveal();
-      watcher_2.destroy();
-    });
-    watcher_3.enterViewport(function() {
-      rev9.reveal();
-      rev10.reveal();
-      rev11.reveal();
-      watcher_3.destroy();
-    });
-
-    //************************ Example 3 - api examples ********************************
-
-    var rev12 = new RevealFx(document.querySelector('#rev-12')),
-      trigger_1 = document.getElementById('rev-trigger-1'),
-      trigger_2 = document.getElementById('rev-trigger-2'),
-      trigger_3 = document.getElementById('rev-trigger-3'),
-      trigger_4 = document.getElementById('rev-trigger-4'),
-      trigger_5 = document.getElementById('rev-trigger-5');
-
-    trigger_1.addEventListener('click', function() {
-      rev12.reveal({
-        bgcolor: '#c1c0b7',
-        duration: 300,
-        onStart: function(contentEl, revealerEl) { contentEl.style.opacity = 0; },
-        onCover: function(contentEl, revealerEl) { contentEl.style.opacity = 1; }
-      });
-    });
-
-    trigger_2.addEventListener('click', function() {
-      rev12.reveal({
-        bgcolor: '#c1c0b7',
-        duration: 300,
-        direction: 'rl',
-        onStart: function(contentEl, revealerEl) { contentEl.style.opacity = 0; },
-        onCover: function(contentEl, revealerEl) { contentEl.style.opacity = 1; }
-      });
-    });
-
-    trigger_3.addEventListener('click', function() {
-      rev12.reveal({
-        bgcolor: '#c1c0b7',
-        easing: 'easeOutExpo',
-        direction: 'bt',
-        onStart: function(contentEl, revealerEl) {
-          anime.remove(contentEl);
-          contentEl.style.opacity = 0;
-        },
-        onCover: function(contentEl, revealerEl) {
-          anime({
-            targets: contentEl,
-            duration: 800,
-            delay: 80,
-            easing: 'easeOutExpo',
-            translateY: [40,0],
-            opacity: [0,1]
-          });
-        }
-      });
-    });
-
-    trigger_4.addEventListener('click', function() {
-      rev12.reveal({
-        bgcolor: '#c1c0b7',
-        duration: 300,
-        direction: 'tb',
-        onStart: function(contentEl, revealerEl) {
-          anime.remove(contentEl);
-          contentEl.style.opacity = 0;
-        },
-        onCover: function(contentEl, revealerEl) {
-          anime({
-            targets: contentEl,
-            duration: 500,
-            delay: 50,
-            easing: 'easeOutBounce',
-            translateY: [-40,0],
-            opacity: {
-              value: [0,1],
-              duration: 300,
-              easing: 'linear'
-            }
-          });
-        }
-      });
-    });
-
-    trigger_5.addEventListener('click', function() {
-      rev12.reveal({
-        bgcolor: '#444745',
-        duration: 400,
-        easing: 'easeInOutQuad',
-        onStart: function(contentEl, revealerEl) {
-          anime.remove(contentEl);
-          contentEl.style.opacity = 0;
-        },
-        onCover: function(contentEl, revealerEl) {
-          contentEl.style.opacity = 1;
-          anime({
-            targets: contentEl,
-            duration: 800,
-            delay: 80,
-            easing: 'easeOutExpo',
-            scale: [0.5,1],
-            opacity: [0,1]
-          });
-        }
-      });
-    });
-
-    //************************ Skills Header Glitch Animation ********************************
-    
-    var skillsAnimated = false;
-    
-    function triggerSkillsGlitch() {
-      if (skillsAnimated) return;
-      
-      var header = document.querySelector('#skills .neuro-header');
-      if (header) {
-        console.log('Triggering glitch animation');
-        header.classList.add('glitch-animate');
-        skillsAnimated = true;
-      }
-    }
-    
-    function checkSkillsInView() {
-      if (skillsAnimated) return;
-      
-      var skillsSection = document.getElementById('skills');
-      if (skillsSection) {
-        var rect = skillsSection.getBoundingClientRect();
-        var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        
-        if (rect.top < windowHeight * 0.7) {
-          triggerSkillsGlitch();
-          window.removeEventListener('scroll', checkSkillsInView);
-        }
-      }
-    }
-    
-    // Add scroll listener
-    window.addEventListener('scroll', checkSkillsInView);
-    
-    // Check immediately in case section is already visible
-    setTimeout(function() {
-      checkSkillsInView();
-      // Force trigger after 3 seconds for testing
-      setTimeout(triggerSkillsGlitch, 3000);
-    }, 500);
   }
 })();
 </script>
 
-<!-- Animated Dots Background Script -->
 <script>
-// Initialize the world map canvas background
-function initWorldMapBackground() {
-  const canvas = document.getElementById('worldMapCanvas');
-  if (!canvas) return;
-  
-  const ctx = canvas.getContext('2d');
-  
-  // Resize canvas to full viewport
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-  
-  // Dot grid settings
-  const dotSize = 2; // Reduced dot size
-  const spacing = 12; // Adjusted spacing
-  
-  let cols = Math.floor(canvas.width / spacing);
-  let rows = Math.floor(canvas.height / spacing);
-  
-  // Store dot positions
-  let dots = [];
-  
-  function createDots() {
-    dots = [];
-    cols = Math.floor(canvas.width / spacing);
-    rows = Math.floor(canvas.height / spacing);
-    
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        const posX = x * spacing + spacing / 2;
-        const posY = y * spacing + spacing / 2;
-        dots.push({ 
-          x: posX, 
-          y: posY, 
-          lit: false,
-          baseBrightness: Math.random() * 0.3 + 0.2,
-          flickerSpeed: Math.random() * 0.03 + 0.01,
-          glowIntensity: Math.random(),
-          glowPhase: Math.random() * Math.PI * 2,
-          randomGlowTimer: Math.random() * 1000,
-          isGlowing: false,
-          glowDuration: 0,
-          maxGlowDuration: Math.random() * 120 + 60 // 1-3 seconds at 60fps
-        });
-      }
-    }
-  }
-  
-  createDots();
-  
-  // Animation variables
-  let time = 0;
-  let mouseX = 0;
-  let mouseY = 0;
-  
-  // Mouse tracking
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
-  });
-  
-  // Render function
-  function render() {
-    // Clear canvas
-    ctx.fillStyle = '#111';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    time += 0.016; // Roughly 60fps
-    
-    dots.forEach((dot, index) => {
-      // Update random glow timer
-      dot.randomGlowTimer -= 16; // Decrease by ~16ms each frame
-      
-      // Randomly start glowing
-      if (!dot.isGlowing && dot.randomGlowTimer <= 0) {
-        if (Math.random() < 0.002) { // 0.2% chance per frame
-          dot.isGlowing = true;
-          dot.glowDuration = 0;
-          dot.randomGlowTimer = Math.random() * 2000 + 500; // Reset timer for 0.5-2.5 seconds
-        } else {
-          dot.randomGlowTimer = Math.random() * 100 + 50; // Check again in 50-150ms
-        }
-      }
-      
-      // Handle glowing state
-      if (dot.isGlowing) {
-        dot.glowDuration++;
-        if (dot.glowDuration >= dot.maxGlowDuration) {
-          dot.isGlowing = false;
-          dot.glowDuration = 0;
-        }
-      }
-      
-      // Distance from mouse
-      const distanceFromMouse = Math.sqrt(
-        Math.pow(dot.x - mouseX, 2) + Math.pow(dot.y - mouseY, 2)
-      );
-      
-      // Create ripple effect from mouse
-      const rippleRadius = 200;
-      let mouseInfluence = 0;
-      if (distanceFromMouse < rippleRadius) {
-        mouseInfluence = (rippleRadius - distanceFromMouse) / rippleRadius;
-        mouseInfluence = Math.pow(mouseInfluence, 2) * 0.8; // Smoother falloff
-      }
-      
-      // Base flickering animation (subtle)
-      const flickerValue = Math.sin(time * dot.flickerSpeed * 50 + index * 0.1) * 0.2 + 0.8;
-      
-      // Random glow effect
-      let glowEffect = 0;
-      if (dot.isGlowing) {
-        const glowProgress = dot.glowDuration / dot.maxGlowDuration;
-        // Smooth glow transition (ease in-out)
-        const glowCurve = Math.sin(glowProgress * Math.PI);
-        glowEffect = glowCurve * dot.glowIntensity * 0.9;
-      }
-      
-      // Subtle ambient wave (much reduced)
-      const ambientWave = Math.sin(time * 0.2 + dot.x * 0.005 + dot.y * 0.003) * 0.1;
-      
-      // Combine all effects
-      let brightness = dot.baseBrightness * flickerValue + mouseInfluence + glowEffect + ambientWave;
-      brightness = Math.max(0.05, Math.min(1, brightness));
-      
-      // Keep dot size constant
-      let currentDotSize = dotSize;
-      
-      // Draw main dot
-      ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
-      ctx.beginPath();
-      ctx.arc(dot.x, dot.y, currentDotSize, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Add glow effect for special dots
-      if (dot.isGlowing || brightness > 0.7) {
-        const glowAlpha = dot.isGlowing ? glowEffect * 0.4 : (brightness - 0.7) * 0.3;
-        const glowSize = currentDotSize + 4;
-        
-        // Outer glow
-        ctx.fillStyle = `rgba(135, 206, 255, ${glowAlpha * 0.3})`;
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, glowSize * 1.8, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Inner glow
-        ctx.fillStyle = `rgba(255, 255, 255, ${glowAlpha * 0.6})`;
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, glowSize, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    });
-    
-    requestAnimationFrame(render);
-  }
-  
-  // Handle resize
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    createDots();
-  });
-  
-  // Start animation
-  render();
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', initWorldMapBackground);
-
 // ************************ AI Scrollytelling Section ********************************
 
 function initAIScrollytelling() {

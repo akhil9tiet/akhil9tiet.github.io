@@ -1,3 +1,17 @@
+<!--
+HTML head section template for Jekyll site pages
+
+This partial template defines the common HTML head elements for all pages:
+- Sets character encoding, IE compatibility, and responsive viewport
+- Dynamically generates page titles using Jekyll variables (page.title or site.title)
+- Creates meta descriptions from page excerpts or site description
+- Links to main CSS stylesheet with site baseurl prepending
+- Sets canonical URL for SEO purposes
+- Provides RSS feed link for content syndication
+
+Usage: Include this template in layout files using {% include head.html %}
+Dependencies: Requires Jekyll site and page variables (site.title, site.baseurl, site.url, page.title, page.excerpt)
+-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">

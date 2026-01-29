@@ -229,10 +229,56 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: visible;
+}
+
+/* Border glaze SVG container */
+.ai-story-card .border-glaze {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ai-story-card .border-glaze rect {
+  fill: none;
+  stroke: url(#glazeGradient);
+  stroke-width: 2;
+  rx: 17;
+  ry: 17;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+}
+
+.ai-story-card .border-glaze-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 17px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(200, 220, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  filter: blur(10px);
+}
+
+.ai-story-point.active .border-glaze-glow {
+  opacity: 1;
 }
 
 .ai-story-number {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 700;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   -webkit-background-clip: text;
@@ -240,22 +286,28 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   background-clip: text;
   opacity: 0.9;
   line-height: 1;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .ai-story-title {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
 }
 
 .ai-story-text {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: rgba(255, 255, 255, 0.85);
-  line-height: 1.7;
+  line-height: 1.8;
   margin: 0;
+  position: relative;
+  z-index: 2;
 }
 
 /* Scroll progress indicator */
@@ -485,15 +537,15 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   }
   
   .ai-story-number {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
   
   .ai-story-title {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
   }
   
   .ai-story-text {
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
   
   .ai-scroll-progress {
@@ -1260,7 +1312,7 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
         src="./otherFileFolder/images/default-firstframe.mp4" 
         muted 
         playsinline
-        preload="metadata"
+        preload="auto"
         poster="./otherFileFolder/images/default-firstframe.gif"
       ></video>
     </div>
@@ -1276,6 +1328,19 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
       <!-- Story Point 1 -->
       <div class="ai-story-point" data-story="1">
         <div class="ai-story-card">
+          <svg class="border-glaze" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="glazeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
+                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
+                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)"></rect>
+          </svg>
+          <div class="border-glaze-glow"></div>
           <div class="ai-story-number">01</div>
           <h2 class="ai-story-title">AI & Machine Learning</h2>
           <p class="ai-story-text">Passionate about building intelligent systems that transform raw data into actionable insights. From neural networks to decision trees, I craft solutions that learn and evolve.</p>
@@ -1285,6 +1350,19 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
       <!-- Story Point 2 -->
       <div class="ai-story-point" data-story="2">
         <div class="ai-story-card">
+          <svg class="border-glaze" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="glazeGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
+                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
+                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient2)"></rect>
+          </svg>
+          <div class="border-glaze-glow"></div>
           <div class="ai-story-number">02</div>
           <h2 class="ai-story-title">RAG & LLM Integration</h2>
           <p class="ai-story-text">Specializing in Retrieval-Augmented Generation systems that combine the power of large language models with domain-specific knowledge bases for accurate, citation-backed responses.</p>
@@ -1294,6 +1372,19 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
       <!-- Story Point 3 -->
       <div class="ai-story-point" data-story="3">
         <div class="ai-story-card">
+          <svg class="border-glaze" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="glazeGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
+                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
+                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient3)"></rect>
+          </svg>
+          <div class="border-glaze-glow"></div>
           <div class="ai-story-number">03</div>
           <h2 class="ai-story-title">Agentic Frameworks</h2>
           <p class="ai-story-text">Building autonomous AI agents using CrewAI, AutoGen, and LangChain that can reason, plan, and execute complex multi-step tasks with minimal human intervention.</p>
@@ -1303,6 +1394,19 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
       <!-- Story Point 4 -->
       <div class="ai-story-point" data-story="4">
         <div class="ai-story-card">
+          <svg class="border-glaze" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="glazeGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
+                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
+                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient4)"></rect>
+          </svg>
+          <div class="border-glaze-glow"></div>
           <div class="ai-story-number">04</div>
           <h2 class="ai-story-title">Vector Embeddings & Search</h2>
           <p class="ai-story-text">Implementing semantic search solutions using text embeddings, ChromaDB, and Pinecone to enable intelligent document retrieval and knowledge discovery at scale.</p>
@@ -1312,6 +1416,19 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
       <!-- Story Point 5 -->
       <div class="ai-story-point" data-story="5">
         <div class="ai-story-card">
+          <svg class="border-glaze" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="glazeGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
+                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
+                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient5)"></rect>
+          </svg>
+          <div class="border-glaze-glow"></div>
           <div class="ai-story-number">05</div>
           <h2 class="ai-story-title">Model Context Protocol</h2>
           <p class="ai-story-text">Pioneering the integration of MCP (Model Context Protocol) to create seamless connections between AI models and external tools, APIs, and data sources.</p>
@@ -1874,12 +1991,14 @@ function initAIScrollytelling() {
       
       if (video) {
         // Map scroll progress to video time
-        if (video.readyState >= 2 && video.duration) {
+        // Use readyState >= 1 (HAVE_METADATA) as minimum, duration check handles the rest
+        if (video.duration && !isNaN(video.duration)) {
           const videoDuration = video.duration;
           const targetTime = scrollProgress * videoDuration;
           
           // Seek to the target time based on scroll
-          if (Math.abs(video.currentTime - targetTime) > 0.05) {
+          // Use a smaller threshold for smoother animation
+          if (Math.abs(video.currentTime - targetTime) > 0.01) {
             video.currentTime = targetTime;
           }
         }
@@ -1908,6 +2027,7 @@ function initAIScrollytelling() {
     // Update story points visibility
     storyPoints.forEach((point, index) => {
       const pointProgress = (scrollProgress * storyPoints.length) - index;
+      const borderRect = point.querySelector('.border-glaze rect');
       
       if (pointProgress >= -0.5 && pointProgress <= 1.5) {
         point.classList.add('active');
@@ -1921,9 +2041,34 @@ function initAIScrollytelling() {
         }
         point.style.opacity = Math.max(0, Math.min(1, opacity));
         point.style.transform = 'translateY(' + (20 - pointProgress * 40) + 'px)';
+        
+        // Animate border glaze - travels clockwise as card scrolls through viewport
+        // Progress from -0.5 to 1.5 maps to border traveling around the card
+        if (borderRect) {
+          const card = point.querySelector('.ai-story-card');
+          if (card) {
+            const cardRect = card.getBoundingClientRect();
+            // Calculate perimeter for dasharray
+            const perimeter = 2 * (cardRect.width + cardRect.height);
+            
+            // Map pointProgress (-0.5 to 1.5) to border progress (0 to 1)
+            const borderProgress = Math.max(0, Math.min(1, (pointProgress + 0.5) / 2));
+            
+            // Dash offset goes from full perimeter (invisible) to 0 (fully drawn)
+            const dashOffset = perimeter * (1 - borderProgress);
+            
+            borderRect.style.strokeDasharray = perimeter;
+            borderRect.style.strokeDashoffset = dashOffset;
+          }
+        }
       } else {
         point.classList.remove('active');
         point.style.opacity = 0;
+        
+        // Reset border when not active
+        if (borderRect) {
+          borderRect.style.strokeDashoffset = 1000;
+        }
       }
     });
     
@@ -1966,7 +2111,30 @@ function initAIScrollytelling() {
 }
 
 // Initialize AI Scrollytelling when DOM is ready
-document.addEventListener('DOMContentLoaded', initAIScrollytelling);
+document.addEventListener('DOMContentLoaded', function() {
+  // Pre-load the video to ensure it's ready for scroll control
+  const video = document.getElementById('ai-video');
+  if (video) {
+    // Force video to load
+    video.load();
+    
+    // Play and immediately pause to ensure frames are loaded
+    video.play().then(function() {
+      video.pause();
+      video.currentTime = 0;
+    }).catch(function(e) {
+      // Autoplay might be blocked, that's okay for scroll-controlled video
+      console.log('Video preload: autoplay blocked, using scroll control');
+    });
+    
+    // Ensure video can seek when loaded
+    video.addEventListener('loadeddata', function() {
+      video.currentTime = 0;
+    });
+  }
+  
+  initAIScrollytelling();
+});
 </script>
 
 </body>

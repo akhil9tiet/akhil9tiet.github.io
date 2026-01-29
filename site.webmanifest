@@ -1,0 +1,24 @@
+{
+    "name": "Akhil Gupta - AI Engineer for Hire | Redmond, WA",
+    "short_name": "Akhil Gupta",
+    "description": "Hire a senior AI engineer based in Redmond, WA. Expert in ML, Python, LLMs, RAG systems, and full stack development.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#6366f1",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/otherFileFolder/images/ag1.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/otherFileFolder/images/ag1.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["business", "productivity"],
+    "keywords": ["AI engineer", "software engineer", "hire developer", "machine learning", "Redmond", "Seattle", "Washington"]
+}

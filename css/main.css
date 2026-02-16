@@ -31,34 +31,9 @@ body{
 	margin-bottom: 30px;
 }
 
+/* Old #nav hidden — replaced by overlay-nav */
 #nav {
-	float: right;
-	margin: 0px 20px 0px 0px;
-	list-style: none;
-	position: absolute;
-	top: 50px;
-	right: 0px;
-}
-
-#nav li {
-	float: left;
-}
-
-#nav li a {
-	display: block;
-	padding: 8px 15px;
-	text-decoration: none;
-	font-weight: bold;
-	margin: 0;
-	font-size: 25px;
-	color: #fff200;
-}
-
-#nav li a:hover {
-	background-color: #fff200;
-	color: #444745;
-	font-size: 25px;
-	border-radius: 3px;
+	display: none;
 }
 
 /*........................Projects......................*/

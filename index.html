@@ -324,6 +324,287 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   51%, 100% { opacity: 0; }
 }
 
+/* ===== Hamburger Button ===== */
+.hamburger {
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.hamburger:hover {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hamburger__line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+/* Hamburger active (X) state */
+.hamburger.active .hamburger__line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.active .hamburger__line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.hamburger.active .hamburger__line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== Overlay Nav ===== */
+.overlay-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overlay-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.overlay-nav.open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.overlay-nav.open::before {
+  opacity: 1;
+}
+
+.overlay-nav__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-nav__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.overlay-nav__item {
+  overflow: hidden;
+}
+
+.overlay-nav__link {
+  display: inline-block;
+  font-family: 'Poppins', 'Lato', sans-serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.3em 0.5em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: color 0.3s ease;
+}
+
+.overlay-nav.open .overlay-nav__link {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              color 0.3s ease;
+}
+
+/* Staggered reveal for each nav item */
+.overlay-nav.open .overlay-nav__item:nth-child(1) .overlay-nav__link { transition-delay: 0.08s; }
+.overlay-nav.open .overlay-nav__item:nth-child(2) .overlay-nav__link { transition-delay: 0.14s; }
+.overlay-nav.open .overlay-nav__item:nth-child(3) .overlay-nav__link { transition-delay: 0.20s; }
+.overlay-nav.open .overlay-nav__item:nth-child(4) .overlay-nav__link { transition-delay: 0.26s; }
+.overlay-nav.open .overlay-nav__item:nth-child(5) .overlay-nav__link { transition-delay: 0.32s; }
+.overlay-nav.open .overlay-nav__item:nth-child(6) .overlay-nav__link { transition-delay: 0.38s; }
+
+/* Closing animation - items slide down */
+.overlay-nav:not(.open) .overlay-nav__link {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.overlay-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.1em;
+  width: 0;
+  height: 3px;
+  background: #fff200;
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.overlay-nav__link:hover {
+  color: #fff200;
+}
+
+.overlay-nav__link:hover::after {
+  width: 80%;
+}
+
+/* Body scroll lock when menu is open */
+body.nav-open {
+  overflow: hidden;
+}
+
+/* Hero content row */
+.hero__content-row {
+  margin-top: 200px;
+}
+
+/* ===== Global Mobile Fixes ===== */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 0 8rem;
+    background-attachment: scroll !important; /* iOS fix */
+  }
+
+  .hero__content-row {
+    margin-top: 120px;
+  }
+
+  .hero h4 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .section {
+    padding: 3rem 0 4rem;
+  }
+
+  .section-header {
+    font-size: 28px;
+  }
+
+  /* Projects title override */
+  .projects .section-header {
+    font-size: 40px !important;
+    -webkit-text-stroke: 0.8px currentColor !important;
+    min-height: 50px !important;
+  }
+
+  /* Project cards - show caption always on touch */
+  .grid figure.effect-sadie figcaption::before,
+  .grid figure.effect-sadie p {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .grid figure.effect-sadie h2 {
+    transform: translate3d(0, -50%, 0) translate3d(0, -40px, 0);
+  }
+
+  /* Code grid - prevent horizontal overflow */
+  .ai-code-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ai-code-block {
+    font-size: 0.75rem;
+  }
+
+  /* Marquee section iOS fix */
+  .marquee-menu {
+    background-attachment: scroll !important;
+    min-height: auto;
+  }
+
+  .marquee-menu-item {
+    width: 100% !important;
+    margin-left: 0 !important;
+    height: 120px;
+  }
+
+  .marquee-menu-item-link {
+    font-size: 1.6rem;
+    padding: 2rem 1rem;
+  }
+
+  .marquee-tech {
+    padding: 0.8rem 1.5rem;
+    min-width: 120px;
+    font-size: 1rem;
+    margin: 0 0.8rem;
+  }
+
+  .marquee span {
+    font-size: 1.4rem;
+    padding: 0 1rem;
+  }
+
+  .marquee-header {
+    font-size: 2rem;
+    position: relative;
+    top: auto;
+    left: auto;
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  /* Contact section - prevent vw overflow */
+  #contact {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 60px 20px;
+  }
+
+  #contact .section-header {
+    font-size: 2rem;
+  }
+
+  #contact .contact-info {
+    font-size: 1.2rem;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+  }
+}
+
 /* AI Scrollytelling Section */
 .ai-scrollytelling {
   position: relative;
@@ -1470,19 +1751,30 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 </head>
 
 <body data-gr-c-s-loaded= "true">
+	<!-- Hamburger Button (fixed, always visible) -->
+	<button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+		<span class="hamburger__line"></span>
+		<span class="hamburger__line"></span>
+		<span class="hamburger__line"></span>
+	</button>
+
+	<!-- Full-screen overlay nav -->
+	<div class="overlay-nav" id="overlayNav">
+		<nav class="overlay-nav__inner">
+			<ul class="overlay-nav__list">
+				<li class="overlay-nav__item"><a href="#" class="overlay-nav__link" data-text="Home">Home</a></li>
+				<li class="overlay-nav__item"><a href="#projects" class="overlay-nav__link" data-text="Projects">Projects</a></li>
+				<li class="overlay-nav__item"><a href="#AI" class="overlay-nav__link" data-text="AI">AI</a></li>
+				<li class="overlay-nav__item"><a href="#skills" class="overlay-nav__link" data-text="Skills">Skills</a></li>
+				<li class="overlay-nav__item"><a href="#opensource" class="overlay-nav__link" data-text="OpenSource">OpenSource</a></li>
+				<li class="overlay-nav__item"><a href="#contact" class="overlay-nav__link" data-text="Contact">Contact</a></li>
+			</ul>
+		</nav>
+	</div>
+
 	<div class="hero">
 		<div class="container" style="font-size:20px;">
-			 <nav class="navbar">
-				<ul id="nav">
-					<li><a href="#">Home</a></li>
-					<li><a href="#projects">Projects</a></li>
-          <li><a href="#AI">AI</a></li>
-					<li><a href="#skills">Skills</a></li>
-					<li><a href="#opensource">OpenSource</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</nav>
-      <div class="row" style="margin-top:200px;">
+      <div class="row hero__content-row">
         <div class="col-md-12">
           <h2 class="content__title content__title--center">
   					<div id="rev-1" class="content__title__inner" style="color: #fff200">"Hello World"</div><br/>
@@ -2491,6 +2783,52 @@ function runTypingSequence(el, steps) {
 // Initialize AI Scrollytelling when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
   initProjectsTitleTyping();
+
+  // ===== Hamburger Overlay Nav =====
+  var hamburger = document.getElementById('hamburger');
+  var overlayNav = document.getElementById('overlayNav');
+  var navLinks = document.querySelectorAll('.overlay-nav__link');
+
+  function openMenu() {
+    hamburger.classList.add('active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    overlayNav.classList.add('open');
+    document.body.classList.add('nav-open');
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    overlayNav.classList.remove('open');
+    document.body.classList.remove('nav-open');
+  }
+
+  hamburger.addEventListener('click', function() {
+    if (overlayNav.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close menu when a link is clicked
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      closeMenu();
+      // Handle Home link — scroll to top
+      if (this.getAttribute('href') === '#') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Close menu on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlayNav.classList.contains('open')) {
+      closeMenu();
+    }
+  });
   // Pre-load the video to ensure it's ready for scroll control
   const video = document.getElementById('ai-video');
   if (video) {

@@ -781,8 +781,8 @@ body.nav-open {
   overflow: visible;
 }
 
-/* Border glaze SVG container */
-.ai-story-card .border-glaze {
+/* Shiny edge container */
+.sparkle-trail {
   position: absolute;
   top: -2px;
   left: -2px;
@@ -790,38 +790,27 @@ body.nav-open {
   height: calc(100% + 4px);
   pointer-events: none;
   z-index: 1;
-}
-
-.ai-story-card .border-glaze rect {
-  fill: none;
-  stroke: url(#glazeGradient);
-  stroke-width: 2;
-  rx: 17;
-  ry: 17;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
-}
-
-.ai-story-card .border-glaze-glow {
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
   border-radius: 17px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.1) 0%, 
-    rgba(200, 220, 255, 0.1) 50%, 
-    rgba(255, 255, 255, 0.1) 100%);
-  filter: blur(10px);
+  overflow: visible;
 }
 
-.ai-story-point.active .border-glaze-glow {
+/* Shiny edge border — revealed via conic-gradient mask */
+.sparkle-trail__edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 17px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 8px 1px rgba(255, 255, 255, 0.15),
+    inset 0 0 8px 1px rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.ai-story-point.active .sparkle-trail__edge {
   opacity: 1;
 }
 
@@ -1913,19 +1902,9 @@ body.nav-open {
       <!-- Story Point 1 -->
       <div class="ai-story-point" data-story="1">
         <div class="ai-story-card">
-          <svg class="border-glaze" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="glazeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
-                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)"></rect>
-          </svg>
-          <div class="border-glaze-glow"></div>
+          <div class="sparkle-trail">
+            <div class="sparkle-trail__edge"></div>
+          </div>
           <div class="ai-story-number">01</div>
           <h2 class="ai-story-title">AI & Machine Learning</h2>
           <p class="ai-story-text">Passionate about building intelligent systems that transform raw data into actionable insights. From neural networks to decision trees, I craft solutions that learn and evolve.</p>
@@ -1935,19 +1914,9 @@ body.nav-open {
       <!-- Story Point 2 -->
       <div class="ai-story-point" data-story="2">
         <div class="ai-story-card">
-          <svg class="border-glaze" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="glazeGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
-                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient2)"></rect>
-          </svg>
-          <div class="border-glaze-glow"></div>
+          <div class="sparkle-trail">
+            <div class="sparkle-trail__edge"></div>
+          </div>
           <div class="ai-story-number">02</div>
           <h2 class="ai-story-title">RAG & LLM Integration</h2>
           <p class="ai-story-text">Specializing in Retrieval-Augmented Generation systems that combine the power of large language models with domain-specific knowledge bases for accurate, citation-backed responses.</p>
@@ -1957,19 +1926,9 @@ body.nav-open {
       <!-- Story Point 3 -->
       <div class="ai-story-point" data-story="3">
         <div class="ai-story-card">
-          <svg class="border-glaze" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="glazeGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
-                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient3)"></rect>
-          </svg>
-          <div class="border-glaze-glow"></div>
+          <div class="sparkle-trail">
+            <div class="sparkle-trail__edge"></div>
+          </div>
           <div class="ai-story-number">03</div>
           <h2 class="ai-story-title">Agentic Frameworks</h2>
           <p class="ai-story-text">Building autonomous AI agents using CrewAI, AutoGen, and LangChain that can reason, plan, and execute complex multi-step tasks with minimal human intervention.</p>
@@ -1979,19 +1938,9 @@ body.nav-open {
       <!-- Story Point 4 -->
       <div class="ai-story-point" data-story="4">
         <div class="ai-story-card">
-          <svg class="border-glaze" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="glazeGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
-                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient4)"></rect>
-          </svg>
-          <div class="border-glaze-glow"></div>
+          <div class="sparkle-trail">
+            <div class="sparkle-trail__edge"></div>
+          </div>
           <div class="ai-story-number">04</div>
           <h2 class="ai-story-title">Vector Embeddings & Search</h2>
           <p class="ai-story-text">Implementing semantic search solutions using text embeddings, ChromaDB, and Pinecone to enable intelligent document retrieval and knowledge discovery at scale.</p>
@@ -2001,19 +1950,9 @@ body.nav-open {
       <!-- Story Point 5 -->
       <div class="ai-story-point" data-story="5">
         <div class="ai-story-card">
-          <svg class="border-glaze" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="glazeGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="25%" style="stop-color:#e0e8ff;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
-                <stop offset="75%" style="stop-color:#d0e0ff;stop-opacity:0.9" />
-                <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" style="stroke: url(#glazeGradient5)"></rect>
-          </svg>
-          <div class="border-glaze-glow"></div>
+          <div class="sparkle-trail">
+            <div class="sparkle-trail__edge"></div>
+          </div>
           <div class="ai-story-number">05</div>
           <h2 class="ai-story-title">Model Context Protocol</h2>
           <p class="ai-story-text">Pioneering the integration of MCP (Model Context Protocol) to create seamless connections between AI models and external tools, APIs, and data sources.</p>
@@ -2612,7 +2551,7 @@ function initAIScrollytelling() {
     // Update story points visibility
     storyPoints.forEach((point, index) => {
       const pointProgress = (scrollProgress * storyPoints.length) - index;
-      const borderRect = point.querySelector('.border-glaze rect');
+      const shinyEdge = point.querySelector('.sparkle-trail__edge');
       
       if (pointProgress >= -0.5 && pointProgress <= 1.5) {
         point.classList.add('active');
@@ -2627,32 +2566,93 @@ function initAIScrollytelling() {
         point.style.opacity = Math.max(0, Math.min(1, opacity));
         point.style.transform = 'translateY(' + (20 - pointProgress * 40) + 'px)';
         
-        // Animate border glaze - travels clockwise as card scrolls through viewport
-        // Progress from -0.5 to 1.5 maps to border traveling around the card
-        if (borderRect) {
+        // Reveal shiny edge as scroll progresses
+        if (shinyEdge) {
           const card = point.querySelector('.ai-story-card');
           if (card) {
-            const cardRect = card.getBoundingClientRect();
-            // Calculate perimeter for dasharray
-            const perimeter = 2 * (cardRect.width + cardRect.height);
+            const w = card.offsetWidth + 4;
+            const h = card.offsetHeight + 4;
+            const r = 17;
             
-            // Map pointProgress (-0.5 to 1.5) to border progress (0 to 1)
-            const borderProgress = Math.max(0, Math.min(1, (pointProgress + 0.5) / 2));
+            const t = Math.max(0, Math.min(1, (pointProgress + 0.5) / 2));
             
-            // Dash offset goes from full perimeter (invisible) to 0 (fully drawn)
-            const dashOffset = perimeter * (1 - borderProgress);
+            // Compute position on perimeter for angle calc
+            const straightH = w - 2 * r;
+            const straightV = h - 2 * r;
+            const cornerArc = (Math.PI / 2) * r;
+            const perimeter = 2 * straightH + 2 * straightV + 4 * cornerArc;
+            const dist = t * perimeter;
             
-            borderRect.style.strokeDasharray = perimeter;
-            borderRect.style.strokeDashoffset = dashOffset;
+            let x = 0, y = 0;
+            let remaining = dist;
+            
+            if (remaining <= straightH) {
+              x = r + remaining; y = 0;
+            } else {
+              remaining -= straightH;
+              if (remaining <= cornerArc) {
+                const a = (remaining / cornerArc) * (Math.PI / 2);
+                x = w - r + Math.sin(a) * r; y = r - Math.cos(a) * r;
+              } else {
+                remaining -= cornerArc;
+                if (remaining <= straightV) {
+                  x = w; y = r + remaining;
+                } else {
+                  remaining -= straightV;
+                  if (remaining <= cornerArc) {
+                    const a = (remaining / cornerArc) * (Math.PI / 2);
+                    x = w - r + Math.cos(a) * r; y = h - r + Math.sin(a) * r;
+                  } else {
+                    remaining -= cornerArc;
+                    if (remaining <= straightH) {
+                      x = w - r - remaining; y = h;
+                    } else {
+                      remaining -= straightH;
+                      if (remaining <= cornerArc) {
+                        const a = (remaining / cornerArc) * (Math.PI / 2);
+                        x = r - Math.sin(a) * r; y = h - r + Math.cos(a) * r;
+                      } else {
+                        remaining -= cornerArc;
+                        if (remaining <= straightV) {
+                          x = 0; y = h - r - remaining;
+                        } else {
+                          remaining -= straightV;
+                          const a = (remaining / cornerArc) * (Math.PI / 2);
+                          x = r - Math.cos(a) * r; y = r - Math.sin(a) * r;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            
+            // Conic mask reveals ~150° of border behind the leading edge
+            const cx = w / 2;
+            const cy = h / 2;
+            const angle = Math.atan2(y - cy, x - cx);
+            const angleDeg = (angle * 180 / Math.PI + 360) % 360;
+            const reveal = 150;
+            const startReveal = (angleDeg - reveal + 360) % 360;
+            
+            var maskVal = 'conic-gradient(from ' + startReveal + 'deg at ' + cx + 'px ' + cy + 'px, ' +
+              'rgba(0,0,0,0) 0deg, ' +
+              'rgba(0,0,0,0.2) ' + (reveal * 0.2) + 'deg, ' +
+              'rgba(0,0,0,0.6) ' + (reveal * 0.5) + 'deg, ' +
+              'rgba(0,0,0,0.9) ' + (reveal * 0.8) + 'deg, ' +
+              'rgba(0,0,0,1) ' + reveal + 'deg, ' +
+              'rgba(0,0,0,0) ' + (reveal + 6) + 'deg)';
+            shinyEdge.style.webkitMaskImage = maskVal;
+            shinyEdge.style.maskImage = maskVal;
           }
         }
       } else {
         point.classList.remove('active');
         point.style.opacity = 0;
         
-        // Reset border when not active
-        if (borderRect) {
-          borderRect.style.strokeDashoffset = 1000;
+        if (shinyEdge) {
+          shinyEdge.style.webkitMaskImage = 'none';
+          shinyEdge.style.maskImage = 'none';
         }
       }
     });

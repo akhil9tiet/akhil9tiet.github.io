@@ -1439,6 +1439,32 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   opacity: 1;
   transform: scale(1.1);
 }
+
+/* ---- Projects Title: Larger + Thicker ---- */
+.projects .section-header {
+  font-weight: 900;
+  font-size: 80px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.12);
+  min-height: 95px;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+
+/* Typing cursor */
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: #333;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink-typing-cursor 0.65s step-end infinite;
+}
+
+@keyframes blink-typing-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
 </style>
 
 </head>
@@ -2377,8 +2403,94 @@ function initAIScrollytelling() {
   updateScrollProgress();
 }
 
+// ---- Realistic Typing Animation for Projects Title ----
+function initProjectsTitleTyping() {
+  var header = document.querySelector('.projects .section-header');
+  if (!header) return;
+
+  // The correct final text
+  var finalText = 'Projects';
+  // Build a sequence: each step is { action: 'type'|'delete', char: '...' }
+  // Realistic: type "Proje", then typo "tc", pause, backspace x2, then "cts"
+  var sequence = [
+    { action: 'type', char: 'P',  delay: 90 },
+    { action: 'type', char: 'r',  delay: 75 },
+    { action: 'type', char: 'o',  delay: 80 },
+    { action: 'type', char: 'j',  delay: 95 },
+    { action: 'type', char: 'e',  delay: 70 },
+    // typo: "tc" instead of "ct"
+    { action: 'type', char: 't',  delay: 65 },
+    { action: 'type', char: 'c',  delay: 60 },
+    // pause then backspace
+    { action: 'pause', delay: 420 },
+    { action: 'delete', delay: 80 },
+    { action: 'delete', delay: 75 },
+    // correct: "cts"
+    { action: 'pause', delay: 200 },
+    { action: 'type', char: 'c',  delay: 85 },
+    { action: 'type', char: 't',  delay: 70 },
+    { action: 'type', char: 's',  delay: 80 },
+    // done, remove cursor after a beat
+    { action: 'done', delay: 600 }
+  ];
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        observer.unobserve(header);
+        // Clear text only when entering viewport, then start typing
+        header.textContent = '';
+        var cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        header.appendChild(cursor);
+        runTypingSequence(header, sequence);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(header);
+}
+
+function runTypingSequence(el, steps) {
+  var current = '';
+  var i = 0;
+  var cursor = el.querySelector('.typing-cursor');
+
+  function next() {
+    if (i >= steps.length) return;
+    var step = steps[i];
+    i++;
+    if (step.action === 'type') {
+      current += step.char;
+      renderText(el, current, cursor);
+      setTimeout(next, step.delay + Math.random() * 40);
+    } else if (step.action === 'delete') {
+      current = current.slice(0, -1);
+      renderText(el, current, cursor);
+      setTimeout(next, step.delay + Math.random() * 30);
+    } else if (step.action === 'pause') {
+      setTimeout(next, step.delay);
+    } else if (step.action === 'done') {
+      setTimeout(function() {
+        if (cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      }, step.delay);
+    }
+  }
+
+  function renderText(el, text, cursor) {
+    // Keep only the text node + cursor
+    el.childNodes.forEach(function(n) {
+      if (n !== cursor) el.removeChild(n);
+    });
+    el.insertBefore(document.createTextNode(text), cursor);
+  }
+
+  next();
+}
+
 // Initialize AI Scrollytelling when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
+  initProjectsTitleTyping();
   // Pre-load the video to ensure it's ready for scroll control
   const video = document.getElementById('ai-video');
   if (video) {

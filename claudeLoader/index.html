@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClaudeCodeAnimation</title>
+
+  <style>
+    body {
+  margin: 0;
+  height: 100vh; /* Changed to 100vh to ensure centering works with the toggle */
+  padding: 40px;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column; /* Stack terminal and switch */
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  transition: background 0.3s ease;
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+  background: #fff;
+}
+
+body.light-mode .terminal {
+  background: #ffffff;
+  border-color: #ddd;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+}
+
+body.light-mode .output {
+  background: #fdfdfd;
+}
+
+body.light-mode .header, 
+body.light-mode .footer {
+  background: #f5f5f7;
+  border-color: #eee;
+  color: #666;
+}
+
+/* Existing Terminal Styles */
+.terminal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 680px;
+  background: #161618;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #333;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Resize Handles */
+.resize-handle {
+  position: absolute;
+  z-index: 10;
+}
+.resize-handle.top    { top: 0; left: 8px; right: 8px; height: 6px; cursor: n-resize; }
+.resize-handle.bottom { bottom: 0; left: 8px; right: 8px; height: 6px; cursor: s-resize; }
+.resize-handle.left   { left: 0; top: 8px; bottom: 8px; width: 6px; cursor: w-resize; }
+.resize-handle.right  { right: 0; top: 8px; bottom: 8px; width: 6px; cursor: e-resize; }
+.resize-handle.top-left     { top: 0; left: 0; width: 12px; height: 12px; cursor: nw-resize; }
+.resize-handle.top-right    { top: 0; right: 0; width: 12px; height: 12px; cursor: ne-resize; }
+.resize-handle.bottom-left  { bottom: 0; left: 0; width: 12px; height: 12px; cursor: sw-resize; }
+.resize-handle.bottom-right { bottom: 0; right: 0; width: 12px; height: 12px; cursor: se-resize; }
+
+/* ... keep all other terminal/output/spinner classes the same ... */
+.header { background: #111113; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; color: #ddd; font-size: 13px; letter-spacing: 1px; border-bottom: 1px solid #222; }
+.logo { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.dot { color: #d9702c; font-size: 18px; animation: breathe 3s ease-in-out infinite; }
+.status { color: #888; font-size: 12px; }
+.output { flex: 1; padding: 10px 32px 48px 32px; min-height: 60px; background: #0f0f11; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 18px; line-height: 1.45; color: #d9702c; display: flex; align-items: center; gap: 20px; }
+.spinner { display: inline-block; width: 28px; font-size: 24px; color: #ff7d24; }
+.current { background: #ff7d24; color: #ff7d24 !important; box-shadow: 0 0 12px #ff7d24; }
+.cursor { display: inline-block; width: 11px; height: 21px; background: #ff7d24; vertical-align: text-bottom; margin-left: 3px; box-shadow: 0 0 14px #ff7d24; }
+.footer { background: #111113; padding: 6px 24px; font-size: 11px; color: #555; text-align: right; border-top: 1px solid #222;}
+
+.rust { color: #ff7d24; }
+@keyframes breathe { 0%, 100% { opacity: 0.65; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.15); } }
+
+/* Switch Styling */
+.mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.label-text {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #555;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #222;
+  transition: .4s;
+  border-radius: 34px;
+  border: 1px solid #333;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #d9702c;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider { background-color: #ddd; border-color: #ccc; }
+input:checked + .slider:before { transform: translateX(18px); }
+
+/* Download Button */
+.download-btn {
+  margin-top: 24px;
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #888;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.download-btn:hover {
+  border-color: #ff7d24;
+  color: #ff7d24;
+}
+.download-btn.recording {
+  border-color: #e74c3c;
+  color: #e74c3c;
+  cursor: default;
+  animation: pulse-border 1s ease-in-out infinite;
+}
+@keyframes pulse-border { 50% { border-color: #ff7d2480; } }
+body.light-mode .download-btn { border-color: #ddd; color: #999; }
+body.light-mode .download-btn:hover { border-color: #ff7d24; color: #ff7d24; }
+
+/* Word Manager Panel */
+.word-panel {
+  position: fixed;
+  top: 56px;
+  right: 20px;
+  width: 240px;
+  background: #161618;
+  border: 1px solid #333;
+  border-radius: 10px;
+  z-index: 100;
+  font-size: 12px;
+  overflow: hidden;
+  transition: background 0.3s, border-color 0.3s;
+}
+.word-panel-header {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: #888;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #222;
+  user-select: none;
+}
+.word-panel-header:hover { color: #ccc; }
+.word-panel-body {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px;
+}
+.word-panel-body.collapsed { display: none; }
+.word-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+.word-item input {
+  flex: 1;
+  background: #0f0f11;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #d9702c;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.word-item input:focus { border-color: #ff7d24; }
+.word-btn {
+  background: none;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #666;
+  cursor: pointer;
+  padding: 3px 6px;
+  font-size: 11px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+.word-btn:hover { color: #ff7d24; border-color: #ff7d24; }
+.word-btn.del:hover { color: #e74c3c; border-color: #e74c3c; }
+.word-add-btn {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  background: none;
+  border: 1px dashed #333;
+  border-radius: 4px;
+  color: #555;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.word-add-btn:hover { color: #ff7d24; border-color: #ff7d24; }
+
+/* Username edit */
+.username-edit {
+  color: #555;
+  outline: none;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+  cursor: text;
+}
+.username-edit:hover { border-bottom-color: #555; }
+.username-edit:focus { border-bottom-color: #ff7d24; color: #888; }
+
+/* Light mode overrides for panel */
+body.light-mode .word-panel { background: #fff; border-color: #ddd; }
+body.light-mode .word-panel-header { border-bottom-color: #eee; }
+body.light-mode .word-item input { background: #f8f8f8; border-color: #ddd; }
+body.light-mode .word-btn { border-color: #ddd; color: #aaa; }
+body.light-mode .word-add-btn { border-color: #ddd; color: #aaa; }
+  </style>
+
+  
+</head>
+<body>
+  <div class="terminal" id="terminal">
+  <!-- Resize handles -->
+  <div class="resize-handle top" data-dir="n"></div>
+  <div class="resize-handle bottom" data-dir="s"></div>
+  <div class="resize-handle left" data-dir="w"></div>
+  <div class="resize-handle right" data-dir="e"></div>
+  <div class="resize-handle top-left" data-dir="nw"></div>
+  <div class="resize-handle top-right" data-dir="ne"></div>
+  <div class="resize-handle bottom-left" data-dir="sw"></div>
+  <div class="resize-handle bottom-right" data-dir="se"></div>
+
+  <div class="header">
+    <div class="logo">
+      <span class="dot">●</span>
+      Projects
+    </div>
+    <div class="status">CODE • CLI</div>
+  </div>
+
+  <div id="output" class="output"></div>
+  
+  <div class="footer">
+    <span id="date" class="rust"></span> • <span class="username-edit" id="username" contenteditable="true" spellcheck="false">sirhotsurface</span>
+  </div>
+</div>
+
+<button class="download-btn" id="download-btn">
+  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  DOWNLOAD AS MP4
+</button>
+
+<label class="mode-toggle">
+  <span class="label-text">DARK</span>
+  <div class="switch">
+    <input type="checkbox" id="mode-switch">
+    <span class="slider"></span>
+  </div>
+  <span class="label-text">LIGHT</span>
+</label>
+
+<!-- Word Manager Panel -->
+<div class="word-panel" id="word-panel">
+  <div class="word-panel-header" id="word-panel-toggle">
+    <span>WORDS</span>
+    <span id="panel-arrow">▼</span>
+  </div>
+  <div class="word-panel-body" id="word-panel-body"></div>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    const output = document.getElementById('output');
+
+function updateDate() {
+  const dateEl = document.getElementById('date');
+  const now = new Date();
+  const month = now.toLocaleString('default', { month: 'long' });
+  const day = String(now.getDate()).padStart(2, '0');
+  const year = now.getFullYear();
+  dateEl.textContent = `${month} ${day}, ${year}`;
+}
+
+updateDate();
+
+const SPEED = 1.0;
+let messages = [
+  "",
+  "Travelling...",
+  "Reflecting...",
+  "Calming...",
+  "Breathing...",
+  "Enjoying...",
+  "Meditating...",
+  "Exploring..."
+];
+
+function delay(ms) {
+  return new Promise(r => setTimeout(r, ms * SPEED));
+}
+
+let wrapper, spinner;
+
+function initStructure() {
+  output.innerHTML = '';
+  const container = document.createElement('div');
+  container.style.display = 'flex';
+  container.style.alignItems = 'center';
+  output.appendChild(container);
+
+  spinner = document.createElement('span');
+  spinner.className = 'spinner';
+  container.appendChild(spinner);
+
+  wrapper = document.createElement('div');
+  container.appendChild(wrapper);
+
+  const spinnerSymbols = ["·", "✢", "✶", "✽", "✽", "✶", "✢"];
+  let spinnerIndex = 0;
+  // Speed up interval to 80ms for smoother animation
+  setInterval(() => {
+    spinner.textContent = spinnerSymbols[spinnerIndex];
+    spinnerIndex = (spinnerIndex + 1) % spinnerSymbols.length;
+  }, 250); 
+}
+
+async function animateOverwrite(newText) {
+  const oldCursor = wrapper.querySelector('.cursor');
+  if (oldCursor) oldCursor.remove();
+
+  // Snapshot current spans and their characters
+  let spans = Array.from(wrapper.querySelectorAll('span:not(.cursor)'));
+  const oldTexts = spans.map(s => s.textContent);
+  const newLen = newText.length;
+  const oldLen = oldTexts.length;
+
+  // Pre-create any new spans needed for extra new characters
+  for (let i = oldLen; i < newLen; i++) {
+    const span = document.createElement('span');
+    span.textContent = '';
+    wrapper.appendChild(span);
+    spans.push(span);
+  }
+
+  // Helper: transform a span from its old char to a new char (runs concurrently)
+  function transformChar(span, oldChar, newChar) {
+    if (!span) return;
+    const isUpper = oldChar && oldChar === oldChar.toUpperCase() && oldChar !== oldChar.toLowerCase();
+    span.textContent = isUpper ? '.' : '_';
+    return delay(120).then(() => {
+      span.textContent = newChar;
+    });
+  }
+
+  // Helper: delete a span (runs concurrently)
+  function deleteChar(span, oldChar) {
+    if (!span) return;
+    const isUpper = oldChar && oldChar === oldChar.toUpperCase() && oldChar !== oldChar.toLowerCase();
+    span.textContent = isUpper ? '.' : '_';
+    return delay(120).then(() => span.remove());
+  }
+
+  const totalSteps = Math.max(newLen, oldLen);
+
+  for (let i = 0; i <= totalSteps; i++) {
+    // 1. Remove .current from the previous span (cursor leaves it)
+    if (i > 0 && spans[i - 1]) {
+      spans[i - 1].classList.remove('current');
+    }
+
+    // 2. Simultaneously transform/delete the previous character (no await — runs in bg)
+    if (i > 0) {
+      const prevSpan = spans[i - 1];
+      const oldChar = oldTexts[i - 1] || '';
+      if (i - 1 < newLen) {
+        transformChar(prevSpan, oldChar, newText[i - 1]);
+      } else {
+        deleteChar(prevSpan, oldChar);
+      }
+    }
+
+    // 3. Move cursor to current span (if still within range)
+    if (i < totalSteps && spans[i]) {
+      // New spans that don't have a character yet show '_' as placeholder under cursor
+      if (i >= oldLen) spans[i].textContent = '_';
+      spans[i].classList.add('current');
+    }
+
+    await delay(90);
+  }
+
+  // Add the blinking-free cursor at the end (will be removed by runAnimation)
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  cursor.innerHTML = '&nbsp;';
+  wrapper.appendChild(cursor);
+}
+
+async function runAnimation() {
+  initStructure();
+  let i = 0;
+  while (true) {
+    await animateOverwrite(messages[i]);
+    // Remove cursor after a brief hold once word is finished
+    await delay(300);
+    const lastCursor = wrapper.querySelector('.cursor');
+    if (lastCursor) lastCursor.remove();
+    
+    i = (i + 1) % messages.length;
+    await delay(1800);
+  }
+}
+
+runAnimation();
+
+// Dark/Light mode toggle
+const modeSwitch = document.getElementById('mode-switch');
+modeSwitch.addEventListener('change', () => {
+  document.body.classList.toggle('light-mode', modeSwitch.checked);
+});
+
+
+// Drag-to-resize
+(function() {
+  const terminal = document.getElementById('terminal');
+  const MIN_W = 320, MIN_H = 100;
+  let dragging = false, dir, startX, startY, startW, startH;
+
+  terminal.querySelectorAll('.resize-handle').forEach(handle => {
+    handle.addEventListener('mousedown', e => {
+      e.preventDefault();
+      dragging = true;
+      dir = handle.dataset.dir;
+      startX = e.clientX;
+      startY = e.clientY;
+      startW = terminal.offsetWidth;
+      startH = terminal.offsetHeight;
+      document.body.style.cursor = getComputedStyle(handle).cursor;
+      document.body.style.userSelect = 'none';
+    });
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if (dir.includes('e')) terminal.style.width = Math.max(MIN_W, startW + dx) + 'px';
+    if (dir.includes('w')) terminal.style.width = Math.max(MIN_W, startW - dx) + 'px';
+    if (dir.includes('s')) terminal.style.height = Math.max(MIN_H, startH + dy) + 'px';
+    if (dir.includes('n')) terminal.style.height = Math.max(MIN_H, startH - dy) + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
+})();
+
+// Download as video recording
+(function() {
+  const btn = document.getElementById('download-btn');
+  const terminal = document.getElementById('terminal');
+  const DURATION = 10; // seconds
+  let isRecording = false;
+
+  btn.addEventListener('click', async () => {
+    if (isRecording) return;
+
+    // Check html2canvas loaded
+    if (typeof html2canvas === 'undefined') {
+      alert('html2canvas library failed to load. Check your internet connection and refresh.');
+      return;
+    }
+
+    isRecording = true;
+    btn.classList.add('recording');
+    const origHTML = btn.innerHTML;
+
+    try {
+      // Create canvas at 2x for crisp output
+      const rect = terminal.getBoundingClientRect();
+      const scale = 2;
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(rect.width * scale);
+      canvas.height = Math.round(rect.height * scale);
+      const ctx = canvas.getContext('2d');
+
+      // Pick a supported mimeType
+      const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+        ? 'video/webm;codecs=vp9'
+        : 'video/webm';
+
+      // Start recorder with timeslice so data is collected periodically
+      const stream = canvas.captureStream(30);
+      const recorder = new MediaRecorder(stream, {
+        mimeType,
+        videoBitsPerSecond: 5000000
+      });
+      const chunks = [];
+      recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+      recorder.start(200); // collect data every 200ms
+
+      const startTime = performance.now();
+
+      // Sequential frame capture loop — awaits each frame before starting the next
+      const captureLoop = async () => {
+        while (true) {
+          const elapsed = performance.now() - startTime;
+          if (elapsed >= DURATION * 1000) break;
+
+          // Capture frame
+          try {
+            const c = await html2canvas(terminal, {
+              backgroundColor: null,
+              scale: scale,
+              logging: false,
+              useCORS: true,
+              allowTaint: true
+            });
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(c, 0, 0, canvas.width, canvas.height);
+          } catch (e) {
+            console.warn('Frame capture failed:', e);
+          }
+
+          // Update countdown
+          const remaining = Math.max(0, DURATION - Math.floor(elapsed / 1000));
+          btn.textContent = `⏺ RECORDING ${remaining}s`;
+
+          // Small delay to let the browser breathe
+          await new Promise(r => setTimeout(r, 50));
+        }
+      };
+
+      await captureLoop();
+
+      // Stop recorder and wait for it to finish
+      recorder.stop();
+      await new Promise(resolve => { recorder.onstop = resolve; });
+
+      // Download
+      if (chunks.length === 0) {
+        alert('Recording produced no data. Please try again.');
+      } else {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'claude-animation.webm';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+    } catch (err) {
+      console.error('Recording error:', err);
+      alert('Recording failed: ' + err.message);
+    }
+
+    btn.classList.remove('recording');
+    btn.innerHTML = origHTML;
+    isRecording = false;
+  });
+})();
+
+// Word Manager Panel
+(function() {
+  const panelBody = document.getElementById('word-panel-body');
+  const panelToggle = document.getElementById('word-panel-toggle');
+  const panelArrow = document.getElementById('panel-arrow');
+
+  // Toggle collapse
+  panelToggle.addEventListener('click', () => {
+    panelBody.classList.toggle('collapsed');
+    panelArrow.textContent = panelBody.classList.contains('collapsed') ? '▶' : '▼';
+  });
+
+  function renderWords() {
+    panelBody.innerHTML = '';
+    messages.forEach((msg, idx) => {
+      const row = document.createElement('div');
+      row.className = 'word-item';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = msg;
+      input.placeholder = '(empty)';
+      input.addEventListener('input', () => { messages[idx] = input.value; });
+
+      const upBtn = document.createElement('button');
+      upBtn.className = 'word-btn';
+      upBtn.textContent = '▲';
+      upBtn.title = 'Move up';
+      upBtn.disabled = idx === 0;
+      upBtn.addEventListener('click', () => {
+        if (idx > 0) { [messages[idx - 1], messages[idx]] = [messages[idx], messages[idx - 1]]; renderWords(); }
+      });
+
+      const downBtn = document.createElement('button');
+      downBtn.className = 'word-btn';
+      downBtn.textContent = '▼';
+      downBtn.title = 'Move down';
+      downBtn.disabled = idx === messages.length - 1;
+      downBtn.addEventListener('click', () => {
+        if (idx < messages.length - 1) { [messages[idx], messages[idx + 1]] = [messages[idx + 1], messages[idx]]; renderWords(); }
+      });
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'word-btn del';
+      delBtn.textContent = '✕';
+      delBtn.title = 'Remove';
+      delBtn.addEventListener('click', () => {
+        messages.splice(idx, 1);
+        if (messages.length === 0) messages.push('');
+        renderWords();
+      });
+
+      row.appendChild(input);
+      row.appendChild(upBtn);
+      row.appendChild(downBtn);
+      row.appendChild(delBtn);
+      panelBody.appendChild(row);
+    });
+
+    // Add button
+    const addBtn = document.createElement('button');
+    addBtn.className = 'word-add-btn';
+    addBtn.textContent = '+ ADD WORD';
+    addBtn.addEventListener('click', () => {
+      messages.push('');
+      renderWords();
+      // Focus the new input
+      const inputs = panelBody.querySelectorAll('input');
+      if (inputs.length) inputs[inputs.length - 1].focus();
+    });
+    panelBody.appendChild(addBtn);
+  }
+
+  renderWords();
+})();
+  </script>
+</body>
+</html>

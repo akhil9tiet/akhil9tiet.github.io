@@ -175,7 +175,7 @@ body.light-mode .download-btn:hover { border-color: #ff7d24; color: #ff7d24; }
   position: fixed;
   top: 56px;
   right: 20px;
-  width: 240px;
+  width: 380px;
   background: #161618;
   border: 1px solid #333;
   border-radius: 10px;
@@ -183,6 +183,19 @@ body.light-mode .download-btn:hover { border-color: #ff7d24; color: #ff7d24; }
   font-size: 12px;
   overflow: hidden;
   transition: background 0.3s, border-color 0.3s;
+}
+
+/* Responsive: Smaller on tablets and mobile */
+@media (max-width: 768px) {
+  .word-panel {
+    width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-panel {
+    width: 200px;
+  }
 }
 .word-panel-header {
   padding: 10px 14px;

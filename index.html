@@ -324,6 +324,33 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
   51%, 100% { opacity: 0; }
 }
 
+/* ===== Fixed Logo ===== */
+.fixed-logo {
+  position: fixed;
+  top: 28px;
+  left: 28px;
+  z-index: 9999;
+  opacity: 0.7;
+  mix-blend-mode: difference;
+  width: auto;
+  height: 180px;
+  pointer-events: none;
+}
+
+/* Tablet view */
+@media (max-width: 768px) {
+  .fixed-logo {
+    height: 100px;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 480px) {
+  .fixed-logo {
+    height: 70px;
+  }
+}
+
 /* ===== Hamburger Button ===== */
 .hamburger {
   position: fixed;
@@ -1740,6 +1767,9 @@ body.nav-open {
 </head>
 
 <body data-gr-c-s-loaded= "true">
+	<!-- Fixed Logo (top left) -->
+	<img src="otherFileFolder/images/logo.png" alt="Logo" class="fixed-logo">
+
 	<!-- Hamburger Button (fixed, always visible) -->
 	<button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
 		<span class="hamburger__line"></span>

@@ -260,7 +260,6 @@
 <!-- Preconnect for Performance -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.google-analytics.com">
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
@@ -268,55 +267,35 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#6366f1">
 
-<!-- Latest compiled and minified CSS -->
+<!-- Critical CSS - Bootstrap and Main -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<!-- Optimized Font Loading -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@300;400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@300;400;600;700;800&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700|Poppins:wght@700|Coda&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700|Poppins:wght@700|Coda&display=swap">
+
+<!-- Defer non-critical CSS -->
+<link rel="preload" as="style" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></noscript>
+
+<link rel="preload" as="style" href="css/blockreveal/normalize.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/blockreveal/normalize.css"></noscript>
+<link rel="preload" as="style" href="css/blockreveal/demo.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/blockreveal/demo.css"></noscript>
+<link rel="preload" as="style" href="css/blockreveal/revealer.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/blockreveal/revealer.css"></noscript>
+<link rel="preload" as="style" href="css/blockreveal/pater.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/blockreveal/pater.css"></noscript>
 
 <link rel="shortcut icon" type="image/png" href="./otherFileFolder/images/ag1.png">
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<!--BLOCK REVEAL-->
 <link rel="shortcut icon" href="favicon.ico">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Poppins:700" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/blockreveal/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/blockreveal/demo.css" />
-<link rel="stylesheet" type="text/css" href="css/blockreveal/revealer.css" />
-<link rel="stylesheet" type="text/css" href="css/blockreveal/pater.css" />
-<!---->
 
-<link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DPP72KHXQ8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DPP72KHXQ8');
-</script>
-
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1398015018457496');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+<!-- Defer non-critical scripts -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" defer></script>
 
 <style>
 @keyframes blink {
@@ -1844,7 +1823,7 @@ body.nav-open {
       <div class="col-md-4 col-xs-12">
         <div class="grid">
           <figure class="effect-sadie">
-            <img src="./otherFileFolder/images/ClaudeLoader.png" alt="./otherFileFolder/images/ag.png">
+            <img src="./otherFileFolder/images/ClaudeLoader.png" alt="./otherFileFolder/images/ag.png" loading="lazy">
             <figcaption>
               <h2 style="color: #424149">Claude Loader<span></span></h2>
               <p>React + D3<br>
@@ -1859,7 +1838,7 @@ body.nav-open {
       <div class="col-md-4 col-xs-12">
         <div class="grid">
           <figure class="effect-sadie">
-            <img src="./otherFileFolder/images/lyricalMatrix.jpg" alt="./otherFileFolder/images/ag.png">
+            <img src="./otherFileFolder/images/lyricalMatrix.jpg" alt="./otherFileFolder/images/ag.png" loading="lazy">
             <figcaption>
               <h2 style="color: white">Lyrical Matrix<span></span></h2>
               <p>React + D3<br>
@@ -1873,7 +1852,7 @@ body.nav-open {
       <div class="col-md-4 col-xs-12">
         <div class="grid">
           <figure class="effect-sadie">
-            <img src="./otherFileFolder/images/chritopherNolan.png" alt="./otherFileFolder/images/ag.png">
+            <img src="./otherFileFolder/images/chritopherNolan.png" alt="./otherFileFolder/images/ag.png" loading="lazy">
             <figcaption>
               <h2 style="color: white">Christopher Nolan Movies Emotion Arc<span></span></h2>
               <p>React + D3 + WebGL + Gemini<br>
@@ -1887,7 +1866,7 @@ body.nav-open {
       <div class="col-md-4 col-xs-12">
         <div class="grid">
           <figure class="effect-sadie">
-            <img src="./otherFileFolder/images/visualization.png" alt="./otherFileFolder/images/ag.png">
+            <img src="./otherFileFolder/images/visualization.png" alt="./otherFileFolder/images/ag.png" loading="lazy">
             <figcaption>
               <h2 style="color: #424149">Average H1B Salaries<span></span></h2>
               <p>React + D3<br>
@@ -1932,10 +1911,10 @@ body.nav-open {
 <!-- AI Intro Section with Title -->
 <div id="AI" class="ai-intro-section">
   <div class="ai-intro-background">
-    <img src="./otherFileFolder/images/ai_engineering.png" alt="">
+    <img src="./otherFileFolder/images/ai_engineering.png" alt="" loading="lazy">
   </div>
   <div class="ai-intro-content">
-    <img src="./otherFileFolder/images/ai_engineering.png" alt="AI Engineering" class="ai-intro-image">
+    <img src="./otherFileFolder/images/ai_engineering.png" alt="AI Engineering" class="ai-intro-image" loading="lazy">
   </div>
 </div>
 
@@ -2926,6 +2905,33 @@ document.addEventListener('DOMContentLoaded', function() {
   initAIScrollytelling();
 });
 </script>
+
+<!-- Deferred Analytics Scripts - loaded after page content -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DPP72KHXQ8"></script>
+<script defer>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DPP72KHXQ8');
+</script>
+
+<!-- Meta Pixel Code -->
+<script defer>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1398015018457496');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
+/></noscript>
 
 </body>
 

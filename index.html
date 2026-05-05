@@ -300,9 +300,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700|Poppins:wght@700|Coda&display=swap">
 
 <!-- Defer non-critical CSS -->
-<link rel="preload" as="style" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></noscript>
-
 <link rel="preload" as="style" href="css/blockreveal/normalize.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="css/blockreveal/normalize.css"></noscript>
 <link rel="preload" as="style" href="css/blockreveal/demo.css" onload="this.onload=null;this.rel='stylesheet'">
@@ -314,10 +311,6 @@
 
 <link rel="shortcut icon" type="image/png" href="./otherFileFolder/images/ag1.png">
 <link rel="shortcut icon" href="favicon.ico">
-
-<!-- Defer non-critical scripts -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" defer></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" defer></script>
 
 <style>
 @keyframes blink {
@@ -759,16 +752,6 @@ body.nav-open {
   background: #0a0a0a;
 }
 
-.ai-intro-background {
-  display: none;
-}
-
-.ai-intro-background img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .ai-intro-content {
   position: relative;
   z-index: 1;
@@ -910,14 +893,6 @@ body.nav-open {
   flex-direction: column;
   align-items: flex-end;
   gap: 20px;
-}
-
-.ai-progress-track {
-  display: none;
-}
-
-.ai-progress-fill {
-  display: none;
 }
 
 .ai-progress-dots {
@@ -1181,76 +1156,6 @@ body.nav-open {
   position: relative;
   opacity: 1;
   transform: translateY(0);
-}
-
-.neuro-header.glitch-animate {
-  animation: glitchEntry 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-@keyframes glitchEntry {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -2px 0 #ff00ff,
-      2px 0 #00ffff;
-  }
-  10% {
-    opacity: 0.3;
-    transform: translateY(20px) scale(0.98) skewX(2deg);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -4px 0 #ff00ff,
-      4px 0 #00ffff;
-  }
-  20% {
-    opacity: 0.6;
-    transform: translateY(10px) scale(1.02) skewX(-1deg);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -2px 0 #ff00ff,
-      2px 0 #00ffff,
-      0 0 10px rgba(255, 0, 255, 0.3);
-  }
-  30% {
-    opacity: 0.4;
-    transform: translateY(5px) scale(0.99) skewX(1deg);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -6px 0 #ff00ff,
-      6px 0 #00ffff;
-  }
-  40% {
-    opacity: 0.8;
-    transform: translateY(2px) scale(1.01);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -1px 0 #ff00ff,
-      1px 0 #00ffff;
-  }
-  60% {
-    opacity: 0.9;
-    transform: translateY(0) scale(1) skewX(-0.5deg);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -3px 0 #ff00ff,
-      3px 0 #00ffff,
-      0 0 5px rgba(0, 255, 255, 0.2);
-  }
-  80% {
-    opacity: 0.95;
-    transform: translateY(0) scale(1) skewX(0.2deg);
-    text-shadow: 
-      2px 2px 4px rgba(255, 255, 255, 0.8),
-      -1px 0 #ff00ff,
-      1px 0 #00ffff;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) skewX(0deg);
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-  }
 }
 
 .skills-grid {
@@ -1658,22 +1563,6 @@ body.nav-open {
   font-size: 1.8rem;
 }
 
-.category-python .marquee {
-  background: transparent;
-}
-
-.category-js .marquee {
-  background: transparent;
-}
-
-.category-data .marquee {
-  background: transparent;
-}
-
-.category-tools .marquee {
-  background: transparent;
-}
-
 @media (max-width: 768px) {
   .marquee-header {
     font-size: 2.5rem;
@@ -1932,9 +1821,6 @@ body.nav-open {
 
 <!-- AI Intro Section with Title -->
 <div id="AI" class="ai-intro-section">
-  <div class="ai-intro-background">
-    <img src="./otherFileFolder/images/ai_engineering.png" alt="" loading="lazy">
-  </div>
   <div class="ai-intro-content">
     <img src="./otherFileFolder/images/ai_engineering.png" alt="AI Engineering" class="ai-intro-image" loading="lazy">
   </div>
@@ -2505,14 +2391,10 @@ function initAIScrollytelling() {
   
   const storyPoints = document.querySelectorAll('.ai-story-point');
   const progressDots = document.querySelectorAll('.ai-progress-dot');
-  const gifImage = document.getElementById('ai-gif');
   const scrollContent = document.querySelector('.ai-scroll-content');
   const backgroundContainer = document.querySelector('.ai-background-container');
   const staticSection = document.querySelector('.ai-static-section');
   const introSection = document.querySelector('.ai-intro-section');
-  
-  // Store original GIF src for animation restart
-  const originalGifSrc = gifImage ? gifImage.src : '';
   
   function updateScrollProgress() {
     const sectionRect = aiSection.getBoundingClientRect();
@@ -2578,7 +2460,6 @@ function initAIScrollytelling() {
       
       // Control video playback based on scroll
       const video = document.getElementById('ai-video');
-      const gifFallback = document.getElementById('ai-gif');
       
       if (video) {
         // Map scroll progress to video time
@@ -2928,7 +2809,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Deferred Analytics Scripts - loaded after page content -->
+<!-- Analytics Scripts - deferred for performance -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPP72KHXQ8"></script>
 <script defer>
@@ -2939,7 +2820,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- Meta Pixel Code -->
-<script defer>
+<script async>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};

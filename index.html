@@ -1584,7 +1584,7 @@ body.nav-open {
   }
 }
 
-/* Contact Section - Simple Static */
+/* Contact Section - Two Column Layout */
 #contact {
   position: relative;
   min-height: 60vh;
@@ -1593,20 +1593,38 @@ body.nav-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%);
+  background: #3857f6;
   padding: 80px 20px;
+  overflow: hidden;
 }
 
 #contact .container {
   position: relative;
   z-index: 10;
-  max-width: 600px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+#contact .contact-content {
+  flex: 1;
+  text-align: left;
+}
+
+#contact .contact-content.clip-card {
+  padding: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 #contact .section-header {
-  color: #fff;
+  color: #FFFFFF;
   font-size: 3rem;
   margin-bottom: 2rem;
   font-weight: 300;
@@ -1614,25 +1632,38 @@ body.nav-open {
 }
 
 #contact .contact-info {
-  color: rgba(255, 255, 255, 0.9);
+  color: #7EC8FF;
   font-size: 1.6rem;
-  line-height: 2;
+  line-height: 2.5;
+}
+
+#contact .contact-info p {
+  margin: 0.5rem 0;
+  position: relative;
+  min-height: 1.8em;
 }
 
 #contact .contact-info a {
-  color: #64b5f6;
+  color: #FFFFFF;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 #contact .contact-info a:hover {
-  color: #fff;
+  color: #7EC8FF;
+}
+
+/* Shuffle animation for name, email and phone */
+.typing-text {
+  display: inline;
+  position: relative;
+}
 }
 
 #contact .social-links {
   margin-top: 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 20px;
 }
 
@@ -1645,6 +1676,51 @@ body.nav-open {
 #contact .social-links a img:hover {
   opacity: 1;
   transform: scale(1.1);
+}
+
+#contact .video-container {
+  flex: 0 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+}
+
+#contact .video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  #contact .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  #contact .contact-content {
+    text-align: left;
+  }
+  
+  #contact .section-header {
+    font-size: 2rem;
+  }
+  
+  #contact .contact-info {
+    font-size: 1.2rem;
+  }
+  
+  #contact .social-links {
+    justify-content: flex-start;
+  }
+  
+  #contact .video-container {
+    width: 250px;
+    height: 250px;
+  }
 }
 
 /* ---- Projects Title: Larger + Thicker ---- */
@@ -1672,7 +1748,40 @@ body.nav-open {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* Clip Hover Effect Styles */
+.contact-content {
+  cursor: pointer;
+}
+
+.contact-content-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-content-slice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.contact-section-header {
+  display: inline-block;
+  position: relative;
+}
+
+@keyframes char-shuffle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
 </style>
+
+<!-- GSAP and Splitting libraries for clip effect -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
 
 </head>
 
@@ -2276,14 +2385,23 @@ body.nav-open {
 	<!--.................Contact....................-->
 <div id="contact" class="section contact">
 	<div class="container">
-		<h3 class="section-header">Contact</h3>
-		<div class="contact-info">
-			<p><a href="mailto:akhil****@gmail.com">akhil****@gmail.com</a></p>
-			<p>+1 (***) ***-7867</p>
+		<div class="contact-content clip-card">
+			<h3 class="section-header">Contact</h3>
+			<div class="contact-info">
+				<p><span class="typing-text" data-text="Akhil Gupta">Akhil Gupta</span></p>
+				<p><a href="mailto:akhil****@gmail.com"><span class="typing-text" data-text="akhil****@gmail.com">akhil****@gmail.com</span></a></p>
+				<p><span class="typing-text" data-text="+1 (***) ***-7867">+1 (***) ***-7867</span></p>
+			</div>
+			<div class="social-links">
+				<a href="https://github.com/akhil9tiet"><img src="./otherFileFolder/icons/github.png" alt="GitHub"></a>
+				<a href="https://in.linkedin.com/in/akhil-gupta"><img src="./otherFileFolder/icons/linkedin.png" alt="LinkedIn"></a>
+			</div>
 		</div>
-		<div class="social-links">
-			<a href="https://github.com/akhil9tiet"><img src="./otherFileFolder/icons/github.png" alt="GitHub"></a>
-			<a href="https://in.linkedin.com/in/akhil-gupta"><img src="./otherFileFolder/icons/linkedin.png" alt="LinkedIn"></a>
+		<div class="video-container">
+			<video autoplay muted loop playsinline>
+				<source src="./otherFileFolder/images/earth.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video>
 		</div>
     </div>
 </div>
@@ -2297,6 +2415,103 @@ body.nav-open {
 			[].slice.call( document.querySelectorAll('a[href="#"') ).forEach( function(el) {
 				el.addEventListener( 'click', function(ev) { ev.preventDefault(); } );
 			} );
+</script>
+
+<!-- Clip Hover Effect for Contact Section -->
+<script>
+const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+
+function shuffleText(element) {
+  const finalText = element.getAttribute('data-text');
+  const length = finalText.length;
+  let currentText = '';
+  let iterations = 0;
+  const maxIterations = 15;
+  
+  // Create random initial text
+  for (let i = 0; i < length; i++) {
+    currentText += randomChars[Math.floor(Math.random() * randomChars.length)];
+  }
+  element.innerHTML = currentText;
+  
+  const shuffleInterval = setInterval(() => {
+    let newText = '';
+    
+    for (let i = 0; i < length; i++) {
+      if (iterations / maxIterations > Math.random()) {
+        // Show final character
+        newText += finalText[i];
+      } else {
+        // Show random character
+        newText += randomChars[Math.floor(Math.random() * randomChars.length)];
+      }
+    }
+    
+    element.innerHTML = newText;
+    iterations++;
+    
+    if (iterations >= maxIterations) {
+      clearInterval(shuffleInterval);
+      element.innerHTML = finalText;
+    }
+  }, 50);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const typingElements = document.querySelectorAll('.typing-text');
+  const clipCard = document.querySelector('.clip-card');
+  let hasAnimatedOnce = false;
+  
+  // Intersection Observer to trigger animation when contact section comes into view
+  const observerOptions = {
+    threshold: 0.3
+  };
+  
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimatedOnce) {
+        hasAnimatedOnce = true;
+        typingElements.forEach(element => {
+          shuffleText(element);
+        });
+      }
+    });
+  }, observerOptions);
+  
+  if (clipCard) {
+    observer.observe(clipCard);
+  }
+  
+  // Initialize display with final text
+  typingElements.forEach(element => {
+    element.innerHTML = element.getAttribute('data-text');
+  });
+  
+  // Hover effect
+  if (clipCard) {
+    clipCard.addEventListener('mouseenter', () => {
+      typingElements.forEach(element => {
+        shuffleText(element);
+      });
+      
+      gsap.timeline()
+        .to(clipCard, {
+          duration: 0.6,
+          ease: 'expo.inOut',
+          scale: 1.02
+        }, 0);
+    });
+
+    clipCard.addEventListener('mouseleave', () => {
+      gsap.timeline()
+        .to(clipCard, {
+          duration: 0.6,
+          ease: 'expo.inOut',
+          scale: 1
+        }, 0);
+    });
+  }
+});
 </script>
 
 

@@ -3023,15 +3023,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Analytics Scripts - deferred for performance -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DPP72KHXQ8"></script>
-<script defer>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-DPP72KHXQ8');
-</script>
+<!-- Analytics and interaction telemetry -->
+<script src="js/telemetry.js" defer></script>
 
 <!-- Meta Pixel Code -->
 <script async>

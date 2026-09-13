@@ -1,2 +1,4 @@
 markdown: kramdown
-baseurl: /#
+url: https://akhil9tiet.github.io
+baseurl: ""
+permalink: pretty

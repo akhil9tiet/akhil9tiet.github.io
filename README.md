@@ -87,10 +87,9 @@ akhil9tiet.github.io/
 │   └── blockreveal/          # Animation CSS files
 ├── 📁 js/                     # JavaScript files
 │   └── blockreveal/          # Animation JS libraries
-├── 📁 otherFileFolder/        # Assets and resources
-│   ├── 🖼️ images/            # Images and graphics
-│   ├── 🎨 icons/             # Social media icons
-│   └── 📂 projects/          # Project files
+├── 📁 assets/                    # Images, videos, and icons
+│   ├── 🖼️ images/            # Images, graphics, and videos
+│   └── 🎨 icons/             # Social media icons
 ├── 📁 _layouts/              # Jekyll layouts (optional)
 ├── 📁 _includes/             # Jekyll includes (optional)
 ├── 📁 _sass/                 # Sass files (optional)

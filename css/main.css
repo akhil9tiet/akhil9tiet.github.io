@@ -4,7 +4,7 @@ body{
 }
 
 .hero{
-	background: url('../otherFileFolder/images/social1.jpg') no-repeat center fixed;
+	background: url('../assets/images/social1.jpg') no-repeat center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -38,7 +38,7 @@ body{
 
 /*........................Projects......................*/
 .projects{
-	background-image: url("../otherFileFolder/images/Subtle.jpg");
+	background-image: url("../assets/images/Subtle.jpg");
 }
 
 .project-tile{

@@ -11,7 +11,7 @@ Sitemap: https://akhil9tiet.github.io/sitemap.xml
 Allow: /
 Allow: /css/
 Allow: /js/
-Allow: /otherFileFolder/
+Allow: /assets/
 
 # Block unnecessary files
 Disallow: /*.json$

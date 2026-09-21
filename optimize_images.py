@@ -8,10 +8,10 @@ import sys
 
 # Images to optimize with target quality/compression
 images_to_optimize = {
-    'otherFileFolder/images/arrow.png': {'quality': 80, 'resize_factor': 0.6},
-    'otherFileFolder/images/visualization.png': {'quality': 80, 'resize_factor': 0.7},
-    'otherFileFolder/images/chritopherNolan.png': {'quality': 80, 'resize_factor': 0.7},
-    'otherFileFolder/images/ClaudeLoader.png': {'quality': 85, 'resize_factor': 0.8},
+    'assets/images/arrow.png': {'quality': 80, 'resize_factor': 0.6},
+    'assets/images/visualization.png': {'quality': 80, 'resize_factor': 0.7},
+    'assets/images/chritopherNolan.png': {'quality': 80, 'resize_factor': 0.7},
+    'assets/images/ClaudeLoader.png': {'quality': 85, 'resize_factor': 0.8},
 }
 
 def optimize_image(image_path, quality=80, resize_factor=1.0):

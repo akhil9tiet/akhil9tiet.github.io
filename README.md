@@ -14,6 +14,10 @@
 
 A modern, responsive personal portfolio website featuring cutting-edge animations, neumorphic design elements, and interactive components. Built with vanilla HTML5, CSS3, and JavaScript for optimal performance and compatibility.
 
+The Experience section showcases logos for Tesla, Microsoft, Visa, University of Maryland, and Deloitte.
+
+Logo sources: [Tesla wordmark by FDRMRZUSA](https://commons.wikimedia.org/wiki/File:Tesla,_Inc._-_Logo_(black_script_version).svg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); Microsoft, Visa, and Deloitte from Wikimedia Commons; University of Maryland wordmark from [UMD Brand](https://brand.umd.edu/logos).
+
 <details>
 <summary>🎯 <strong>Click to see Key Features</strong></summary>
 
@@ -163,6 +167,7 @@ php -S localhost:8000
 1. **Personal Information**: Edit contact details in the `#contact` section
 2. **Projects**: Update project descriptions and links in the `#projects` section
 3. **About**: Update the hero section with your information
+4. **Experience logos**: Update the company logo row in the `#experience` section
 
 ### 🎨 Styling Changes
 1. **Colors**: Modify CSS custom properties in the `<style>` section

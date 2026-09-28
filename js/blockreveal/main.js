@@ -183,11 +183,13 @@
 			animationSettings = {
 				delay: revealSettings.delay || defaults.delay,
 				complete: function() {
-					self.revealer.style.WebkitTransformOrigin = self.revealer.style.transformOrigin = transformSettings.origin.halfway;		
+					self.revealer.style.WebkitTransformOrigin = self.revealer.style.transformOrigin = transformSettings.origin.halfway;
 					if( typeof revealSettings.onCover === 'function' ) {
 						revealSettings.onCover(self.content, self.revealer);
 					}
-					anime(animationSettings_2);		
+					setTimeout(function() {
+						anime(animationSettings_2);
+					}, revealSettings.hold || 0);
 				}
 			};
 

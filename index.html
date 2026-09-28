@@ -5,6 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script>document.documentElement.classList.add('js');</script>
+
 <!-- SEO: Title Tag -->
 <title>Akhil Gupta | Senior AI Engineer for Hire | ML, LLM & Full Stack Expert | Mountain View, CA</title>
 
@@ -316,6 +318,11 @@
 <link rel="shortcut icon" href="fav-icon.ico">
 
 <style>
+.js #rev-1:not(.block-revealer),
+.js #rev-2:not(.block-revealer) {
+  visibility: hidden;
+}
+
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
@@ -1809,40 +1816,35 @@ $('a[href*="#"]')
 <script src="js/blockreveal/main.js"></script>
 <script>
 (function() {
-  // Fake loading.
-  setTimeout(init, 1000);
-
-  function init() {
-    document.body.classList.remove('loading');
-
-    var rev1 = new RevealFx(document.querySelector('#rev-1'), {
-      revealSettings : {
-        bgcolor: '#444745',
-        onCover: function(contentEl, revealerEl) {
-          contentEl.style.opacity = 1;
-        }
+  var rev1 = new RevealFx(document.querySelector('#rev-1'), {
+    revealSettings : {
+      bgcolor: '#444745',
+      hold: 1000,
+      onCover: function(contentEl, revealerEl) {
+        contentEl.style.opacity = 1;
       }
-    });
-    rev1.reveal();
+    }
+  });
+  rev1.reveal();
 
-    var rev2 = new RevealFx(document.querySelector('#rev-2'), {
-      revealSettings : {
-        bgcolor: '#fff200',
-        delay: 250,
-        onCover: function(contentEl, revealerEl) {
-          contentEl.style.opacity = 1;
-          // Show cursor after animation completes
-          setTimeout(() => {
-            const cursor = document.getElementById('cursor');
-            if (cursor) {
-              cursor.style.opacity = 1;
-            }
-          }, 200);
-        }
+  var rev2 = new RevealFx(document.querySelector('#rev-2'), {
+    revealSettings : {
+      bgcolor: '#fff200',
+      delay: 250,
+      hold: 1000,
+      onCover: function(contentEl, revealerEl) {
+        contentEl.style.opacity = 1;
+        // Show cursor after animation completes
+        setTimeout(() => {
+          const cursor = document.getElementById('cursor');
+          if (cursor) {
+            cursor.style.opacity = 1;
+          }
+        }, 200);
       }
-    });
-    rev2.reveal();
-  }
+    }
+  });
+  rev2.reveal();
 })();
 </script>
 

@@ -1182,7 +1182,7 @@ body.nav-open {
 
 .project-list-title {
   display: block;
-  font-size: 1.12rem;
+  font-size: 1.3rem;
   font-weight: 800;
 }
 
@@ -1190,7 +1190,33 @@ body.nav-open {
   display: block;
   margin-top: 0.25rem;
   color: var(--project-muted);
-  font-size: 0.9rem;
+  font-size: 1rem;
+}
+
+.project-list-title::after {
+  content: '';
+  display: none;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.18em;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: project-cursor-blink 0.8s steps(1, end) infinite;
+}
+
+.project-list button:hover .project-list-title::after,
+.project-list button:focus-visible .project-list-title::after {
+  display: inline-block;
+}
+
+@keyframes project-cursor-blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-list-title::after {
+    animation: none;
+  }
 }
 
 .project-preview {
@@ -2365,6 +2391,51 @@ function initProjectShowcase() {
   var previewLink = document.getElementById('project-preview-link');
   var content = document.getElementById('project-preview-content');
   if (!tabs.length || !preview || !content) return;
+
+  var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  function startTitleScramble(tab) {
+    var titleElement = tab.querySelector('.project-list-title');
+    if (!titleElement || titleElement._scrambleTimer) return;
+
+    var original = titleElement.textContent;
+    var frame = 0;
+    var resolved = 0;
+    titleElement._scrambleTimer = window.setInterval(function() {
+      frame++;
+      if (frame % 3 === 0 && resolved < original.length) resolved++;
+
+      var display = '';
+      for (var i = 0; i < original.length; i++) {
+        if (i < resolved || original[i] === ' ') display += original[i];
+        else display += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+      }
+      titleElement.textContent = display;
+
+      if (resolved >= original.length) {
+        window.clearInterval(titleElement._scrambleTimer);
+        titleElement._scrambleTimer = null;
+        titleElement.textContent = original;
+      }
+    }, 45);
+  }
+
+  function stopTitleScramble(tab) {
+    var titleElement = tab.querySelector('.project-list-title');
+    if (!titleElement) return;
+    if (titleElement._scrambleTimer) window.clearInterval(titleElement._scrambleTimer);
+    titleElement._scrambleTimer = null;
+    titleElement.textContent = titleElement.getAttribute('data-original-title') || titleElement.textContent;
+  }
+
+  tabs.forEach(function(tab) {
+    var titleElement = tab.querySelector('.project-list-title');
+    if (titleElement) titleElement.setAttribute('data-original-title', titleElement.textContent);
+    tab.addEventListener('mouseenter', function() { startTitleScramble(tab); });
+    tab.addEventListener('mouseleave', function() { stopTitleScramble(tab); });
+    tab.addEventListener('focusin', function() { startTitleScramble(tab); });
+    tab.addEventListener('focusout', function() { stopTitleScramble(tab); });
+  });
 
   function selectProject(tab, moveFocus) {
     tabs.forEach(function(item) {

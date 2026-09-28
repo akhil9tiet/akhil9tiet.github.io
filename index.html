@@ -550,24 +550,6 @@ body.nav-open {
     font-size: 28px;
   }
 
-  /* Projects title override */
-  .projects .section-header {
-    font-size: 40px !important;
-    -webkit-text-stroke: 0.8px currentColor !important;
-    min-height: 50px !important;
-  }
-
-  /* Project cards - show caption always on touch */
-  .grid figure.effect-sadie figcaption::before,
-  .grid figure.effect-sadie p {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .grid figure.effect-sadie h2 {
-    transform: translate3d(0, -50%, 0) translate3d(0, -40px, 0);
-  }
-
   /* Code grid - prevent horizontal overflow */
   .ai-code-grid {
     grid-template-columns: 1fr !important;
@@ -1090,22 +1072,361 @@ body.nav-open {
   }
 }
 
-/* Project Cards Image Styling */
-.projects .grid figure.effect-sadie {
-  border-radius: 12px 12px 0 0;
-  overflow: hidden;
+/* Interactive project showcase */
+.projects {
+  --project-bg: #e7e9ec;
+  --project-ink: #414752;
+  --project-muted: #777f8a;
+  background: var(--project-bg);
+  color: var(--project-ink);
+  padding: 5rem 0 6rem;
+}
+
+.projects .container {
+  max-width: 1240px;
+}
+
+.projects .section-header {
+  color: var(--project-ink);
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(173, 180, 190, 0.45);
+}
+
+.project-showcase {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 2fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: stretch;
+  margin-top: 2.5rem;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
   margin: 0;
+  padding: 0.75rem;
+  list-style: none;
+  border-radius: 24px;
+  background: #e7e9ec;
+  box-shadow: none;
 }
 
-.projects .grid figure.effect-sadie img {
+.project-list button {
   width: 100%;
-  height: 250px;
-  object-fit: cover;
-  display: block;
+  padding: 1rem 1.1rem;
+  border: 0;
+  border-radius: 16px;
+  position: relative;
+  background: #e7e9ec;
+  box-shadow: none;
+  color: var(--project-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease;
 }
 
-.projects .grid figure.effect-sadie figcaption {
-  border-radius: 0 0 12px 12px;
+.project-list button:hover,
+.project-list button:focus-visible {
+  transform: translateX(3px);
+  outline: none;
+  background: #edf0f2;
+}
+
+.project-list button[aria-selected="true"] {
+  color: #414752;
+  background: #edf0f2;
+  box-shadow: none;
+}
+
+.project-list button[aria-selected="true"]::after {
+  position: absolute;
+  top: 50%;
+  right: 1.1rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #39d98a;
+  box-shadow: 0 0 5px #39d98a, 0 0 12px rgba(57, 217, 138, 0.75);
+  content: '';
+  transform: translateY(-50%);
+  animation: project-led-breathe 1.8s ease-in-out infinite;
+}
+
+@keyframes project-led-breathe {
+  0%, 100% {
+    opacity: 0.55;
+    box-shadow: 0 0 4px #39d98a, 0 0 8px rgba(57, 217, 138, 0.45);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 7px #39d98a, 0 0 18px rgba(57, 217, 138, 0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-list button[aria-selected="true"]::after {
+    animation: none;
+  }
+}
+
+.project-list-title {
+  display: block;
+  font-size: 1.12rem;
+  font-weight: 800;
+}
+
+.project-list-meta {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--project-muted);
+  font-size: 0.9rem;
+}
+
+.project-preview {
+  min-width: 0;
+  min-height: 510px;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: 28px;
+  background: #e7e9ec;
+  box-shadow: none;
+}
+
+.project-preview-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-preview-heading h4 {
+  margin: 0;
+  color: var(--project-ink);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 800;
+}
+
+.project-preview-heading p {
+  margin: 0.3rem 0 0;
+  color: var(--project-muted);
+  font-size: 0.92rem;
+}
+
+.project-preview-link,
+.project-github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0.65rem 0.9rem;
+  border-radius: 12px;
+  background: #e7e9ec;
+  box-shadow: 4px 4px 9px rgba(166, 173, 184, 0.4), -4px -4px 9px rgba(255, 255, 255, 0.85);
+  color: #526a87;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.project-preview-link[hidden] {
+  display: none;
+}
+
+.project-preview-link:hover,
+.project-github-link:hover {
+  color: #344e70;
+  text-decoration: none;
+}
+
+.project-frame-wrap {
+  height: 410px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #dce0e5;
+  box-shadow: none;
+}
+
+.project-frame-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  background: #fff;
+  pointer-events: none;
+}
+
+.project-github-panel {
+  display: flex;
+  min-height: 410px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 18px;
+  background: #e7e9ec;
+  box-shadow: none;
+  text-align: center;
+}
+
+.project-github-panel p {
+  max-width: 32rem;
+  margin: 0 0 1.4rem;
+  color: var(--project-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 767px) {
+  .projects {
+    padding: 3.5rem 0 4.5rem;
+  }
+
+  .project-showcase {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .project-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-list button {
+    height: 100%;
+    padding: 0.85rem;
+  }
+
+  .project-preview {
+    min-height: 0;
+    padding: 1rem;
+  }
+
+  .project-preview-heading {
+    flex-direction: column;
+  }
+
+  .project-frame-wrap,
+  .project-github-panel {
+    height: 340px;
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 420px) {
+  .project-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Experience section */
+.experience-section {
+  padding: 6rem 0 7rem;
+  background: #eef0f2;
+  color: #3d4652;
+}
+
+.experience-section .container {
+  max-width: 1240px;
+}
+
+.experience-heading {
+  max-width: 680px;
+  margin-bottom: 2.75rem;
+}
+
+.experience-kicker {
+  margin: 0 0 0.65rem;
+  color: #778391;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.experience-heading h2 {
+  margin: 0;
+  color: #3d4652;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  font-weight: 800;
+}
+
+.experience-heading p:last-child {
+  margin: 0.8rem 0 0;
+  color: #6f7985;
+  font-size: 1.08rem;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.experience-card {
+  min-height: 215px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-radius: 22px;
+  background: #eef0f2;
+  box-shadow: 8px 8px 20px rgba(167, 175, 184, 0.35), -8px -8px 20px rgba(255, 255, 255, 0.88);
+}
+
+.experience-mark {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  border-radius: 14px;
+  background: #eef0f2;
+  box-shadow: inset 4px 4px 8px rgba(167, 175, 184, 0.32), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  color: #556579;
+  font-size: 1.12rem;
+  font-weight: 900;
+}
+
+.experience-card h3 {
+  margin: auto 0 0.35rem;
+  color: #3d4652;
+  font-size: 1.18rem;
+  font-weight: 800;
+}
+
+.experience-card p {
+  margin: 0;
+  color: #778391;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 991px) {
+  .experience-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .experience-section {
+    padding: 4rem 0 5rem;
+  }
+
+  .experience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .experience-card {
+    min-height: 190px;
+    padding: 1.1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Contact Section - Two Column Layout */
@@ -1246,32 +1567,6 @@ body.nav-open {
   }
 }
 
-/* ---- Projects Title: Larger + Thicker ---- */
-.projects .section-header {
-  font-weight: 900;
-  font-size: 80px;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.12);
-  min-height: 95px;
-  -webkit-text-stroke: 1.5px currentColor;
-}
-
-/* Typing cursor */
-.typing-cursor {
-  display: inline-block;
-  width: 3px;
-  height: 0.85em;
-  background: #333;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  animation: blink-typing-cursor 0.65s step-end infinite;
-}
-
-@keyframes blink-typing-cursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
 /* Clip Hover Effect Styles */
 .contact-content {
   cursor: pointer;
@@ -1326,6 +1621,7 @@ body.nav-open {
 				<li class="overlay-nav__item"><a href="#" class="overlay-nav__link" data-text="Home">Home</a></li>
 				<li class="overlay-nav__item"><a href="#projects" class="overlay-nav__link" data-text="Projects">Projects</a></li>
 				<li class="overlay-nav__item"><a href="#AI" class="overlay-nav__link" data-text="AI">AI</a></li>
+				<li class="overlay-nav__item"><a href="#experience" class="overlay-nav__link" data-text="Experience">Experience</a></li>
 				<li class="overlay-nav__item"><a href="#contact" class="overlay-nav__link" data-text="Contact">Contact</a></li>
 			</ul>
 		</nav>
@@ -1360,90 +1656,29 @@ body.nav-open {
 		<div class="container">
 			<h3 class="section-header">Projects</h3>
 
-       <!--.....................Get your Claude loader animation ..................-->
-      <div class="col-md-4 col-xs-12">
-        <div class="grid">
-          <figure class="effect-sadie">
-            <img src="./assets/images/ClaudeLoader.png" alt="Claude Loader project preview" width="640" height="360" loading="lazy">
-            <figcaption>
-              <h2 style="color: #424149">Claude Loader<span></span></h2>
-              <p>React + D3<br>
-              <a href= "https://akhil9tiet.github.io/claudeLoader/">Checkout</a></p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
+      <div class="project-showcase">
+        <ul class="project-list" role="tablist" aria-label="Projects">
+          <li role="presentation"><button type="button" role="tab" id="project-tab-claude" aria-selected="true" aria-controls="project-preview" data-title="Claude Loader" data-description="React + D3" data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-lyrical" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Lyrical Matrix" data-description="Interactive lyric heatmap · React + D3" data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-movie" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Christopher Nolan Movies Emotion Arc" data-description="React + D3 + WebGL + Gemini" data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">React · WebGL · Gemini</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-h1b" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Average H1B Salaries" data-description="Interactive salary visualization · React + D3" data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-daemon" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Hackathon Winner @ UMD" data-description="A recommender system to match nonprofits with volunteers." data-type="github" data-url="https://github.com/akhil9tiet/DaemonDash2017"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Nonprofit recommender</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-stock" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Stock Price Classifier" data-description="A stock price classification project built with Python." data-type="github" data-url="https://github.com/akhil9tiet/Python_for_finance"><span class="project-list-title">Stock Price Classifier</span><span class="project-list-meta">Python · Finance</span></button></li>
+        </ul>
 
-      
-      <!--.....................Get your fav song card with lyric heatmap..................-->
-      <div class="col-md-4 col-xs-12">
-        <div class="grid">
-          <figure class="effect-sadie">
-            <img src="./assets/images/lyricalMatrix.jpg" alt="Lyrical Matrix project preview" width="640" height="360" loading="lazy">
-            <figcaption>
-              <h2 style="color: white">Lyrical Matrix<span></span></h2>
-              <p>React + D3<br>
-              <a href= "https://akhil9tiet.github.io/Lyrical-Matrix/">Checkout</a></p>
-            </figcaption>
-          </figure>
-        </div>
+        <section class="project-preview" id="project-preview" role="tabpanel" aria-labelledby="project-tab-claude" aria-live="polite">
+          <div class="project-preview-heading">
+            <div>
+              <h4 id="project-preview-title">Claude Loader</h4>
+              <p id="project-preview-description">React + D3</p>
+            </div>
+            <a class="project-preview-link" id="project-preview-link" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer">Open project</a>
+          </div>
+          <div class="project-frame-wrap" id="project-preview-content">
+            <iframe src="https://akhil9tiet.github.io/claudeLoader/" title="Claude Loader live preview" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+          </div>
+        </section>
       </div>
-
-    <!--.....................Christopher Nolan movies emotion arc..................-->
-      <div class="col-md-4 col-xs-12">
-        <div class="grid">
-          <figure class="effect-sadie">
-            <img src="./assets/images/chritopherNolan.png" alt="Christopher Nolan movie emotion arc project preview" width="640" height="360" loading="lazy">
-            <figcaption>
-              <h2 style="color: white">Christopher Nolan Movies Emotion Arc<span></span></h2>
-              <p>React + D3 + WebGL + Gemini<br>
-              <a href= "https://akhil9tiet.github.io/MovieArcs/">Checkout</a></p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-			
-			<!--.....................Average H1B salaries..................-->
-      <div class="col-md-4 col-xs-12">
-        <div class="grid">
-          <figure class="effect-sadie">
-            <img src="./assets/images/visualization.png" alt="Average H1B salaries visualization" width="640" height="360" loading="lazy">
-            <figcaption>
-              <h2 style="color: #424149">Average H1B Salaries<span></span></h2>
-              <p>React + D3<br>
-              <a href= "https://akhil9tiet.github.io/react-d3-map-histogram/">Demo</a></p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-        <!--.....................Daemon Dash..................-->
-        <div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-              <img src="./assets/images/arrow.png" alt="Hackathon project illustration" width="640" height="360" loading="lazy">
-							<figcaption>
-								<h2>Hackathon Winner @UMD</h2>
-								<p>Recommendor system to match non profits<br>
-								<a href= "https://github.com/akhil9tiet/DaemonDash2017">Demo</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div>
-
-				<!--..............Stock Price Prediction.................-->
-				<div class="col-md-4 col-xs-12">
-					<div class="grid">
-						<figure class="effect-sadie">
-              <img src="./assets/images/stockprice.jpg" alt="Stock price classifier project preview" width="640" height="360" loading="lazy">
-							<figcaption>
-								<h2>Stock Price <span> Classifier</span></h2>
-								<p><br> Built using Python<br>
-								<a href= "https://github.com/akhil9tiet/Python_for_finance/">View the code</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 
@@ -1637,6 +1872,42 @@ body.nav-open {
     </div>
   </div>
 </div>
+
+
+	<!-- Work Experience -->
+<section class="experience-section" id="experience" aria-labelledby="experience-title">
+  <div class="container">
+    <div class="experience-heading">
+      <p class="experience-kicker">Career path</p>
+      <h2 id="experience-title">Experience</h2>
+      <p>Organizations and teams that have shaped my work.</p>
+    </div>
+
+    <div class="experience-grid">
+      <article class="experience-card">
+        <div class="experience-mark" aria-hidden="true">T</div>
+        <h3>Tesla</h3>
+        <p>Senior AI Engineer</p>
+      </article>
+      <article class="experience-card">
+        <div class="experience-mark" aria-hidden="true">MS</div>
+        <h3>Microsoft</h3>
+      </article>
+      <article class="experience-card">
+        <div class="experience-mark" aria-hidden="true">V</div>
+        <h3>Visa</h3>
+      </article>
+      <article class="experience-card">
+        <div class="experience-mark" aria-hidden="true">UMD</div>
+        <h3>University of Maryland</h3>
+      </article>
+      <article class="experience-card">
+        <div class="experience-mark" aria-hidden="true">D</div>
+        <h3>Deloitte</h3>
+      </article>
+    </div>
+  </div>
+</section>
 
 	<!--.................Contact....................-->
 <div id="contact" class="section contact">
@@ -2116,94 +2387,86 @@ function initAIScrollytelling() {
   updateScrollProgress();
 }
 
-// ---- Realistic Typing Animation for Projects Title ----
-function initProjectsTitleTyping() {
-  var header = document.querySelector('.projects .section-header');
-  if (!header) return;
+function initProjectShowcase() {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.project-list [role="tab"]'));
+  var preview = document.getElementById('project-preview');
+  var title = document.getElementById('project-preview-title');
+  var description = document.getElementById('project-preview-description');
+  var previewLink = document.getElementById('project-preview-link');
+  var content = document.getElementById('project-preview-content');
+  if (!tabs.length || !preview || !content) return;
 
-  // The correct final text
-  var finalText = 'Projects';
-  // Build a sequence: each step is { action: 'type'|'delete', char: '...' }
-  // Realistic: type "Proje", then typo "tc", pause, backspace x2, then "cts"
-  var sequence = [
-    { action: 'type', char: 'P',  delay: 90 },
-    { action: 'type', char: 'r',  delay: 75 },
-    { action: 'type', char: 'o',  delay: 80 },
-    { action: 'type', char: 'j',  delay: 95 },
-    { action: 'type', char: 'e',  delay: 70 },
-    // typo: "tc" instead of "ct"
-    { action: 'type', char: 't',  delay: 65 },
-    { action: 'type', char: 'c',  delay: 60 },
-    // pause then backspace
-    { action: 'pause', delay: 420 },
-    { action: 'delete', delay: 80 },
-    { action: 'delete', delay: 75 },
-    // correct: "cts"
-    { action: 'pause', delay: 200 },
-    { action: 'type', char: 'c',  delay: 85 },
-    { action: 'type', char: 't',  delay: 70 },
-    { action: 'type', char: 's',  delay: 80 },
-    // done, remove cursor after a beat
-    { action: 'done', delay: 600 }
-  ];
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        observer.unobserve(header);
-        // Clear text only when entering viewport, then start typing
-        header.textContent = '';
-        var cursor = document.createElement('span');
-        cursor.className = 'typing-cursor';
-        header.appendChild(cursor);
-        runTypingSequence(header, sequence);
-      }
+  function selectProject(tab, moveFocus) {
+    tabs.forEach(function(item) {
+      var selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
     });
-  }, { threshold: 0.3 });
 
-  observer.observe(header);
-}
+    var projectTitle = tab.getAttribute('data-title');
+    var projectDescription = tab.getAttribute('data-description');
+    var projectUrl = tab.getAttribute('data-url');
+    var isIframe = tab.getAttribute('data-type') === 'iframe';
 
-function runTypingSequence(el, steps) {
-  var current = '';
-  var i = 0;
-  var cursor = el.querySelector('.typing-cursor');
+    title.textContent = projectTitle;
+    description.textContent = projectDescription;
+    preview.setAttribute('aria-labelledby', tab.id);
+    content.replaceChildren();
 
-  function next() {
-    if (i >= steps.length) return;
-    var step = steps[i];
-    i++;
-    if (step.action === 'type') {
-      current += step.char;
-      renderText(el, current, cursor);
-      setTimeout(next, step.delay + Math.random() * 40);
-    } else if (step.action === 'delete') {
-      current = current.slice(0, -1);
-      renderText(el, current, cursor);
-      setTimeout(next, step.delay + Math.random() * 30);
-    } else if (step.action === 'pause') {
-      setTimeout(next, step.delay);
-    } else if (step.action === 'done') {
-      setTimeout(function() {
-        if (cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
-      }, step.delay);
+    if (isIframe) {
+      content.className = 'project-frame-wrap';
+      previewLink.hidden = false;
+      previewLink.href = projectUrl;
+      previewLink.textContent = 'Open project';
+
+      var frame = document.createElement('iframe');
+      frame.src = projectUrl;
+      frame.title = projectTitle + ' live preview';
+      frame.loading = 'lazy';
+      frame.tabIndex = -1;
+      frame.setAttribute('aria-hidden', 'true');
+      frame.setAttribute('scrolling', 'no');
+      content.appendChild(frame);
+    } else {
+      content.className = 'project-github-panel';
+      previewLink.hidden = true;
+
+      var summary = document.createElement('p');
+      summary.textContent = projectDescription;
+      var repositoryLink = document.createElement('a');
+      repositoryLink.className = 'project-github-link';
+      repositoryLink.href = projectUrl;
+      repositoryLink.target = '_blank';
+      repositoryLink.rel = 'noopener noreferrer';
+      repositoryLink.textContent = 'View repository on GitHub';
+      content.append(summary, repositoryLink);
     }
+
+    if (moveFocus) tab.focus();
   }
 
-  function renderText(el, text, cursor) {
-    // Keep only the text node + cursor
-    el.childNodes.forEach(function(n) {
-      if (n !== cursor) el.removeChild(n);
+  tabs.forEach(function(tab, index) {
+    tab.addEventListener('click', function() {
+      selectProject(tab, false);
     });
-    el.insertBefore(document.createTextNode(text), cursor);
-  }
 
-  next();
+    tab.addEventListener('keydown', function(event) {
+      var nextIndex = index;
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = tabs.length - 1;
+      else return;
+
+      event.preventDefault();
+      selectProject(tabs[nextIndex], true);
+    });
+  });
 }
 
 // Initialize AI Scrollytelling when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-  initProjectsTitleTyping();
+  initProjectShowcase();
 
   // ===== Hamburger Overlay Nav =====
   var hamburger = document.getElementById('hamburger');

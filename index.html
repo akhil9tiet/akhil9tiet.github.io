@@ -1741,8 +1741,8 @@ body.nav-open {
             <div class="sparkle-trail__edge"></div>
           </div>
           <div class="ai-story-number">01</div>
-          <h2 class="ai-story-title">AI & Machine Learning</h2>
-          <p class="ai-story-text">Passionate about building intelligent systems that transform raw data into actionable insights. From neural networks to decision trees, I craft solutions that learn and evolve.</p>
+          <h2 class="ai-story-title">Forward Deployed Engineer</h2>
+          <p class="ai-story-text">Embedding with customers to ship AI systems that hold up in the wild — instrumenting agents, triaging production failures, and turning ambiguous business problems into deployable AI features. Owned end-to-end, from pre-sales architecture to on-call and post-sales support.</p>
         </div>
       </div>
       
@@ -1753,8 +1753,8 @@ body.nav-open {
             <div class="sparkle-trail__edge"></div>
           </div>
           <div class="ai-story-number">02</div>
-          <h2 class="ai-story-title">RAG & LLM Integration</h2>
-          <p class="ai-story-text">Specializing in Retrieval-Augmented Generation systems that combine the power of large language models with domain-specific knowledge bases for accurate, citation-backed responses.</p>
+          <h2 class="ai-story-title">Loop Engineering</h2>
+          <p class="ai-story-text">Designing the agentic loops that actually run in production — prompt, action, observation, reflection — with disciplined context management, error recovery, and guardrails so agents stay correct run after run, not just on a demo.</p>
         </div>
       </div>
       
@@ -1765,8 +1765,8 @@ body.nav-open {
             <div class="sparkle-trail__edge"></div>
           </div>
           <div class="ai-story-number">03</div>
-          <h2 class="ai-story-title">Agentic Frameworks</h2>
-          <p class="ai-story-text">Building autonomous AI agents using CrewAI, AutoGen, and LangChain that can reason, plan, and execute complex multi-step tasks with minimal human intervention.</p>
+          <h2 class="ai-story-title">Harness Engineering</h2>
+          <p class="ai-story-text">Building the harness around the model — structured tool schemas, deterministic I/O contracts, evals, and scaffolding that turn raw LLM calls into dependable, measurable systems teams can build on and trust.</p>
         </div>
       </div>
       
@@ -1777,8 +1777,8 @@ body.nav-open {
             <div class="sparkle-trail__edge"></div>
           </div>
           <div class="ai-story-number">04</div>
-          <h2 class="ai-story-title">Vector Embeddings & Search</h2>
-          <p class="ai-story-text">Implementing semantic search solutions using text embeddings, ChromaDB, and Pinecone to enable intelligent document retrieval and knowledge discovery at scale.</p>
+          <h2 class="ai-story-title">Browser Use Agents</h2>
+          <p class="ai-story-text">Shipping agents that drive real browsers — automating multi-step web tasks, data collection, form flows, and computer-use style actions with Playwright and agent frameworks for dependable end-to-end web automation.</p>
         </div>
       </div>
       
@@ -1790,7 +1790,7 @@ body.nav-open {
           </div>
           <div class="ai-story-number">05</div>
           <h2 class="ai-story-title">Model Context Protocol</h2>
-          <p class="ai-story-text">Pioneering the integration of MCP (Model Context Protocol) to create seamless connections between AI models and external tools, APIs, and data sources.</p>
+          <p class="ai-story-text">Building MCP servers and tool integrations that give models secure, standardized access to external data and systems — the emerging connective tissue of the AI ecosystem.</p>
         </div>
       </div>
     </div>
@@ -1812,72 +1812,74 @@ body.nav-open {
     <div class="ai-static-content">
       <div class="ai-static-header">
         <h2>Code & Resources</h2>
-        <p>Explore some of my AI implementations and useful code patterns</p>
+        <p>Production patterns from forward-deployed AI engineering</p>
       </div>
       
       <div class="ai-code-grid">
-        <!-- Code Card 1: RAG Implementation -->
+        <!-- Code Card 1: MCP Server -->
         <div class="ai-code-card">
           <div class="ai-code-card-header">
-            <h3>RAG Pipeline</h3>
+            <h3>MCP Server</h3>
             <span class="ai-code-card-tag">Python</span>
           </div>
           <div class="ai-code-block">
-            <code><span class="comment"># Simple RAG with LangChain</span>
-<span class="keyword">from</span> langchain.chains <span class="keyword">import</span> RetrievalQA
-<span class="keyword">from</span> langchain.vectorstores <span class="keyword">import</span> Chroma
+            <code><span class="comment"># Expose a tool over MCP</span>
+<span class="keyword">from</span> mcp.server.fastmcp <span class="keyword">import</span> FastMCP
 
-<span class="variable">vectorstore</span> = Chroma.from_documents(
-    documents, embedding_model
-)
-<span class="variable">qa_chain</span> = RetrievalQA.from_chain_type(
-    llm=llm,
-    retriever=vectorstore.as_retriever()
-)</code>
+<span class="variable">mcp</span> = FastMCP(<span class="string">"portfolio-tools"</span>)
+
+@mcp.tool()
+<span class="keyword">def</span> get_metrics(project: <span class="keyword">str</span>) -&gt; dict:
+    <span class="string">"""Live metrics for any project."""</span>
+    <span class="keyword">return</span> fetch_live_metrics(project)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    mcp.run()</code>
           </div>
           <div class="ai-code-card-footer">
             <a href="https://github.com/akhil9tiet" target="_blank">View on GitHub →</a>
           </div>
         </div>
         
-        <!-- Code Card 2: Agent Setup -->
+        <!-- Code Card 2: Browser Use Agent -->
         <div class="ai-code-card">
           <div class="ai-code-card-header">
-            <h3>AI Agent Setup</h3>
-            <span class="ai-code-card-tag">CrewAI</span>
+            <h3>Browser Use Agent</h3>
+            <span class="ai-code-card-tag">Playwright</span>
           </div>
           <div class="ai-code-block">
-            <code><span class="comment"># CrewAI Agent Definition</span>
-<span class="keyword">from</span> crewai <span class="keyword">import</span> Agent, Task, Crew
+            <code><span class="comment"># Drive a real browser</span>
+<span class="keyword">from</span> playwright.sync_api <span class="keyword">import</span> sync_playwright
 
-<span class="variable">researcher</span> = Agent(
-    role=<span class="string">'Research Analyst'</span>,
-    goal=<span class="string">'Find accurate information'</span>,
-    backstory=<span class="string">'Expert researcher...'</span>,
-    tools=[search_tool, scrape_tool]
-)</code>
+<span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:
+    <span class="variable">browser</span> = p.chromium.launch()
+    <span class="variable">page</span> = browser.new_page()
+    page.goto(<span class="string">"https://example.com"</span>)
+    page.fill(<span class="string">"#search"</span>, <span class="string">"forward deployed AI"</span>)
+    page.click(<span class="string">"button[type=submit]"</span>)
+    <span class="variable">results</span> = page.locator(<span class="string">".result"</span>).all_text_contents()
+    browser.close()</code>
           </div>
           <div class="ai-code-card-footer">
             <a href="https://github.com/akhil9tiet" target="_blank">View on GitHub →</a>
           </div>
         </div>
         
-        <!-- Code Card 3: Embeddings -->
+        <!-- Code Card 3: Agentic Loop -->
         <div class="ai-code-card">
           <div class="ai-code-card-header">
-            <h3>Text Embeddings</h3>
-            <span class="ai-code-card-tag">OpenAI</span>
+            <h3>Agentic Loop</h3>
+            <span class="ai-code-card-tag">Python</span>
           </div>
           <div class="ai-code-block">
-            <code><span class="comment"># Generate embeddings</span>
-<span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI
-
-<span class="variable">client</span> = OpenAI()
-<span class="variable">response</span> = client.embeddings.create(
-    model=<span class="string">"text-embedding-3-small"</span>,
-    input=<span class="string">"Your text here"</span>
-)
-<span class="variable">embedding</span> = response.data[0].embedding</code>
+            <code><span class="comment"># A resilient agentic loop</span>
+<span class="keyword">while</span> <span class="keyword">not</span> task_complete(state):
+    <span class="variable">action</span> = model.invoke(build_prompt(state))
+    <span class="variable">result</span> = safe_execute(action)   <span class="comment"># harness</span>
+    <span class="variable">state</span> = update_context(state, result)
+    <span class="keyword">if</span> needs_recovery(result):
+        state = recover(state)
+    emit_trace(state)              <span class="comment"># evals &amp; logs</span></code>
           </div>
           <div class="ai-code-card-footer">
             <a href="https://github.com/akhil9tiet" target="_blank">View on GitHub →</a>

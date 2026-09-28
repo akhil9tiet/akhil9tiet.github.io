@@ -162,7 +162,7 @@ php -S localhost:8000
 ### 📝 Content Updates
 1. **Personal Information**: Edit contact details in the `#contact` section
 2. **Projects**: Update project descriptions and links in the `#projects` section
-4. **About**: Update the hero section with your information
+3. **About**: Update the hero section with your information
 
 ### 🎨 Styling Changes
 1. **Colors**: Modify CSS custom properties in the `<style>` section

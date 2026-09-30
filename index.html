@@ -1927,6 +1927,12 @@ body.nav-open {
   backdrop-filter: blur(10px);
 }
 
+.contact-terminal__bar .contact-terminal__eyebrow {
+  margin: 0;
+  color: #73d9b8;
+  font-size: 0.65rem;
+}
+
 .contact-terminal__lights { display: flex; gap: 7px; }
 .contact-terminal__lights i { width: 8px; height: 8px; border-radius: 50%; background: #ff6c67; }
 .contact-terminal__lights i:nth-child(2) { background: #f3c969; }
@@ -2359,7 +2365,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { text: 'agents/  retrieval/  computer-vision/  full-stack/', kind: 'output' },
     { text: '$ open contact --email', kind: 'command' },
     { text: 'akhil****@gmail.com', kind: 'success' },
-    { text: '$ _', kind: 'command' }
+    { text: '$ ', kind: 'command' }
   ];
   var width = 0;
   var height = 0;
@@ -2449,7 +2455,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cursorOn && (rowIndex < lines.length || rowIndex === lines.length)) {
       if (rowIndex >= lines.length) {
         cursorX = paddingLeft + context.measureText('$ ').width;
-        cursorY = y;
+        cursorY = y - lineHeight;
       }
       context.fillStyle = '#77ead3';
       context.fillRect(cursorX, cursorY + 1, Math.max(2, fontSize * 0.55), fontSize * 1.05);

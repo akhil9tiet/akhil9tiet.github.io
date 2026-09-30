@@ -315,40 +315,63 @@
   visibility: hidden;
 }
 
-/* Keep the two reveal targets optically centered after RevealFx wraps them. */
+/* Restore the greeting/name/subtitle hierarchy and center both reveal targets. */
 .hero #rev-1 {
   display: block;
   width: max-content;
   max-width: 100%;
-  margin: 0 auto 0.55rem;
+  margin: 0 auto -0.18em;
   padding: 0;
-  font-size: clamp(1rem, 1.6vw, 1.45rem);
+  font-size: clamp(2rem, min(8vw, 12vh), 9rem);
   line-height: 1.2;
   letter-spacing: 0.04em;
   -webkit-text-stroke: 0.35px currentColor;
 }
 
 .hero h1.content__title--center {
+  display: block;
   width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
+  font-size: clamp(2rem, min(8vw, 12vh), 9rem);
+  line-height: 1.1;
   text-align: center;
 }
 
 .hero h1 #rev-2 {
+  display: inline-block;
   top: 0;
   left: 0;
   max-width: 100%;
-  font-size: 0.9em;
+  font-size: 1em;
   line-height: 1.1;
+  text-align: center;
 }
 
-.hero-identity {
+.hero p.hero-identity {
   margin: 1.4rem auto 0;
   color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-size: clamp(1.2rem, 2.5vw, 2.4rem);
   letter-spacing: 0.04em;
   text-align: center;
+}
+
+/* Keep the hero within one responsive viewport and center its content. */
+.hero {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(1rem, 3vh, 2rem) 0;
+  overflow: hidden;
+}
+
+.hero > .container {
+  width: 100%;
 }
 
 @keyframes blink {
@@ -548,18 +571,18 @@ body.nav-open {
 
 /* Hero content row */
 .hero__content-row {
-  margin-top: 200px;
+  margin-top: 0;
 }
 
 /* ===== Global Mobile Fixes ===== */
 @media (max-width: 768px) {
   .hero {
-    padding: 2rem 0 8rem;
+    padding: 1rem 0;
     background-attachment: scroll !important; /* iOS fix */
   }
 
   .hero__content-row {
-    margin-top: 120px;
+    margin-top: 0;
   }
 
   .hero h4 {
@@ -1304,6 +1327,7 @@ body.nav-open {
   letter-spacing: 0.04em;
   text-decoration: none;
   text-transform: uppercase;
+  text-shadow: 0 0 9px rgba(103, 247, 223, 0.45);
   transform: translateY(-2px);
   transition: transform 180ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
 }
@@ -1332,10 +1356,11 @@ body.nav-open {
   outline: none;
   border-color: #8bffe9;
   background: #18333b;
-  box-shadow: 0 2px 0 #0b1218, 0 0 10px rgba(94, 255, 222, 0.62), 0 0 22px rgba(94, 255, 222, 0.3);
+  box-shadow: 0 4px 0 #0b1218, 0 8px 18px rgba(8, 12, 18, 0.2);
   color: #fff;
   text-decoration: none;
   transform: translateY(0);
+  text-shadow: 0 0 5px #72f6df, 0 0 12px #72f6df, 0 0 24px rgba(94, 255, 222, 0.9);
   animation: project-cta-text-glitch 380ms steps(2, end) 1;
 }
 
@@ -1355,51 +1380,6 @@ body.nav-open {
 
 .project-preview-link[hidden] {
   display: none;
-}
-
-.project-index {
-  margin-top: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid rgba(65, 71, 82, 0.14);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.project-index h4 {
-  margin: 0 0 0.8rem;
-  color: var(--project-ink);
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.project-index ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: 0.45rem 1.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.project-index a {
-  color: #29313d;
-  font-size: 0.9rem;
-  font-weight: 650;
-  text-decoration-color: rgba(41, 49, 61, 0.35);
-  text-underline-offset: 0.18em;
-}
-
-.project-index a span {
-  display: block;
-  color: var(--project-muted);
-  font-size: 0.78rem;
-  font-weight: 400;
-}
-
-.project-index a:hover,
-.project-index a:focus-visible {
-  color: #087c70;
 }
 
 .project-frame-wrap {
@@ -2084,8 +2064,8 @@ body.nav-open {
 .contact-terminal {
   position: relative;
   width: 100%;
-  height: clamp(300px, 52vh, 520px);
-  min-height: 300px;
+  height: clamp(480px, 68vh, 680px);
+  min-height: 480px;
   overflow: hidden;
   border-top: 1px solid rgba(119, 152, 190, 0.18);
   background: #080d13;
@@ -2161,7 +2141,7 @@ body.nav-open {
   #contact .section-header { font-size: clamp(3.2rem, 16vw, 5.2rem); }
   #contact .contact-intro { margin: 1rem 0 2rem; }
   #contact .video-container { width: min(67vw, 290px); align-self: center; }
-  .contact-terminal { height: clamp(320px, 55vh, 460px); }
+  .contact-terminal { height: clamp(560px, 72vh, 700px); min-height: 560px; }
 }
 
 @media (max-width: 420px) {
@@ -2211,9 +2191,9 @@ body.nav-open {
 		<div class="container" style="font-size:20px;">
       <div class="row hero__content-row">
         <div class="col-md-12">
-          <p id="rev-1" class="content__title__inner" style="color: #fff200; text-align: center;">"Hello World"</p>
+          <p id="rev-1" class="content__title__inner" aria-hidden="true" style="color: #fff200;">"Hello World"</p>
           <h1 class="content__title content__title--center">
-          <span id="rev-2" class="content__title__inner" style="color: #fff200;">Akhil Gupta<span id="cursor" style="opacity: 0; color: #fff200; animation: blink 1s infinite;">|</span></span>
+            <span id="rev-2" class="content__title__inner" style="color: #fff200;">Akhil Gupta<span id="cursor" style="opacity: 0; color: #fff200; animation: blink 1s infinite;">|</span></span>
           </h1>
           <p class="hero-identity">Senior AI Engineer <span aria-hidden="true">|</span> akhil9tiet</p>
         </div>
@@ -2261,19 +2241,6 @@ body.nav-open {
           </div>
         </section>
       </div>
-      <nav class="project-index" aria-label="Direct links to experiments">
-        <h4>Open an experiment</h4>
-        <ul>
-          <li><a href="https://akhil9tiet.github.io/claudeLoader/">Claude Loader <span>React interface experiment</span></a></li>
-          <li><a href="https://akhil9tiet.github.io/Lyrical-Matrix/">Lyrical Matrix <span>Interactive lyrics heatmap</span></a></li>
-          <li><a href="https://akhil9tiet.github.io/Three-isometric-area-chart/">Three Isometric Area Chart <span>Three.js data visualization</span></a></li>
-          <li><a href="https://akhil9tiet.github.io/systemThoughts/">System Thoughts <span>Visual systems notebook</span></a></li>
-          <li><a href="https://akhil9tiet.github.io/MovieArcs/">Movie Emotion Arc <span>Film emotion visualization</span></a></li>
-          <li><a href="https://akhil9tiet.github.io/react-d3-map-histogram/">Average H1B Salaries <span>Salary data visualization</span></a></li>
-          <li><a href="https://github.com/akhil9tiet/DaemonDash2017">DaemonDash <span>Nonprofit volunteer recommender</span></a></li>
-          <li><a href="https://github.com/akhil9tiet/Python_for_finance">Stock Price Classifier <span>Historical market data project</span></a></li>
-        </ul>
-      </nav>
 		</div>
 	</div>
 
@@ -2549,7 +2516,7 @@ body.nav-open {
     <span class="contact-terminal__eyebrow">system ready</span>
   </div>
   <canvas class="contact-terminal__canvas" width="977" height="450" aria-hidden="true"></canvas>
-  <div class="contact-terminal__accessible">Portfolio command line: whoami returns Akhil Gupta, senior AI engineer. Focus areas include applied AI, product engineering, and modern web experiences. Email: akhil****@gmail.com. GitHub: github.com/akhil9tiet.</div>
+  <div class="contact-terminal__accessible" id="contact-terminal-accessible">Portfolio command line: whoami returns Akhil Gupta, senior AI engineer. Focus areas include applied AI, product engineering, and modern web experiences. Email: akhil****@gmail.com. GitHub: github.com/akhil9tiet. Date: <span id="terminal-date-accessible"></span>. Currently live at <span id="terminal-location-accessible">location not shared</span>.</div>
 </section>
 
 <footer>
@@ -2563,12 +2530,18 @@ body.nav-open {
 			} );
 </script>
 
+<script src="js/visitor-location.js" defer></script>
+
 <!-- Contact reveal and responsive terminal canvas -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var revealItems = document.querySelectorAll('[data-contact-reveal]');
   var terminal = document.querySelector('.contact-terminal');
   var canvas = document.querySelector('.contact-terminal__canvas');
+  var terminalDate = new Date().toLocaleString();
+  var terminalDateOutput = document.getElementById('terminal-date-accessible');
+  var terminalLocationOutput = document.getElementById('terminal-location-accessible');
+  if (terminalDateOutput) terminalDateOutput.textContent = terminalDate;
 
   if ('IntersectionObserver' in window) {
     var revealObserver = new IntersectionObserver(function(entries) {
@@ -2597,8 +2570,27 @@ document.addEventListener('DOMContentLoaded', function() {
     { text: 'agents/  retrieval/  computer-vision/  full-stack/', kind: 'output' },
     { text: '$ open contact --email', kind: 'command' },
     { text: 'akhil****@gmail.com', kind: 'success' },
+    { text: '$ date', kind: 'command' },
+    { text: terminalDate, kind: 'output' },
+    { text: '$ location --approx', kind: 'command' },
+    { text: 'Currently live at location not shared', kind: 'output' },
     { text: '$ ', kind: 'command' }
   ];
+  var locationLineIndex = lines.length - 2;
+  window.addEventListener('visitor-location-resolved', function(event) {
+    if (!event.detail || !event.detail.location) return;
+    lines[locationLineIndex].text = 'Currently live at ' + event.detail.location;
+    if (terminalLocationOutput) terminalLocationOutput.textContent = event.detail.location;
+    if (rowIndex === locationLineIndex) {
+      charIndex = 0;
+      nextStepAt = performance.now();
+    }
+    if (started) renderTerminal(performance.now());
+  });
+  if (window.siteVisitorLocation) {
+    lines[locationLineIndex].text = 'Currently live at ' + window.siteVisitorLocation;
+    if (terminalLocationOutput) terminalLocationOutput.textContent = window.siteVisitorLocation;
+  }
   var width = 0;
   var height = 0;
   var rowIndex = 0;

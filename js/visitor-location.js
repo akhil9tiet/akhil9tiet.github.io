@@ -1,16 +1,20 @@
 (function () {
   'use strict';
 
-  var button = document.getElementById('visitor-location-button');
   var output = document.getElementById('visitor-location-value');
-  if (!button || !output) return;
 
-  button.addEventListener('click', function () {
-    button.disabled = true;
-    button.textContent = 'Checking approximate location...';
-    output.textContent = 'checking';
+  function publishLocation(location) {
+    if (output) output.textContent = location;
+    window.siteVisitorLocation = location;
+    window.dispatchEvent(new CustomEvent('visitor-location-resolved', {
+      detail: { location: location }
+    }));
+  }
 
-    fetch('https://ipapi.co/json/', {
+  function lookupLocation() {
+    if (output) output.textContent = 'checking...';
+
+    return fetch('https://ipapi.co/json/', {
       method: 'GET',
       mode: 'cors',
       credentials: 'omit',
@@ -30,15 +34,13 @@
           .map(function (part) { return part.trim(); });
 
         if (!parts.length) throw new Error('Location not available');
-        output.textContent = parts.join(', ') + ' (approx.)';
-        button.textContent = 'Refresh approximate location';
+        publishLocation(parts.join(', ') + ' (approx.)');
       })
       .catch(function () {
-        output.textContent = 'location unavailable';
-        button.textContent = 'Try location lookup again';
-      })
-      .finally(function () {
-        button.disabled = false;
+        publishLocation('approximate location unavailable');
       });
-  });
+  }
+
+  // Populate the terminal's `location --approx` command automatically on page load.
+  lookupLocation();
 }());

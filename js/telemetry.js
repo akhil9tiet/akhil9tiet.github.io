@@ -4,7 +4,7 @@
   var measurementId = 'G-DPP72KHXQ8';
   var pagePath = window.location.pathname || '/';
   var scrollMilestones = {};
-  var lastScrollEvent = 0;
+  var scrollEventTimer = null;
 
   function loadGoogleAnalytics() {
     window.dataLayer = window.dataLayer || [];
@@ -45,12 +45,15 @@
     if (!element) {
       return 'unknown';
     }
-    return element.id || element.getAttribute('aria-label') || element.tagName.toLowerCase();
+    return element.getAttribute('data-analytics-name') || element.id || element.getAttribute('aria-label') || element.tagName.toLowerCase();
   }
 
   function getLinkTarget(link) {
     try {
       var url = new URL(link.href, window.location.href);
+      if (url.protocol === 'mailto:' || url.protocol === 'tel:') {
+        return url.protocol.slice(0, -1);
+      }
       return url.origin === window.location.origin ? url.pathname + url.hash : url.origin;
     } catch (error) {
       return 'invalid';
@@ -58,31 +61,46 @@
   }
 
   function trackClick(event) {
-    var target = event.target.closest('a, button, input, select, textarea, [role="button"], [role="slider"], .slider, .resize-handle');
-    if (!target) {
+    var clicked = event.target && event.target.nodeType === 3 ? event.target.parentElement : event.target;
+    if (!clicked || typeof clicked.closest !== 'function') {
       return;
     }
 
+    if (clicked.closest('[data-analytics-ignore]')) {
+      return;
+    }
+
+    var control = clicked.closest('a, button, input, select, textarea, [role="button"], [role="slider"], .slider, .resize-handle');
+    var target = control || clicked;
+    var link = target.matches('a[href]') ? target : target.closest('a[href]');
+    var clickKind = link ? 'link' : (control ? 'control' : 'content');
     var parameters = {
       page_path: pagePath,
+      click_kind: clickKind,
       element_name: getElementName(target),
       element_type: target.tagName.toLowerCase()
     };
+    var role = target.getAttribute('role');
+    var className = typeof target.className === 'string' ? target.className : '';
+    if (target.id) parameters.element_id = target.id;
+    if (role) parameters.element_role = role;
+    if (className) parameters.element_class = className.slice(0, 100);
 
-    if (target.matches('a[href]')) {
-      parameters.link_target = getLinkTarget(target);
-      parameters.link_text = (target.textContent || '').trim().slice(0, 80);
-      sendEvent('link_click', parameters);
-      return;
+    if (link) {
+      parameters.link_target = getLinkTarget(link);
+      parameters.click_text = (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+      try {
+        var linkUrl = new URL(link.href, window.location.href);
+        parameters.outbound = (linkUrl.protocol === 'http:' || linkUrl.protocol === 'https:') && linkUrl.origin !== window.location.origin;
+      } catch (error) {
+        parameters.outbound = false;
+      }
+    } else if (control && target.tagName.toLowerCase() !== 'input' && target.tagName.toLowerCase() !== 'textarea') {
+      parameters.click_text = (target.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
     }
 
-    if (target.matches('.slider, input[type="range"], [role="slider"]')) {
-      parameters.control = getElementName(target);
-      sendEvent('slide_interaction', parameters);
-      return;
-    }
-
-    sendEvent('ui_click', parameters);
+    // One site_click event is sent for every document click, including non-link content.
+    sendEvent('site_click', parameters);
   }
 
   function trackInput(event) {
@@ -95,19 +113,17 @@
     }
   }
 
-  function trackScroll() {
-    var now = Date.now();
-    if (now - lastScrollEvent < 250) {
-      return;
-    }
-    lastScrollEvent = now;
-
-    var documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (documentHeight <= 0) {
+  function recordScrollDepth() {
+    var documentHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body ? document.body.scrollHeight : 0
+    );
+    var maxScroll = documentHeight - window.innerHeight;
+    if (maxScroll <= 0) {
       return;
     }
 
-    var progress = Math.round((window.scrollY / documentHeight) * 100);
+    var progress = Math.min(100, Math.floor((window.scrollY / maxScroll) * 100));
     [25, 50, 75, 90, 100].forEach(function (milestone) {
       if (progress >= milestone && !scrollMilestones[milestone]) {
         scrollMilestones[milestone] = true;
@@ -117,6 +133,18 @@
         });
       }
     });
+  }
+
+  function trackScroll() {
+    if (scrollEventTimer) {
+      window.clearTimeout(scrollEventTimer);
+    }
+    // A trailing check records the final depth even when the last scroll event
+    // occurs during throttling or a fast swipe/trackpad gesture.
+    scrollEventTimer = window.setTimeout(function () {
+      scrollEventTimer = null;
+      recordScrollDepth();
+    }, 120);
   }
 
   function trackVisibleSections() {
@@ -145,5 +173,7 @@
   document.addEventListener('click', trackClick, true);
   document.addEventListener('input', trackInput, true);
   window.addEventListener('scroll', trackScroll, { passive: true });
+  window.addEventListener('resize', trackScroll, { passive: true });
+  trackScroll();
   trackVisibleSections();
 }());

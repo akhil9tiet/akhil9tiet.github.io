@@ -1220,6 +1220,8 @@ body.nav-open {
 }
 
 .project-preview {
+  position: relative;
+  isolation: isolate;
   min-width: 0;
   min-height: 510px;
   padding: clamp(1rem, 2vw, 1.5rem);
@@ -1251,28 +1253,77 @@ body.nav-open {
 
 .project-preview-link,
 .project-github-link {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  padding: 0.65rem 0.9rem;
-  border-radius: 12px;
-  background: #e7e9ec;
-  box-shadow: 4px 4px 9px rgba(166, 173, 184, 0.4), -4px -4px 9px rgba(255, 255, 255, 0.85);
-  color: #526a87;
-  font-size: 0.88rem;
+  min-height: 48px;
+  padding: 0.72rem 1.15rem;
+  border: 1px solid rgba(126, 242, 220, 0.48);
+  border-radius: 9px;
+  background: #14212b;
+  box-shadow: 0 4px 0 #0b1218, 0 8px 18px rgba(8, 12, 18, 0.2);
+  color: #f5f7fa;
+  font-family: 'Space Mono', Consolas, monospace;
+  font-size: 0.9rem;
   font-weight: 700;
+  letter-spacing: 0.04em;
   text-decoration: none;
+  text-transform: uppercase;
+  transform: translateY(-2px);
+  transition: transform 180ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.project-preview-link::before,
+.project-github-link::before {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0;
+  left: 0.85rem;
+  height: 2px;
+  content: '';
+  border-radius: 2px;
+  background: #72f6df;
+  box-shadow: 0 0 8px #72f6df, 0 0 16px rgba(114, 246, 223, 0.8);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms ease;
+  pointer-events: none;
+}
+
+.project-preview-link:hover,
+.project-preview-link:focus-visible,
+.project-github-link:hover,
+.project-github-link:focus-visible {
+  outline: none;
+  border-color: #8bffe9;
+  background: #18333b;
+  box-shadow: 0 2px 0 #0b1218, 0 0 10px rgba(94, 255, 222, 0.62), 0 0 22px rgba(94, 255, 222, 0.3);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(0);
+  animation: project-cta-text-glitch 380ms steps(2, end) 1;
+}
+
+.project-preview-link:hover::before,
+.project-preview-link:focus-visible::before,
+.project-github-link:hover::before,
+.project-github-link:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@keyframes project-cta-text-glitch {
+  0%, 100% { text-shadow: none; }
+  25% { text-shadow: 1px 0 #67f7df, -1px 0 #ff6d9f; }
+  50% { text-shadow: -1px 0 #67f7df, 1px 0 #ff6d9f; }
+  75% { text-shadow: 0 0 7px rgba(103, 247, 223, 0.9); }
 }
 
 .project-preview-link[hidden] {
   display: none;
-}
-
-.project-preview-link:hover,
-.project-github-link:hover {
-  color: #344e70;
-  text-decoration: none;
 }
 
 .project-frame-wrap {
@@ -1293,24 +1344,18 @@ body.nav-open {
   pointer-events: none;
 }
 
-.project-github-panel {
-  display: flex;
-  min-height: 410px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+.project-image-wrap {
+  height: 410px;
+  overflow: hidden;
   border-radius: 18px;
-  background: #e7e9ec;
-  box-shadow: none;
-  text-align: center;
+  background: #dce0e5;
 }
 
-.project-github-panel p {
-  max-width: 32rem;
-  margin: 0 0 1.4rem;
-  color: var(--project-muted);
-  line-height: 1.7;
+.project-image-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (max-width: 767px) {
@@ -1335,18 +1380,71 @@ body.nav-open {
   }
 
   .project-preview {
-    min-height: 0;
-    padding: 1rem;
+    min-height: 340px;
+    padding: 0;
+    overflow: hidden;
+    background: #121821;
   }
 
   .project-preview-heading {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
     flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    padding: 5rem 1.25rem 1.25rem;
+    background: linear-gradient(180deg, transparent, rgba(9, 14, 21, 0.94) 48%);
+  }
+
+  .project-preview-heading h4,
+  .project-preview-heading p {
+    color: #fff;
+  }
+
+  .project-preview-heading p {
+    max-width: 34rem;
+    line-height: 1.55;
   }
 
   .project-frame-wrap,
-  .project-github-panel {
-    height: 340px;
-    min-height: 340px;
+  .project-image-wrap {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    height: auto;
+    border-radius: 0;
+    background: #121821;
+  }
+
+  .project-frame-wrap iframe {
+    width: 150%;
+    height: 150%;
+    opacity: 0.24;
+    filter: grayscale(0.25) brightness(0.62) blur(1px);
+    transform: scale(0.667);
+    transform-origin: top left;
+  }
+
+  .project-image-wrap img {
+    opacity: 0.24;
+    filter: grayscale(0.25) brightness(0.62) blur(1px);
+  }
+
+  .project-preview-link {
+    min-height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.project-preview-link,
+.project-preview-link::before,
+.project-github-link,
+.project-github-link::before {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
@@ -1605,6 +1703,282 @@ body.nav-open {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+
+/* Contact refresh */
+#contact.contact {
+  width: 100%;
+  min-height: 0;
+  margin-left: 0;
+  padding: clamp(4rem, 9vw, 8rem) 1.25rem;
+  overflow: hidden;
+  color: #edf4ff;
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(58, 93, 205, 0.25), transparent 34rem),
+    radial-gradient(ellipse at 5% 95%, rgba(23, 125, 139, 0.16), transparent 30rem),
+    #0b1018;
+}
+
+#contact.contact::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
+  pointer-events: none;
+}
+
+#contact .container.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr);
+  align-items: center;
+  gap: clamp(2rem, 8vw, 8rem);
+  max-width: 1160px;
+}
+
+#contact .contact-content {
+  padding: 0;
+  overflow: visible;
+  cursor: default;
+}
+
+#contact .contact-kicker,
+.contact-terminal__eyebrow {
+  margin: 0 0 1rem;
+  color: #76e8d1;
+  font: 700 0.76rem/1.4 'Space Mono', Consolas, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+#contact .section-header {
+  margin: 0;
+  color: #f1f5fb;
+  font-size: clamp(3rem, 7vw, 6.4rem);
+  font-weight: 650;
+  letter-spacing: -0.075em;
+  line-height: 0.98;
+}
+
+#contact .contact-intro {
+  max-width: 34rem;
+  margin: 1.35rem 0 2.5rem;
+  color: #aab6c7;
+  font-size: clamp(1rem, 1.5vw, 1.16rem);
+  line-height: 1.75;
+}
+
+#contact .contact-info {
+  display: grid;
+  gap: 0.8rem;
+  color: #f1f5fb;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+#contact .contact-info p {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.7rem;
+  min-height: 0;
+  margin: 0;
+}
+
+#contact .contact-label {
+  color: #758499;
+  font: 0.72rem 'Space Mono', Consolas, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#contact .contact-info a {
+  width: fit-content;
+  color: #edf4ff;
+  text-decoration-color: rgba(118, 232, 209, 0.45);
+  text-underline-offset: 0.25em;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+#contact .contact-info a:hover,
+#contact .contact-info a:focus-visible {
+  color: #76e8d1;
+  text-decoration-color: currentColor;
+}
+
+#contact .social-links {
+  gap: 0.75rem;
+  margin-top: 2.4rem;
+}
+
+#contact .social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(177, 194, 218, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #c5d0de;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+#contact .social-links a:hover,
+#contact .social-links a:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(118, 232, 209, 0.55);
+  background: rgba(118, 232, 209, 0.08);
+  color: #fff;
+}
+
+#contact .social-links a img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.8);
+}
+
+#contact .video-container {
+  width: min(100%, 370px);
+  height: auto;
+  aspect-ratio: 1;
+  justify-self: center;
+  border: 1px solid rgba(132, 166, 208, 0.18);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(57, 91, 138, 0.23), transparent 68%);
+  box-shadow: 0 0 0 18px rgba(107, 151, 207, 0.025), 0 0 0 42px rgba(107, 151, 207, 0.018), 0 0 90px rgba(53, 107, 173, 0.18);
+}
+
+#contact .video-container::before,
+#contact .video-container::after {
+  position: absolute;
+  inset: -12%;
+  content: '';
+  border: 1px solid rgba(123, 161, 206, 0.16);
+  border-radius: 50%;
+  animation: contact-orbit 22s linear infinite;
+  pointer-events: none;
+}
+
+#contact .video-container::after {
+  inset: -24%;
+  border-color: rgba(123, 161, 206, 0.09);
+  animation-duration: 34s;
+  animation-direction: reverse;
+}
+
+#contact .video-container video {
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+  filter: saturate(0.72) brightness(0.78);
+  mask-image: radial-gradient(circle, #000 63%, transparent 75%);
+}
+
+@keyframes contact-orbit {
+  to { transform: rotate(360deg); }
+}
+
+.js [data-contact-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.js [data-contact-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#contact [data-contact-reveal]:nth-child(2) { transition-delay: 100ms; }
+#contact [data-contact-reveal]:nth-child(3) { transition-delay: 180ms; }
+#contact [data-contact-reveal]:nth-child(4) { transition-delay: 260ms; }
+
+.contact-terminal {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 52vh, 520px);
+  min-height: 300px;
+  overflow: hidden;
+  border-top: 1px solid rgba(119, 152, 190, 0.18);
+  background: #080d13;
+  color: #d3e7e3;
+}
+
+.contact-terminal__bar {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 clamp(1rem, 5vw, 4rem);
+  border-bottom: 1px solid rgba(126, 158, 190, 0.13);
+  background: rgba(8, 13, 19, 0.88);
+  color: #8998aa;
+  font: 0.72rem 'Space Mono', Consolas, monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.contact-terminal__lights { display: flex; gap: 7px; }
+.contact-terminal__lights i { width: 8px; height: 8px; border-radius: 50%; background: #ff6c67; }
+.contact-terminal__lights i:nth-child(2) { background: #f3c969; }
+.contact-terminal__lights i:nth-child(3) { background: #74d9a0; }
+
+.contact-terminal__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-terminal::after {
+  position: absolute;
+  inset: 48px 0 0;
+  content: '';
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(145, 255, 213, 0.022) 4px);
+  pointer-events: none;
+}
+
+.contact-terminal__accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 768px) {
+  #contact.contact { padding: 4.5rem 1.25rem 5rem; }
+  #contact .container.contact-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+  #contact .contact-content { width: min(100%, 600px); margin: 0 auto; }
+  #contact .section-header { font-size: clamp(3.2rem, 16vw, 5.2rem); }
+  #contact .contact-intro { margin: 1rem 0 2rem; }
+  #contact .video-container { width: min(67vw, 290px); }
+  .contact-terminal { height: clamp(320px, 55vh, 460px); }
+}
+
+@media (max-width: 420px) {
+  #contact .contact-info p { grid-template-columns: 4.4rem minmax(0, 1fr); gap: 0.45rem; font-size: 0.9rem; }
+  #contact .social-links { flex-wrap: wrap; }
+  .contact-terminal__bar { font-size: 0.62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #contact .video-container::before,
+  #contact .video-container::after { animation: none; }
+  [data-contact-reveal] { opacity: 1; transform: none; transition: none; }
+}
 </style>
 
 <!-- GSAP and Splitting libraries for clip effect -->
@@ -1668,23 +2042,23 @@ body.nav-open {
 
       <div class="project-showcase">
         <ul class="project-list" role="tablist" aria-label="Projects">
-          <li role="presentation"><button type="button" role="tab" id="project-tab-claude" aria-selected="true" aria-controls="project-preview" data-title="Claude Loader" data-description="React + D3" data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">React · D3</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-lyrical" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Lyrical Matrix" data-description="Interactive lyric heatmap · React + D3" data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">React · D3</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-isometric-area-chart" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Three Isometric Area Chart" data-description="Three.js isometric area chart" data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Three.js · Data visualization</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-system-thoughts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="System Thoughts" data-description="System Thoughts project" data-type="iframe" data-url="https://akhil9tiet.github.io/SystemThoughts/"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">Interactive project</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-movie" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Christopher Nolan Movies Emotion Arc" data-description="React + D3 + WebGL + Gemini" data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">React · WebGL · Gemini</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-h1b" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Average H1B Salaries" data-description="Interactive salary visualization · React + D3" data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">React · D3</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-daemon" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Hackathon Winner @ UMD" data-description="A recommender system to match nonprofits with volunteers." data-type="github" data-url="https://github.com/akhil9tiet/DaemonDash2017"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Nonprofit recommender</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-stock" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Stock Price Classifier" data-description="A stock price classification project built with Python." data-type="github" data-url="https://github.com/akhil9tiet/Python_for_finance"><span class="project-list-title">Stock Price Classifier</span><span class="project-list-meta">Python · Finance</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-claude" aria-selected="true" aria-controls="project-preview" data-title="Claude Loader" data-description="Conversational loading experiences built with React." data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-lyrical" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Lyrical Matrix" data-description="Explore song lyrics through an interactive heatmap." data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-isometric-area-chart" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Three Isometric Area Chart" data-description="Isometric area charts rendered with Three.js." data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Three.js · Data visualization</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-system-thoughts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/SystemThoughts/"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">Interactive project</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-movie" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Christopher Nolan Movies Emotion Arc" data-description="Map emotional arcs across Christopher Nolan films." data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">React · WebGL · Gemini</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-h1b" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Average H1B Salaries" data-description="Compare salary trends across H-1B occupations." data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-daemon" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Hackathon Winner @ UMD" data-description="Matched volunteers with nonprofits through recommendations." data-type="image" data-image="assets/images/visualization.png" data-url="https://github.com/akhil9tiet/DaemonDash2017"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Nonprofit recommender</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-stock" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Stock Price Classifier" data-description="Classified stock movements with historical market data." data-type="image" data-image="assets/images/stockprice.jpg" data-url="https://github.com/akhil9tiet/Python_for_finance"><span class="project-list-title">Stock Price Classifier</span><span class="project-list-meta">Python · Finance</span></button></li>
         </ul>
 
         <section class="project-preview" id="project-preview" role="tabpanel" aria-labelledby="project-tab-claude" aria-live="polite">
           <div class="project-preview-heading">
             <div>
               <h4 id="project-preview-title">Claude Loader</h4>
-              <p id="project-preview-description">React + D3</p>
+              <p id="project-preview-description">Conversational loading experiences built with React.</p>
             </div>
-            <a class="project-preview-link" id="project-preview-link" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer">Open project</a>
+            <a class="project-preview-link" id="project-preview-link" data-text="Explore project" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer">Explore project</a>
           </div>
           <div class="project-frame-wrap" id="project-preview-content">
             <iframe src="https://akhil9tiet.github.io/claudeLoader/" title="Claude Loader live preview" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
@@ -1906,28 +2280,39 @@ body.nav-open {
 </section>
 
 	<!--.................Contact....................-->
-<div id="contact" class="section contact">
-	<div class="container">
-		<div class="contact-content clip-card">
-			<h3 class="section-header">Contact</h3>
-			<div class="contact-info">
-				<p><span class="typing-text" data-text="Akhil Gupta">Akhil Gupta</span></p>
-				<p><a href="mailto:akhil****@gmail.com"><span class="typing-text" data-text="akhil****@gmail.com">akhil****@gmail.com</span></a></p>
-				<p><span class="typing-text" data-text="+1 (***) ***-7867">+1 (***) ***-7867</span></p>
-			</div>
-			<div class="social-links">
-				<a href="https://github.com/akhil9tiet"><img src="./assets/icons/github.png" alt="GitHub"></a>
-				<a href="https://in.linkedin.com/in/akhil-gupta"><img src="./assets/icons/linkedin.png" alt="LinkedIn"></a>
-			</div>
-		</div>
-		<div class="video-container">
-			<video autoplay muted loop playsinline>
-				<source src="./assets/images/earth.mp4" type="video/mp4">
-				Your browser does not support the video tag.
-			</video>
-		</div>
+<section id="contact" class="section contact" aria-labelledby="contact-title">
+  <div class="container contact-layout">
+    <div class="contact-content">
+      <p class="contact-kicker" data-contact-reveal>Contact / 01</p>
+      <h3 id="contact-title" class="section-header" data-contact-reveal>Let’s connect.</h3>
+      <p class="contact-intro" data-contact-reveal>Have a product idea, a tough engineering problem, or a team that could use an extra set of hands? I’d be glad to hear from you.</p>
+      <div class="contact-info" aria-label="Contact information">
+        <p data-contact-reveal><span class="contact-label">Name</span><span>Akhil Gupta</span></p>
+        <p data-contact-reveal><span class="contact-label">Email</span><a href="mailto:akhil****@gmail.com">akhil****@gmail.com</a></p>
+        <p data-contact-reveal><span class="contact-label">Phone</span><span>+1 (***) ***-7867</span></p>
+      </div>
+      <div class="social-links" data-contact-reveal>
+        <a href="https://github.com/akhil9tiet" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/github.png" alt="">GitHub</a>
+        <a href="https://in.linkedin.com/in/akhil-gupta" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/linkedin.png" alt="">LinkedIn</a>
+      </div>
     </div>
-</div>
+    <div class="video-container" data-contact-reveal aria-hidden="true">
+      <video autoplay muted loop playsinline>
+        <source src="./assets/images/earth.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="contact-terminal" aria-label="Interactive portfolio command line">
+  <div class="contact-terminal__bar" aria-hidden="true">
+    <span class="contact-terminal__lights"><i></i><i></i><i></i></span>
+    <span>akhil@portfolio: ~</span>
+    <span class="contact-terminal__eyebrow">system ready</span>
+  </div>
+  <canvas class="contact-terminal__canvas" width="977" height="450" aria-hidden="true"></canvas>
+  <div class="contact-terminal__accessible">Portfolio command line: whoami returns Akhil Gupta, senior AI engineer. Focus areas include applied AI, product engineering, and modern web experiences. Email: akhil****@gmail.com. GitHub: github.com/akhil9tiet.</div>
+</section>
 
 <footer>
     <p>&copy Akhil Gupta 2026</p>
@@ -1940,99 +2325,183 @@ body.nav-open {
 			} );
 </script>
 
-<!-- Clip Hover Effect for Contact Section -->
+<!-- Contact reveal and responsive terminal canvas -->
 <script>
-const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-
-function shuffleText(element) {
-  const finalText = element.getAttribute('data-text');
-  const length = finalText.length;
-  let currentText = '';
-  let iterations = 0;
-  const maxIterations = 15;
-  
-  // Create random initial text
-  for (let i = 0; i < length; i++) {
-    currentText += randomChars[Math.floor(Math.random() * randomChars.length)];
-  }
-  element.innerHTML = currentText;
-  
-  const shuffleInterval = setInterval(() => {
-    let newText = '';
-    
-    for (let i = 0; i < length; i++) {
-      if (iterations / maxIterations > Math.random()) {
-        // Show final character
-        newText += finalText[i];
-      } else {
-        // Show random character
-        newText += randomChars[Math.floor(Math.random() * randomChars.length)];
-      }
-    }
-    
-    element.innerHTML = newText;
-    iterations++;
-    
-    if (iterations >= maxIterations) {
-      clearInterval(shuffleInterval);
-      element.innerHTML = finalText;
-    }
-  }, 50);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-  const typingElements = document.querySelectorAll('.typing-text');
-  const clipCard = document.querySelector('.clip-card');
-  let hasAnimatedOnce = false;
-  
-  // Intersection Observer to trigger animation when contact section comes into view
-  const observerOptions = {
-    threshold: 0.3
-  };
-  
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !hasAnimatedOnce) {
-        hasAnimatedOnce = true;
-        typingElements.forEach(element => {
-          shuffleText(element);
-        });
-      }
-    });
-  }, observerOptions);
-  
-  if (clipCard) {
-    observer.observe(clipCard);
-  }
-  
-  // Initialize display with final text
-  typingElements.forEach(element => {
-    element.innerHTML = element.getAttribute('data-text');
-  });
-  
-  // Hover effect
-  if (clipCard) {
-    clipCard.addEventListener('mouseenter', () => {
-      typingElements.forEach(element => {
-        shuffleText(element);
+  var revealItems = document.querySelectorAll('[data-contact-reveal]');
+  var terminal = document.querySelector('.contact-terminal');
+  var canvas = document.querySelector('.contact-terminal__canvas');
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
       });
-      
-      gsap.timeline()
-        .to(clipCard, {
-          duration: 0.6,
-          ease: 'expo.inOut',
-          scale: 1.02
-        }, 0);
+    }, { threshold: 0.12, rootMargin: '0px 0px -25px 0px' });
+    revealItems.forEach(function(item) { revealObserver.observe(item); });
+  } else {
+    revealItems.forEach(function(item) { item.classList.add('is-visible'); });
+  }
+
+  if (!terminal || !canvas || !canvas.getContext) return;
+  var context = canvas.getContext('2d');
+  if (!context) return;
+
+  var lines = [
+    { text: '$ whoami', kind: 'command' },
+    { text: 'Akhil Gupta · Senior AI Engineer', kind: 'output' },
+    { text: '$ cat focus.txt', kind: 'command' },
+    { text: 'Applied AI / LLM systems / product engineering', kind: 'output' },
+    { text: '$ ls capabilities/', kind: 'command' },
+    { text: 'agents/  retrieval/  computer-vision/  full-stack/', kind: 'output' },
+    { text: '$ open contact --email', kind: 'command' },
+    { text: 'akhil****@gmail.com', kind: 'success' },
+    { text: '$ _', kind: 'command' }
+  ];
+  var width = 0;
+  var height = 0;
+  var rowIndex = 0;
+  var charIndex = 0;
+  var nextStepAt = 0;
+  var lastFrameAt = 0;
+  var fontSize = 14;
+  var lineHeight = 25;
+  var started = false;
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resizeCanvas() {
+    var rect = terminal.getBoundingClientRect();
+    var ratio = Math.min(window.devicePixelRatio || 1, 2);
+    width = rect.width;
+    height = rect.height;
+    canvas.width = Math.max(1, Math.round(width * ratio));
+    canvas.height = Math.max(1, Math.round(height * ratio));
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    fontSize = Math.max(11, Math.min(15, width / 72));
+    lineHeight = fontSize * 1.8;
+    renderTerminal(performance.now());
+  }
+
+  function wrappedRows(text, maxWidth) {
+    var result = [''];
+    var index = 0;
+    for (var i = 0; i < text.length; i++) {
+      var next = result[index] + text[i];
+      if (result[index] && context.measureText(next).width > maxWidth) {
+        result.push(text[i]);
+        index++;
+      } else {
+        result[index] = next;
+      }
+    }
+    return result;
+  }
+
+  function renderTerminal(now) {
+    if (!width || !height) return;
+    context.clearRect(0, 0, width, height);
+    var glow = context.createRadialGradient(width * 0.72, height * 0.42, 4, width * 0.72, height * 0.42, Math.max(width, height) * 0.75);
+    glow.addColorStop(0, 'rgba(13, 75, 66, 0.2)');
+    glow.addColorStop(1, 'rgba(8, 13, 19, 0)');
+    context.fillStyle = glow;
+    context.fillRect(0, 0, width, height);
+    context.font = fontSize + 'px "Space Mono", Consolas, monospace';
+    context.textBaseline = 'top';
+
+    var maxTextWidth = Math.max(20, width - 2 * Math.max(20, width * 0.07));
+    var paddingLeft = Math.max(20, width * 0.07);
+    var displayed = [];
+    for (var line = 0; line < rowIndex; line++) displayed.push(lines[line]);
+    if (rowIndex < lines.length) {
+      displayed.push({ text: lines[rowIndex].text.slice(0, charIndex), kind: lines[rowIndex].kind, partial: true });
+    }
+
+    var laidOut = [];
+    displayed.forEach(function(lineData) {
+      var chunks = wrappedRows(lineData.text, maxTextWidth);
+      chunks.forEach(function(chunk, chunkIndex) {
+        laidOut.push({ text: chunk, kind: lineData.kind, partial: lineData.partial && chunkIndex === chunks.length - 1 });
+      });
+    });
+    var maxRows = Math.max(1, Math.floor((height - 92) / lineHeight));
+    var visibleRows = laidOut.slice(Math.max(0, laidOut.length - maxRows));
+    var y = 70;
+    var cursorX = paddingLeft;
+    var cursorY = y;
+
+    visibleRows.forEach(function(row) {
+      context.fillStyle = row.kind === 'command' ? '#77ead3' : (row.kind === 'success' ? '#b6f28e' : '#bdc8c7');
+      context.shadowColor = row.kind === 'command' ? 'rgba(87, 246, 209, 0.32)' : 'transparent';
+      context.shadowBlur = row.kind === 'command' ? 8 : 0;
+      context.fillText(row.text, paddingLeft, y);
+      context.shadowBlur = 0;
+      if (row.partial) {
+        cursorX = Math.min(width - paddingLeft, paddingLeft + context.measureText(row.text).width + 2);
+        cursorY = y;
+      }
+      y += lineHeight;
     });
 
-    clipCard.addEventListener('mouseleave', () => {
-      gsap.timeline()
-        .to(clipCard, {
-          duration: 0.6,
-          ease: 'expo.inOut',
-          scale: 1
-        }, 0);
-    });
+    var cursorOn = Math.floor(now / 520) % 2 === 0;
+    if (cursorOn && (rowIndex < lines.length || rowIndex === lines.length)) {
+      if (rowIndex >= lines.length) {
+        cursorX = paddingLeft + context.measureText('$ ').width;
+        cursorY = y;
+      }
+      context.fillStyle = '#77ead3';
+      context.fillRect(cursorX, cursorY + 1, Math.max(2, fontSize * 0.55), fontSize * 1.05);
+    }
+  }
+
+  function animateTerminal(now) {
+    if (!started) return;
+    if (!lastFrameAt || now - lastFrameAt > 32) {
+      lastFrameAt = now;
+      if (rowIndex < lines.length && now >= nextStepAt) {
+        if (charIndex < lines[rowIndex].text.length) {
+          charIndex++;
+          nextStepAt = now + (lines[rowIndex].kind === 'command' ? 34 : 18);
+        } else {
+          rowIndex++;
+          charIndex = 0;
+          nextStepAt = now + 360;
+        }
+      }
+      renderTerminal(now);
+    }
+    window.requestAnimationFrame(animateTerminal);
+  }
+
+  function startTerminal() {
+    if (started) return;
+    started = true;
+    if (reducedMotion) {
+      rowIndex = lines.length;
+      renderTerminal(performance.now());
+      return;
+    }
+    window.requestAnimationFrame(animateTerminal);
+  }
+
+  resizeCanvas();
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(resizeCanvas).observe(terminal);
+  } else {
+    window.addEventListener('resize', resizeCanvas);
+  }
+  if ('IntersectionObserver' in window) {
+    var terminalObserver = new IntersectionObserver(function(entries) {
+      if (entries.some(function(entry) { return entry.isIntersecting; })) {
+        startTerminal();
+        terminalObserver.disconnect();
+      }
+    }, { threshold: 0.08 });
+    terminalObserver.observe(terminal);
+  } else {
+    startTerminal();
   }
 });
 </script>
@@ -2458,7 +2927,9 @@ function initProjectShowcase() {
       content.className = 'project-frame-wrap';
       previewLink.hidden = false;
       previewLink.href = projectUrl;
-      previewLink.textContent = 'Open project';
+      previewLink.textContent = 'Explore project';
+      previewLink.setAttribute('data-text', 'Explore project');
+      previewLink.setAttribute('aria-label', 'Explore ' + projectTitle);
 
       var frame = document.createElement('iframe');
       frame.src = projectUrl;
@@ -2469,18 +2940,18 @@ function initProjectShowcase() {
       frame.setAttribute('scrolling', 'no');
       content.appendChild(frame);
     } else {
-      content.className = 'project-github-panel';
-      previewLink.hidden = true;
+      content.className = 'project-image-wrap';
+      previewLink.hidden = false;
+      previewLink.href = projectUrl;
+      previewLink.textContent = 'View repository';
+      previewLink.setAttribute('data-text', 'View repository');
+      previewLink.setAttribute('aria-label', 'View ' + projectTitle + ' repository on GitHub');
 
-      var summary = document.createElement('p');
-      summary.textContent = projectDescription;
-      var repositoryLink = document.createElement('a');
-      repositoryLink.className = 'project-github-link';
-      repositoryLink.href = projectUrl;
-      repositoryLink.target = '_blank';
-      repositoryLink.rel = 'noopener noreferrer';
-      repositoryLink.textContent = 'View repository on GitHub';
-      content.append(summary, repositoryLink);
+      var image = document.createElement('img');
+      image.src = tab.getAttribute('data-image');
+      image.alt = projectTitle + ' project preview';
+      image.loading = 'lazy';
+      content.appendChild(image);
     }
 
     if (moveFocus) tab.focus();

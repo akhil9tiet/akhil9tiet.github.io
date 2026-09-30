@@ -1083,7 +1083,7 @@ body.nav-open {
 }
 
 /* Interactive project showcase */
-.projects {
+.experiments {
   --project-bg: #e7e9ec;
   --project-ink: #414752;
   --project-muted: #777f8a;
@@ -1092,11 +1092,11 @@ body.nav-open {
   padding: 5rem 0 6rem;
 }
 
-.projects .container {
+.experiments .container {
   max-width: 1240px;
 }
 
-.projects .section-header {
+.experiments .section-header {
   color: var(--project-ink);
   text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(173, 180, 190, 0.45);
 }
@@ -1224,31 +1224,44 @@ body.nav-open {
   isolation: isolate;
   min-width: 0;
   min-height: 510px;
-  padding: clamp(1rem, 2vw, 1.5rem);
+  padding: 0;
+  overflow: hidden;
   border-radius: 28px;
-  background: #e7e9ec;
-  box-shadow: none;
+  background: #101923;
+  box-shadow: 0 20px 60px rgba(8, 13, 20, 0.18);
 }
 
 .project-preview-heading {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(180deg, transparent 0%, rgba(7, 12, 19, 0.52) 25%, rgba(7, 12, 19, 0.94) 100%);
 }
 
 .project-preview-heading h4 {
   margin: 0;
-  color: var(--project-ink);
-  font-size: clamp(1.15rem, 2vw, 1.55rem);
-  font-weight: 800;
+  color: #f4f7fb;
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
 }
 
 .project-preview-heading p {
-  margin: 0.3rem 0 0;
-  color: var(--project-muted);
-  font-size: 0.92rem;
+  max-width: 42rem;
+  margin: 0.65rem 0 0;
+  color: #c5d0dc;
+  font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+  line-height: 1.55;
 }
 
 .project-preview-link,
@@ -1327,11 +1340,20 @@ body.nav-open {
 }
 
 .project-frame-wrap {
-  height: 410px;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
   overflow: hidden;
-  border-radius: 18px;
-  background: #dce0e5;
-  box-shadow: none;
+  border-radius: inherit;
+  background: #111923;
+}
+
+.project-frame-wrap::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: linear-gradient(120deg, rgba(9, 17, 27, 0.16), rgba(9, 17, 27, 0.08) 45%, rgba(7, 12, 19, 0.4));
+  pointer-events: none;
 }
 
 .project-frame-wrap iframe {
@@ -1340,15 +1362,19 @@ body.nav-open {
   height: 100%;
   border: 0;
   border-radius: inherit;
-  background: #fff;
+  background: #111923;
+  opacity: 0.72;
+  filter: saturate(0.78) brightness(0.8);
   pointer-events: none;
 }
 
 .project-image-wrap {
-  height: 410px;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
   overflow: hidden;
-  border-radius: 18px;
-  background: #dce0e5;
+  border-radius: inherit;
+  background: #111923;
 }
 
 .project-image-wrap img {
@@ -1356,10 +1382,12 @@ body.nav-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.72;
+  filter: saturate(0.78) brightness(0.8);
 }
 
 @media (max-width: 767px) {
-  .projects {
+  .experiments {
     padding: 3.5rem 0 4.5rem;
   }
 
@@ -1381,22 +1409,13 @@ body.nav-open {
 
   .project-preview {
     min-height: 340px;
-    padding: 0;
-    overflow: hidden;
-    background: #121821;
   }
 
   .project-preview-heading {
-    position: absolute;
-    z-index: 2;
-    right: 0;
-    bottom: 0;
-    left: 0;
     flex-direction: column;
     align-items: flex-start;
-    margin: 0;
-    padding: 5rem 1.25rem 1.25rem;
-    background: linear-gradient(180deg, transparent, rgba(9, 14, 21, 0.94) 48%);
+    padding: 4.5rem 1.25rem 1.25rem;
+    background: linear-gradient(180deg, transparent, rgba(9, 14, 21, 0.92) 50%);
   }
 
   .project-preview-heading h4,
@@ -1411,26 +1430,17 @@ body.nav-open {
 
   .project-frame-wrap,
   .project-image-wrap {
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    height: auto;
-    border-radius: 0;
     background: #121821;
   }
 
   .project-frame-wrap iframe {
-    width: 150%;
-    height: 150%;
-    opacity: 0.24;
-    filter: grayscale(0.25) brightness(0.62) blur(1px);
-    transform: scale(0.667);
-    transform-origin: top left;
+    opacity: 0.36;
+    filter: saturate(0.65) brightness(0.66) blur(0.6px);
   }
 
   .project-image-wrap img {
-    opacity: 0.24;
-    filter: grayscale(0.25) brightness(0.62) blur(1px);
+    opacity: 0.36;
+    filter: saturate(0.65) brightness(0.66) blur(0.6px);
   }
 
   .project-preview-link {
@@ -1446,6 +1456,68 @@ body.nav-open {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* System Thoughts featured embed */
+.system-thoughts-section {
+  padding: clamp(4rem, 8vw, 7rem) 1.25rem;
+  background: #eef0f2;
+  color: #273241;
+  scroll-margin-top: 2rem;
+}
+
+.system-thoughts-section .container {
+  width: min(100%, 1440px);
+  max-width: 1440px;
+}
+
+.system-thoughts-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.system-thoughts-heading h2 {
+  margin: 0;
+  color: #283443;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.system-thoughts-heading p {
+  max-width: 31rem;
+  margin: 0;
+  color: #697687;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.system-thoughts-frame {
+  height: clamp(460px, min(84vh, 67vw), 1100px);
+  height: clamp(460px, min(84svh, 67vw), 1100px);
+  overflow: hidden;
+  border: 1px solid rgba(35, 49, 67, 0.16);
+  border-radius: clamp(14px, 2vw, 26px);
+  background: #101721;
+  box-shadow: 0 26px 70px rgba(26, 39, 57, 0.17), 0 3px 8px rgba(26, 39, 57, 0.08);
+}
+
+.system-thoughts-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #101721;
+}
+
+@media (max-width: 600px) {
+  .system-thoughts-section { padding: 4rem 1rem; }
+  .system-thoughts-heading { align-items: flex-start; flex-direction: column; gap: 0.8rem; }
+  .system-thoughts-frame { height: clamp(460px, 72svh, 850px); }
 }
 
 @media (max-width: 420px) {
@@ -1730,10 +1802,11 @@ body.nav-open {
 
 #contact .container.contact-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
   align-items: center;
   gap: clamp(2rem, 8vw, 8rem);
   max-width: 1160px;
+  width: 100%;
 }
 
 #contact .contact-content {
@@ -2015,11 +2088,16 @@ body.nav-open {
 
 @media (max-width: 768px) {
   #contact.contact { padding: 4.5rem 1.25rem 5rem; }
-  #contact .container.contact-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+  #contact .container.contact-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.5rem;
+  }
   #contact .contact-content { width: min(100%, 600px); margin: 0 auto; }
   #contact .section-header { font-size: clamp(3.2rem, 16vw, 5.2rem); }
   #contact .contact-intro { margin: 1rem 0 2rem; }
-  #contact .video-container { width: min(67vw, 290px); }
+  #contact .video-container { width: min(67vw, 290px); align-self: center; }
   .contact-terminal { height: clamp(320px, 55vh, 460px); }
 }
 
@@ -2100,7 +2178,7 @@ body.nav-open {
           <li role="presentation"><button type="button" role="tab" id="project-tab-claude" aria-selected="true" aria-controls="project-preview" data-title="Claude Loader" data-description="Conversational loading experiences built with React." data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">React · D3</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-lyrical" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Lyrical Matrix" data-description="Explore song lyrics through an interactive heatmap." data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">React · D3</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-isometric-area-chart" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Three Isometric Area Chart" data-description="Isometric area charts rendered with Three.js." data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Three.js · Data visualization</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-system-thoughts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/SystemThoughts/"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">Interactive project</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-system-thoughts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/systemThoughts/"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">Interactive project</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-movie" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Christopher Nolan Movies Emotion Arc" data-description="Map emotional arcs across Christopher Nolan films." data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">React · WebGL · Gemini</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-h1b" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Average H1B Salaries" data-description="Compare salary trends across H-1B occupations." data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">React · D3</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-daemon" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Hackathon Winner @ UMD" data-description="Matched volunteers with nonprofits through recommendations." data-type="image" data-image="assets/images/visualization.png" data-url="https://github.com/akhil9tiet/DaemonDash2017"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Nonprofit recommender</span></button></li>
@@ -2313,6 +2391,27 @@ body.nav-open {
     </div>
   </div>
 </div>
+
+
+<section id="system-thoughts" class="system-thoughts-section" aria-labelledby="system-thoughts-title">
+  <div class="container">
+    <div class="system-thoughts-heading">
+      <div>
+        <p class="experience-kicker">Interactive project</p>
+        <h2 id="system-thoughts-title">System Thoughts</h2>
+      </div>
+      <p>A visual space for exploring systems, ideas, and the connections between them.</p>
+    </div>
+    <div class="system-thoughts-frame">
+      <iframe
+        src="https://akhil9tiet.github.io/systemThoughts/"
+        title="System Thoughts interactive project"
+        loading="lazy"
+        allow="fullscreen"
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </div>
+</section>
 
 
 	<!-- Work Experience -->

@@ -303,3 +303,11 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ![Footer Animation](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=14&pause=1000&color=6B7280&width=600&lines=Thanks+for+visiting+my+portfolio!;Feel+free+to+reach+out+for+collaborations;Happy+coding!+🚀)
 
 </div>
+
+
+## Akhil Gupta (akhil9tiet)
+
+Senior AI Engineer portfolio: [akhil9tiet.github.io](https://akhil9tiet.github.io)
+
+- GitHub: [github.com/akhil9tiet](https://github.com/akhil9tiet)
+- LinkedIn: [linkedin.com/in/akhil-gupta](https://in.linkedin.com/in/akhil-gupta)

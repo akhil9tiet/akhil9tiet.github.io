@@ -1845,11 +1845,18 @@ body.nav-open {
 
 #contact .container.contact-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
   align-items: center;
-  gap: clamp(2rem, 8vw, 8rem);
-  max-width: 1160px;
+  gap: clamp(2rem, 5vw, 5rem);
+  max-width: 1240px;
   width: 100%;
+}
+
+@media (min-width: 769px) {
+  #contact .container.contact-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+  }
+  #contact .video-container { justify-self: end; }
 }
 
 #contact .contact-content {

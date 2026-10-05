@@ -348,6 +348,17 @@
   text-align: center;
 }
 
+/* Keep the Block Reveal wrapper aligned with the hero text. */
+.hero #rev-1.block-revealer,
+.hero h1 #rev-2.block-revealer {
+  vertical-align: baseline;
+}
+
+.hero .block-revealer__content {
+  display: inline-block;
+  white-space: inherit;
+}
+
 .hero p.hero-identity {
   margin: 1.4rem auto 0;
   color: rgba(255, 255, 255, 0.9);
@@ -2224,6 +2235,7 @@ body.nav-open {
       <div class="project-showcase">
         <ul class="project-list" role="tablist" aria-label="Experiments">
           <li role="presentation"><button type="button" role="tab" id="project-tab-claude" aria-selected="true" aria-controls="project-preview" data-title="Claude Loader" data-description="Conversational loading experiences built with React." data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">React · D3</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="project-tab-jitter-charts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Jitter-charts" data-description="An npm package for creating jitter charts." data-type="iframe" data-url="https://akhil9tiet.github.io/jitter-charts/"><span class="project-list-title">Jitter-charts</span><span class="project-list-meta">npm package</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-lyrical" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Lyrical Matrix" data-description="Explore song lyrics through an interactive heatmap." data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">React · D3</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-isometric-area-chart" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Three Isometric Area Chart" data-description="Isometric area charts rendered with Three.js." data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Three.js · Data visualization</span></button></li>
           <li role="presentation"><button type="button" role="tab" id="project-tab-system-thoughts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/systemThoughts/"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">Interactive project</span></button></li>

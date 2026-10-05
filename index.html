@@ -315,50 +315,6 @@
   visibility: hidden;
 }
 
-/* Restore the greeting/name/subtitle hierarchy and center both reveal targets. */
-.hero #rev-1 {
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  margin: 0 auto -0.18em;
-  padding: 0;
-  font-size: clamp(2rem, min(8vw, 12vh), 9rem);
-  line-height: 1.2;
-  letter-spacing: 0.04em;
-  -webkit-text-stroke: 0.35px currentColor;
-}
-
-.hero h1.content__title--center {
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-  font-size: clamp(2rem, min(8vw, 12vh), 9rem);
-  line-height: 1.1;
-  text-align: center;
-}
-
-.hero h1 #rev-2 {
-  display: inline-block;
-  top: 0;
-  left: 0;
-  max-width: 100%;
-  font-size: 1em;
-  line-height: 1.1;
-  text-align: center;
-}
-
-/* Keep the Block Reveal wrapper aligned with the hero text. */
-.hero #rev-1.block-revealer,
-.hero h1 #rev-2.block-revealer {
-  vertical-align: baseline;
-}
-
-.hero .block-revealer__content {
-  display: inline-block;
-  white-space: inherit;
-}
-
 .hero p.hero-identity {
   margin: 1.4rem auto 0;
   color: rgba(255, 255, 255, 0.9);
@@ -2207,9 +2163,9 @@ body.nav-open {
 		<div class="container" style="font-size:20px;">
       <div class="row hero__content-row">
         <div class="col-md-12">
-          <p id="rev-1" class="content__title__inner" aria-hidden="true" style="color: #fff200;">"Hello World"</p>
           <h1 class="content__title content__title--center">
-            <span id="rev-2" class="content__title__inner" style="color: #fff200;">Akhil Gupta<span id="cursor" style="opacity: 0; color: #fff200; animation: blink 1s infinite;">|</span></span>
+            <div id="rev-1" class="content__title__inner" style="color: #fff200;">"Hello World"</div><br>
+            <div id="rev-2" class="content__title__inner content__title__inner--offset-1" style="color: #fff200; font-size: .9em;">Akhil Gupta<span id="cursor" style="opacity: 0; color: #fff200; animation: blink 1s infinite;">|</span></div>
           </h1>
           <p class="hero-identity">Senior AI Engineer <span aria-hidden="true">|</span> akhil9tiet</p>
         </div>

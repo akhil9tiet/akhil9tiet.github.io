@@ -402,6 +402,15 @@
   pointer-events: none;
 }
 
+.fixed-logo-particles {
+  position: fixed;
+  top: 28px;
+  left: 28px;
+  z-index: 9998;
+  display: block;
+  pointer-events: none;
+}
+
 /* Tablet view */
 @media (max-width: 768px) {
   .fixed-logo {
@@ -2181,6 +2190,7 @@ body.nav-open {
 <body data-gr-c-s-loaded= "true">
 	<!-- Fixed Logo (top left) -->
 	<img src="assets/images/logo.png" alt="Logo" class="fixed-logo">
+	<canvas class="fixed-logo-particles" aria-hidden="true"></canvas>
 
 	<!-- Hamburger Button (fixed, always visible) -->
 	<button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -3295,6 +3305,118 @@ document.addEventListener('DOMContentLoaded', function() {
   initAIScrollytelling();
 });
 </script>
+
+  <script>
+  (function() {
+    var logo = document.querySelector('.fixed-logo');
+    var canvas = document.querySelector('.fixed-logo-particles');
+    var context = canvas.getContext('2d');
+    var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var particles = [];
+    var framePending = false;
+    var canvasWidth = 0;
+    var canvasHeight = 0;
+    var pixelRatio = 1;
+
+    function buildParticles() {
+      var bounds = {
+        width: logo.offsetWidth,
+        height: logo.offsetHeight
+      };
+      var columns = 64;
+      var rows = Math.max(1, Math.round(columns * bounds.height / bounds.width));
+      var sample = document.createElement('canvas');
+      var sampleContext = sample.getContext('2d', { willReadFrequently: true });
+
+      canvasWidth = bounds.width;
+      canvasHeight = bounds.height;
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(canvasWidth * pixelRatio);
+      canvas.height = Math.round(canvasHeight * pixelRatio);
+      canvas.style.width = canvasWidth + 'px';
+      canvas.style.height = canvasHeight + 'px';
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+      sample.width = columns;
+      sample.height = rows;
+      sampleContext.drawImage(logo, 0, 0, columns, rows);
+
+      var pixels = sampleContext.getImageData(0, 0, columns, rows).data;
+      var cellWidth = canvasWidth / columns;
+      var cellHeight = canvasHeight / rows;
+      particles = [];
+
+      for (var y = 0; y < rows; y++) {
+        for (var x = 0; x < columns; x++) {
+          var index = (y * columns + x) * 4;
+          var alpha = pixels[index + 3] / 255;
+          if (alpha < 0.12) continue;
+
+          var seed = (x * 17 + y * 31) % 23;
+          particles.push({
+            x: (x + 0.5) * cellWidth,
+            y: (y + 0.5) * cellHeight,
+            driftX: 24 + seed * 3.8,
+            driftY: -12 - ((x * 11 + y * 7) % 19) * 3.2,
+            size: Math.max(1, Math.min(cellWidth, cellHeight) * 0.72),
+            alpha: alpha,
+            color: 'rgb(' + pixels[index] + ',' + pixels[index + 1] + ',' + pixels[index + 2] + ')'
+          });
+        }
+      }
+    }
+
+    function render() {
+      framePending = false;
+      var scrollRange = 190;
+      var rawProgress = Math.max(0, Math.min(1, window.scrollY / scrollRange));
+      var progress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+
+      logo.style.opacity = String(0.7 * (1 - progress));
+      logo.style.transform = motionPreference.matches
+        ? 'none'
+        : 'translate3d(' + (-76 * progress) + 'px, ' + (-36 * progress) + 'px, 0) scale(' + (1 - 0.12 * progress) + ')';
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      if (motionPreference.matches || progress <= 0 || progress >= 1) return;
+
+      var particleOpacity = Math.sin(Math.PI * progress);
+      for (var i = 0; i < particles.length; i++) {
+        var particle = particles[i];
+        context.globalAlpha = particle.alpha * particleOpacity;
+        context.fillStyle = particle.color;
+        context.fillRect(
+          particle.x + particle.driftX * progress,
+          particle.y + particle.driftY * progress,
+          particle.size,
+          particle.size
+        );
+      }
+      context.globalAlpha = 1;
+    }
+
+    function scheduleRender() {
+      if (framePending) return;
+      framePending = true;
+      window.requestAnimationFrame(render);
+    }
+
+    function initialize() {
+      buildParticles();
+      render();
+    }
+
+    if (logo.complete && logo.naturalWidth) initialize();
+    else logo.addEventListener('load', initialize, { once: true });
+
+    window.addEventListener('scroll', scheduleRender, { passive: true });
+    window.addEventListener('resize', function() {
+      buildParticles();
+      scheduleRender();
+    }, { passive: true });
+    motionPreference.addEventListener('change', scheduleRender);
+  })();
+ </script>
 
 <!-- Analytics and interaction telemetry -->
 <script src="js/telemetry.js" defer></script>

@@ -1183,7 +1183,7 @@ body.nav-open {
 
 .project-list button {
   width: 100%;
-  padding: 1rem 1.1rem;
+  padding: 1rem 2.4rem 1rem 1.1rem;
   border: 0;
   border-radius: 16px;
   position: relative;
@@ -1251,32 +1251,6 @@ body.nav-open {
   margin-top: 0.25rem;
   color: var(--project-muted);
   font-size: 1rem;
-}
-
-.project-list-title::after {
-  content: '';
-  display: none;
-  width: 0.55em;
-  height: 1em;
-  margin-left: 0.18em;
-  vertical-align: -0.12em;
-  background: currentColor;
-  animation: project-cursor-blink 0.8s steps(1, end) infinite;
-}
-
-.project-list button:hover .project-list-title::after,
-.project-list button:focus-visible .project-list-title::after {
-  display: inline-block;
-}
-
-@keyframes project-cursor-blink {
-  50% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-list-title::after {
-    animation: none;
-  }
 }
 
 .project-preview {
@@ -1410,14 +1384,6 @@ body.nav-open {
   background: #111923;
 }
 
-.project-frame-wrap::after {
-  position: absolute;
-  inset: 0;
-  content: '';
-  background: linear-gradient(120deg, rgba(9, 17, 27, 0.16), rgba(9, 17, 27, 0.08) 45%, rgba(7, 12, 19, 0.4));
-  pointer-events: none;
-}
-
 .project-frame-wrap iframe {
   display: block;
   width: 100%;
@@ -1425,9 +1391,66 @@ body.nav-open {
   border: 0;
   border-radius: inherit;
   background: #111923;
-  opacity: 0.72;
-  filter: saturate(0.78) brightness(0.8);
+  opacity: 1;
+  filter: none;
   pointer-events: none;
+  transition: filter 220ms ease;
+}
+
+.project-frame-wrap:hover iframe,
+.project-frame-wrap:focus-within iframe {
+  filter: blur(4px) brightness(0.72);
+}
+
+.project-frame-link {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border: 1px solid rgba(126, 242, 220, 0.8);
+  border-radius: 50%;
+  background: rgba(10, 25, 31, 0.84);
+  box-shadow: 0 0 18px rgba(72, 244, 218, 0.5);
+  color: #9bffed;
+  opacity: 0;
+  pointer-events: none;
+  text-decoration: none;
+  transform: translate(-50%, -44%) scale(0.82);
+  transition: opacity 180ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.project-frame-link svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.project-frame-wrap:hover .project-frame-link,
+.project-frame-link:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.project-frame-link:hover,
+.project-frame-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 5px rgba(72, 244, 218, 0.15), 0 0 28px rgba(72, 244, 218, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-frame-wrap iframe,
+  .project-frame-link {
+    transition: none;
+  }
 }
 
 .project-image-wrap {
@@ -1865,6 +1888,7 @@ body.nav-open {
 #contact .container.contact-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+  grid-template-areas: "globe copy";
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
   max-width: 1240px;
@@ -1879,6 +1903,7 @@ body.nav-open {
 }
 
 #contact .contact-content {
+  grid-area: copy;
   padding: 0;
   overflow: visible;
   cursor: default;
@@ -2032,32 +2057,15 @@ body.nav-open {
 }
 
 #contact .video-container {
+  grid-area: globe;
   width: min(100%, 370px);
   height: auto;
   aspect-ratio: 1;
   justify-self: center;
-  border: 1px solid rgba(132, 166, 208, 0.18);
+  border: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(57, 91, 138, 0.23), transparent 68%);
-  box-shadow: 0 0 0 18px rgba(107, 151, 207, 0.025), 0 0 0 42px rgba(107, 151, 207, 0.018), 0 0 90px rgba(53, 107, 173, 0.18);
-}
-
-#contact .video-container::before,
-#contact .video-container::after {
-  position: absolute;
-  inset: -12%;
-  content: '';
-  border: 1px solid rgba(123, 161, 206, 0.16);
-  border-radius: 50%;
-  animation: contact-orbit 22s linear infinite;
-  pointer-events: none;
-}
-
-#contact .video-container::after {
-  inset: -24%;
-  border-color: rgba(123, 161, 206, 0.09);
-  animation-duration: 34s;
-  animation-direction: reverse;
+  background: transparent;
+  box-shadow: none;
 }
 
 #contact .video-container video {
@@ -2066,10 +2074,6 @@ body.nav-open {
   border-radius: 50%;
   filter: saturate(0.72) brightness(0.78);
   mask-image: radial-gradient(circle, #000 63%, transparent 75%);
-}
-
-@keyframes contact-orbit {
-  to { transform: rotate(360deg); }
 }
 
 .js [data-contact-reveal] {
@@ -2177,8 +2181,6 @@ body.nav-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #contact .video-container::before,
-  #contact .video-container::after { animation: none; }
   [data-contact-reveal] { opacity: 1; transform: none; transition: none; }
 }
 </style>
@@ -2260,7 +2262,7 @@ body.nav-open {
               <h4 id="project-preview-title">Claude Loader</h4>
               <p id="project-preview-description">Conversational loading experiences built with React.</p>
             </div>
-            <a class="project-preview-link" id="project-preview-link" data-text="Explore project" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer">Explore project</a>
+            <a class="project-preview-link" id="project-preview-link" data-text="View repository" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer" hidden>View repository</a>
           </div>
           <div class="project-frame-wrap" id="project-preview-content">
             <iframe src="https://akhil9tiet.github.io/claudeLoader/" title="Claude Loader live preview" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
@@ -2511,8 +2513,8 @@ body.nav-open {
       <p class="contact-intro" data-contact-reveal>Have a product idea, a tough engineering problem, or a team that could use an extra set of hands? I’d be glad to hear from you.</p>
       <div class="contact-info" aria-label="Contact information">
         <p data-contact-reveal><span class="contact-label">Name</span><span>Akhil Gupta</span></p>
-        <p data-contact-reveal><span class="contact-label">Email</span><a href="mailto:akhil****@gmail.com">akhil****@gmail.com</a></p>
-        <p data-contact-reveal><span class="contact-label">Phone</span><span>+1 (***) ***-7867</span></p>
+        <p data-contact-reveal><span class="contact-label">Email</span><a href="mailto:akhilgupta.swe@gmail.com">akhilgupta.swe@gmail.com</a></p>
+        <p data-contact-reveal><span class="contact-label">Phone</span><a href="tel:+12404767867">240-476-7867</a></p>
       </div>
       <div class="social-links" data-contact-reveal>
         <a href="https://github.com/akhil9tiet" target="_blank" rel="noopener noreferrer" aria-label="View Akhil Gupta’s GitHub profile">
@@ -2542,7 +2544,7 @@ body.nav-open {
     <span class="contact-terminal__eyebrow">system ready</span>
   </div>
   <canvas class="contact-terminal__canvas" width="977" height="450" aria-hidden="true"></canvas>
-  <div class="contact-terminal__accessible" id="contact-terminal-accessible">Portfolio command line: whoami returns Akhil Gupta, senior AI engineer. Focus areas include applied AI, product engineering, and modern web experiences. Email: akhil****@gmail.com. GitHub: github.com/akhil9tiet. Date: <span id="terminal-date-accessible"></span>. Currently live at <span id="terminal-location-accessible">location not shared</span>.</div>
+  <div class="contact-terminal__accessible" id="contact-terminal-accessible">Portfolio command line: whoami returns Akhil Gupta, senior AI engineer. Focus areas include applied AI, product engineering, and modern web experiences. Email: akhilgupta.swe@gmail.com. Phone: 240-476-7867. GitHub: github.com/akhil9tiet. Date: <span id="terminal-date-accessible"></span>. Currently live at <span id="terminal-location-accessible">location not shared</span>.</div>
 </section>
 
 <footer>
@@ -2595,7 +2597,9 @@ document.addEventListener('DOMContentLoaded', function() {
     { text: '$ ls capabilities/', kind: 'command' },
     { text: 'agents/  retrieval/  computer-vision/  full-stack/', kind: 'output' },
     { text: '$ open contact --email', kind: 'command' },
-    { text: 'akhil****@gmail.com', kind: 'success' },
+    { text: 'akhilgupta.swe@gmail.com', kind: 'success' },
+    { text: '$ open contact --phone', kind: 'command' },
+    { text: '240-476-7867', kind: 'success' },
     { text: '$ date', kind: 'command' },
     { text: terminalDate, kind: 'output' },
     { text: '$ location --approx', kind: 'command' },
@@ -3117,51 +3121,6 @@ function initProjectShowcase() {
   var content = document.getElementById('project-preview-content');
   if (!tabs.length || !preview || !content) return;
 
-  var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-  function startTitleScramble(tab) {
-    var titleElement = tab.querySelector('.project-list-title');
-    if (!titleElement || titleElement._scrambleTimer) return;
-
-    var original = titleElement.textContent;
-    var frame = 0;
-    var resolved = 0;
-    titleElement._scrambleTimer = window.setInterval(function() {
-      frame++;
-      if (frame % 3 === 0 && resolved < original.length) resolved++;
-
-      var display = '';
-      for (var i = 0; i < original.length; i++) {
-        if (i < resolved || original[i] === ' ') display += original[i];
-        else display += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-      }
-      titleElement.textContent = display;
-
-      if (resolved >= original.length) {
-        window.clearInterval(titleElement._scrambleTimer);
-        titleElement._scrambleTimer = null;
-        titleElement.textContent = original;
-      }
-    }, 45);
-  }
-
-  function stopTitleScramble(tab) {
-    var titleElement = tab.querySelector('.project-list-title');
-    if (!titleElement) return;
-    if (titleElement._scrambleTimer) window.clearInterval(titleElement._scrambleTimer);
-    titleElement._scrambleTimer = null;
-    titleElement.textContent = titleElement.getAttribute('data-original-title') || titleElement.textContent;
-  }
-
-  tabs.forEach(function(tab) {
-    var titleElement = tab.querySelector('.project-list-title');
-    if (titleElement) titleElement.setAttribute('data-original-title', titleElement.textContent);
-    tab.addEventListener('mouseenter', function() { startTitleScramble(tab); });
-    tab.addEventListener('mouseleave', function() { stopTitleScramble(tab); });
-    tab.addEventListener('focusin', function() { startTitleScramble(tab); });
-    tab.addEventListener('focusout', function() { stopTitleScramble(tab); });
-  });
-
   function selectProject(tab, moveFocus) {
     tabs.forEach(function(item) {
       var selected = item === tab;
@@ -3181,11 +3140,16 @@ function initProjectShowcase() {
 
     if (isIframe) {
       content.className = 'project-frame-wrap';
-      previewLink.hidden = false;
-      previewLink.href = projectUrl;
-      previewLink.textContent = 'Explore project';
-      previewLink.setAttribute('data-text', 'Explore project');
-      previewLink.setAttribute('aria-label', 'Explore ' + projectTitle);
+      previewLink.hidden = true;
+
+      var frameLink = document.createElement('a');
+      frameLink.className = 'project-frame-link';
+      frameLink.href = projectUrl;
+      frameLink.target = '_blank';
+      frameLink.rel = 'noopener noreferrer';
+      frameLink.setAttribute('aria-label', 'Open ' + projectTitle);
+      frameLink.setAttribute('title', 'Open ' + projectTitle);
+      frameLink.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></svg>';
 
       var frame = document.createElement('iframe');
       frame.src = projectUrl;
@@ -3195,6 +3159,7 @@ function initProjectShowcase() {
       frame.setAttribute('aria-hidden', 'true');
       frame.setAttribute('scrolling', 'no');
       content.appendChild(frame);
+      content.appendChild(frameLink);
     } else {
       content.className = 'project-image-wrap';
       previewLink.hidden = false;
@@ -3230,6 +3195,11 @@ function initProjectShowcase() {
       selectProject(tabs[nextIndex], true);
     });
   });
+
+  var initialTab = tabs.find(function(tab) {
+    return tab.getAttribute('aria-selected') === 'true';
+  }) || tabs[0];
+  selectProject(initialTab, false);
 }
 
 // Initialize AI Scrollytelling when DOM is ready

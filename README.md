@@ -36,6 +36,6 @@ No build step — plain HTML/CSS/JS served by GitHub Pages.
 ## Run locally
 
 ```bash
-python3 -m http.server 8000
+py -m http.server 8000
 # open http://localhost:8000
 ```

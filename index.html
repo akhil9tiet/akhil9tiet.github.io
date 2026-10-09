@@ -1162,313 +1162,156 @@ body.nav-open {
 }
 
 .project-showcase {
-  display: grid;
-  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 2fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  align-items: stretch;
   margin-top: 2.5rem;
 }
 
 .project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+  display: block;
   margin: 0;
-  padding: 0.75rem;
+  padding: 0;
   list-style: none;
-  border-radius: 24px;
-  background: #e7e9ec;
-  box-shadow: none;
 }
 
-.project-list button {
-  width: 100%;
-  padding: 1rem 2.4rem 1rem 1.1rem;
-  border: 0;
-  border-radius: 16px;
-  position: relative;
-  background: #e7e9ec;
-  box-shadow: none;
+.project-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.8rem 0;
   color: var(--project-ink);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease;
 }
 
-.project-list button:hover,
-.project-list button:focus-visible {
-  transform: translateX(3px);
-  outline: none;
-  background: #edf0f2;
+.project-list-copy {
+  display: block;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
 }
 
-.project-list button[aria-selected="true"] {
-  color: #414752;
-  background: #edf0f2;
-  box-shadow: none;
-}
-
-.project-list button[aria-selected="true"]::after {
-  position: absolute;
-  top: 50%;
-  right: 1.1rem;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #39d98a;
-  box-shadow: 0 0 5px #39d98a, 0 0 12px rgba(57, 217, 138, 0.75);
-  content: '';
-  transform: translateY(-50%);
-  animation: project-led-breathe 1.8s ease-in-out infinite;
-}
-
-@keyframes project-led-breathe {
-  0%, 100% {
-    opacity: 0.55;
-    box-shadow: 0 0 4px #39d98a, 0 0 8px rgba(57, 217, 138, 0.45);
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 7px #39d98a, 0 0 18px rgba(57, 217, 138, 0.9);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-list button[aria-selected="true"]::after {
-    animation: none;
-  }
+.project-list-copy:focus-visible {
+  outline: 2px solid #168a53;
+  outline-offset: 5px;
 }
 
 .project-list-title {
   display: block;
-  font-size: 1.3rem;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
   font-weight: 800;
+  letter-spacing: -0.025em;
 }
 
 .project-list-meta {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
   color: var(--project-muted);
   font-size: 1rem;
+  line-height: 1.5;
 }
 
-.project-preview {
-  position: relative;
-  isolation: isolate;
-  min-width: 0;
-  min-height: 510px;
-  padding: 0;
-  overflow: hidden;
-  border-radius: 28px;
-  background: #101923;
-  box-shadow: 0 20px 60px rgba(8, 13, 20, 0.18);
-}
-
-.project-preview-heading {
-  position: absolute;
-  z-index: 2;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 0;
-  padding: clamp(2rem, 5vw, 3.5rem);
-  background: linear-gradient(180deg, transparent 0%, rgba(7, 12, 19, 0.52) 25%, rgba(7, 12, 19, 0.94) 100%);
-}
-
-.project-preview-heading h4 {
-  margin: 0;
-  color: #f4f7fb;
-  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
-  font-weight: 750;
-  letter-spacing: -0.045em;
-  line-height: 1.08;
-}
-
-.project-preview-heading p {
-  max-width: 42rem;
-  margin: 0.65rem 0 0;
-  color: #c5d0dc;
-  font-size: clamp(0.98rem, 1.4vw, 1.12rem);
-  line-height: 1.55;
-}
-
-.project-preview-link,
-.project-github-link {
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  min-height: 48px;
-  padding: 0.72rem 1.15rem;
-  border: 1px solid rgba(126, 242, 220, 0.48);
-  border-radius: 9px;
-  background: #14212b;
-  box-shadow: 0 4px 0 #0b1218, 0 8px 18px rgba(8, 12, 18, 0.2);
-  color: #f5f7fa;
-  font-family: 'Space Mono', Consolas, monospace;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+.project-visit-link {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  color: #168a53;
+  font-size: 1.8rem;
+  line-height: 1;
   text-decoration: none;
-  text-transform: uppercase;
-  text-shadow: 0 0 9px rgba(103, 247, 223, 0.45);
-  transform: translateY(-2px);
-  transition: transform 180ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
 }
 
-.project-preview-link::before,
-.project-github-link::before {
-  position: absolute;
-  right: 0.85rem;
-  bottom: 0;
-  left: 0.85rem;
-  height: 2px;
-  content: '';
-  border-radius: 2px;
-  background: #72f6df;
-  box-shadow: 0 0 8px #72f6df, 0 0 16px rgba(114, 246, 223, 0.8);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 220ms ease;
-  pointer-events: none;
+.project-visit-link::after {
+  content: '\2197';
 }
 
-.project-preview-link:hover,
-.project-preview-link:focus-visible,
-.project-github-link:hover,
-.project-github-link:focus-visible {
+.project-visit-link:hover,
+.project-visit-link:focus-visible {
   outline: none;
-  border-color: #8bffe9;
-  background: #18333b;
-  box-shadow: 0 4px 0 #0b1218, 0 8px 18px rgba(8, 12, 18, 0.2);
-  color: #fff;
-  text-decoration: none;
-  transform: translateY(0);
-  text-shadow: 0 0 5px #72f6df, 0 0 12px #72f6df, 0 0 24px rgba(94, 255, 222, 0.9);
-  animation: project-cta-text-glitch 380ms steps(2, end) 1;
+  color: #11a963;
+  text-shadow: 0 0 5px rgba(17, 169, 99, 0.75), 0 0 13px rgba(17, 169, 99, 0.55), 0 0 24px rgba(17, 169, 99, 0.36);
 }
 
-.project-preview-link:hover::before,
-.project-preview-link:focus-visible::before,
-.project-github-link:hover::before,
-.project-github-link:focus-visible::before {
-  transform: scaleX(1);
-}
-
-@keyframes project-cta-text-glitch {
-  0%, 100% { text-shadow: none; }
-  25% { text-shadow: 1px 0 #67f7df, -1px 0 #ff6d9f; }
-  50% { text-shadow: -1px 0 #67f7df, 1px 0 #ff6d9f; }
-  75% { text-shadow: 0 0 7px rgba(103, 247, 223, 0.9); }
-}
-
-.project-preview-link[hidden] {
-  display: none;
-}
-
-.project-frame-wrap {
+.project-hover-preview {
   position: absolute;
-  z-index: 0;
-  inset: 0;
+  z-index: 10000;
+  left: 50%;
+  width: min(400px, calc(100vw - 2rem));
+  height: min(300px, calc(100svh - 2rem));
   overflow: hidden;
-  border-radius: inherit;
-  background: #111923;
+  border: 1px solid rgba(114, 246, 223, 0.78);
+  border-radius: 18px;
+  background: #101923;
+  box-shadow: 0 0 0 1px rgba(114, 246, 223, 0.2), 0 18px 52px rgba(0, 0, 0, 0.36), 0 0 28px rgba(72, 244, 218, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translate(-50%, 0) scale(0.97);
+  transition: opacity 180ms ease, transform 280ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s linear 280ms;
 }
 
-.project-frame-wrap iframe {
+.project-hover-preview.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0) scale(1);
+  transition: opacity 220ms ease, transform 340ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s;
+}
+
+.project-hover-preview.is-leaving {
+  opacity: 0;
+  transform: translate(-50%, 0) scale(0.985);
+  transition-duration: 110ms;
+}
+
+.project-hover-preview::before {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(174, 255, 236, 0.34), transparent);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transform: skewX(-18deg);
+}
+
+.project-hover-preview.is-entering::before {
+  animation: project-preview-sheen 600ms ease-out both;
+}
+
+@keyframes project-preview-sheen {
+  0% { left: -60%; opacity: 0; }
+  18% { opacity: 0.7; }
+  100% { left: 125%; opacity: 0; }
+}
+
+.project-hover-preview iframe,
+.project-hover-preview img {
   display: block;
   width: 100%;
   height: 100%;
   border: 0;
-  border-radius: inherit;
-  background: #111923;
-  opacity: 1;
-  filter: none;
-  pointer-events: none;
-  transition: filter 220ms ease;
-}
-
-.project-frame-wrap:hover iframe,
-.project-frame-wrap:focus-within iframe {
-  filter: blur(4px) brightness(0.72);
-}
-
-.project-frame-link {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  width: 56px;
-  height: 56px;
-  place-items: center;
-  border: 1px solid rgba(126, 242, 220, 0.8);
-  border-radius: 50%;
-  background: rgba(10, 25, 31, 0.84);
-  box-shadow: 0 0 18px rgba(72, 244, 218, 0.5);
-  color: #9bffed;
-  opacity: 0;
-  pointer-events: none;
-  text-decoration: none;
-  transform: translate(-50%, -44%) scale(0.82);
-  transition: opacity 180ms ease, transform 220ms ease, box-shadow 220ms ease;
-}
-
-.project-frame-link svg {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.project-frame-wrap:hover .project-frame-link,
-.project-frame-link:focus-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.project-frame-link:hover,
-.project-frame-link:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 5px rgba(72, 244, 218, 0.15), 0 0 28px rgba(72, 244, 218, 0.75);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-frame-wrap iframe,
-  .project-frame-link {
-    transition: none;
-  }
-}
-
-.project-image-wrap {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  overflow: hidden;
-  border-radius: inherit;
-  background: #111923;
-}
-
-.project-image-wrap img {
-  display: block;
-  width: 100%;
-  height: 100%;
+  background: #101923;
   object-fit: cover;
-  opacity: 0.72;
-  filter: saturate(0.78) brightness(0.8);
+}
+
+.project-hover-preview iframe {
+  pointer-events: none;
+}
+
+.project-preview-label {
+  position: absolute;
+  z-index: 3;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  margin: 0;
+  color: #fff;
+  font-family: 'Space Mono', Consolas, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
 }
 
 @media (max-width: 767px) {
@@ -1476,70 +1319,29 @@ body.nav-open {
     padding: 3.5rem 0 4.5rem;
   }
 
-  .project-showcase {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+  .project-list li {
+    gap: 0.8rem;
+    padding: 1.35rem 0;
   }
 
-  .project-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .project-list-meta {
+    font-size: 0.9rem;
   }
 
-  .project-list button {
-    height: 100%;
-    padding: 0.85rem;
-  }
-
-  .project-preview {
-    min-height: 340px;
-  }
-
-  .project-preview-heading {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 4.5rem 1.25rem 1.25rem;
-    background: linear-gradient(180deg, transparent, rgba(9, 14, 21, 0.92) 50%);
-  }
-
-  .project-preview-heading h4,
-  .project-preview-heading p {
-    color: #fff;
-  }
-
-  .project-preview-heading p {
-    max-width: 34rem;
-    line-height: 1.55;
-  }
-
-  .project-frame-wrap,
-  .project-image-wrap {
-    background: #121821;
-  }
-
-  .project-frame-wrap iframe {
-    opacity: 0.36;
-    filter: saturate(0.65) brightness(0.66) blur(0.6px);
-  }
-
-  .project-image-wrap img {
-    opacity: 0.36;
-    filter: saturate(0.65) brightness(0.66) blur(0.6px);
-  }
-
-  .project-preview-link {
-    min-height: 46px;
+  .project-visit-link {
+    width: 40px;
+    height: 40px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-.project-preview-link,
-.project-preview-link::before,
-.project-github-link,
-.project-github-link::before {
+  .project-hover-preview {
     animation: none !important;
     transition: none !important;
+  }
+
+  .project-hover-preview.is-entering::before {
+    animation: none !important;
   }
 }
 
@@ -2244,32 +2046,50 @@ body.nav-open {
 			<h3 class="section-header">Experiments</h3>
 
       <div class="project-showcase">
-        <ul class="project-list" role="tablist" aria-label="Experiments">
-          <li role="presentation"><button type="button" role="tab" id="project-tab-jitter-charts" aria-selected="true" aria-controls="project-preview" data-title="Jitter-charts" data-description="An npm package for creating jitter charts." data-type="iframe" data-url="https://akhil9tiet.github.io/jitter-charts/"><span class="project-list-title">Jitter-charts</span><span class="project-list-meta">npm package</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-mapbox-scrolly" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Mapbox Scrolly" data-description="Scroll-driven storytelling with Mapbox and layered geography." data-type="iframe" data-url="https://akhil9tiet.github.io/mapbox-scrolly/"><span class="project-list-title">Mapbox Scrolly</span><span class="project-list-meta">Mapbox · Storytelling</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-system-thoughts" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/systemThoughts/"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">Interactive project</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-isometric-area-chart" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Three Isometric Area Chart" data-description="Isometric area charts rendered with Three.js." data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Three.js · Data visualization</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-lyrical" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Lyrical Matrix" data-description="Explore song lyrics through an interactive heatmap." data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">React · D3</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-claude" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Claude Loader" data-description="Conversational loading experiences built with React." data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">React · D3</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-movie" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Christopher Nolan Movies Emotion Arc" data-description="Map emotional arcs across Christopher Nolan films." data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">React · WebGL · Gemini</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-h1b" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Average H1B Salaries" data-description="Compare salary trends across H-1B occupations." data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">React · D3</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-daemon" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Hackathon Winner @ UMD" data-description="Matched volunteers with nonprofits through recommendations." data-type="image" data-image="assets/images/visualization.png" data-url="https://github.com/akhil9tiet/DaemonDash2017"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Nonprofit recommender</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="project-tab-stock" aria-selected="false" aria-controls="project-preview" tabindex="-1" data-title="Stock Price Classifier" data-description="Classified stock movements with historical market data." data-type="image" data-image="assets/images/stockprice.jpg" data-url="https://github.com/akhil9tiet/Python_for_finance"><span class="project-list-title">Stock Price Classifier</span><span class="project-list-meta">Python · Finance</span></button></li>
+        <ul class="project-list" aria-label="Experiments">
+          <li data-title="Jitter-charts" data-description="An npm package for creating jitter charts." data-type="iframe" data-url="https://akhil9tiet.github.io/jitter-charts/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/jitter-charts/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Jitter-charts</span><span class="project-list-meta">An npm package for creating jitter charts.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/jitter-charts/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jitter-charts project" title="Visit Jitter-charts project"></a>
+          </li>
+          <li data-title="Mapbox Scrolly" data-description="Scroll-driven storytelling with Mapbox and layered geography." data-type="iframe" data-url="https://akhil9tiet.github.io/mapbox-scrolly/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/mapbox-scrolly/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Mapbox Scrolly</span><span class="project-list-meta">Scroll-driven storytelling with Mapbox and layered geography.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/mapbox-scrolly/" target="_blank" rel="noopener noreferrer" aria-label="Visit Mapbox Scrolly project" title="Visit Mapbox Scrolly project"></a>
+          </li>
+          <li data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/systemThoughts/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/systemThoughts/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">A visual notebook for exploring systems.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/systemThoughts/" target="_blank" rel="noopener noreferrer" aria-label="Visit System Thoughts project" title="Visit System Thoughts project"></a>
+          </li>
+          <li data-title="Three Isometric Area Chart" data-description="Isometric area charts rendered with Three.js." data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/Three-isometric-area-chart/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Isometric area charts rendered with Three.js.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/Three-isometric-area-chart/" target="_blank" rel="noopener noreferrer" aria-label="Visit Three Isometric Area Chart project" title="Visit Three Isometric Area Chart project"></a>
+          </li>
+          <li data-title="Lyrical Matrix" data-description="Explore song lyrics through an interactive heatmap." data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/Lyrical-Matrix/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">Explore song lyrics through an interactive heatmap.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/Lyrical-Matrix/" target="_blank" rel="noopener noreferrer" aria-label="Visit Lyrical Matrix project" title="Visit Lyrical Matrix project"></a>
+          </li>
+          <li data-title="Claude Loader" data-description="Conversational loading experiences built with React." data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">Conversational loading experiences built with React.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer" aria-label="Visit Claude Loader project" title="Visit Claude Loader project"></a>
+          </li>
+          <li data-title="Movie Emotion Arc" data-description="Map emotional arcs across Christopher Nolan films." data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/MovieArcs/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">Map emotional arcs across Christopher Nolan films.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/MovieArcs/" target="_blank" rel="noopener noreferrer" aria-label="Visit Movie Emotion Arc project" title="Visit Movie Emotion Arc project"></a>
+          </li>
+          <li data-title="Average H1B Salaries" data-description="Compare salary trends across H-1B occupations." data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/">
+            <a class="project-list-copy" href="https://akhil9tiet.github.io/react-d3-map-histogram/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">Compare salary trends across H-1B occupations.</span></a>
+            <a class="project-visit-link" href="https://akhil9tiet.github.io/react-d3-map-histogram/" target="_blank" rel="noopener noreferrer" aria-label="Visit Average H1B Salaries project" title="Visit Average H1B Salaries project"></a>
+          </li>
+          <li data-title="Hackathon Winner @ UMD" data-description="Matched volunteers with nonprofits through recommendations." data-type="image" data-image="assets/images/visualization.png" data-url="https://github.com/akhil9tiet/DaemonDash2017">
+            <a class="project-list-copy" href="https://github.com/akhil9tiet/DaemonDash2017" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Matched volunteers with nonprofits through recommendations.</span></a>
+            <a class="project-visit-link" href="https://github.com/akhil9tiet/DaemonDash2017" target="_blank" rel="noopener noreferrer" aria-label="Visit Hackathon Winner @ UMD project" title="Visit Hackathon Winner @ UMD project"></a>
+          </li>
+          <li data-title="Stock Price Classifier" data-description="Classified stock movements with historical market data." data-type="image" data-image="assets/images/stockprice.jpg" data-url="https://github.com/akhil9tiet/Python_for_finance">
+            <a class="project-list-copy" href="https://github.com/akhil9tiet/Python_for_finance" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Stock Price Classifier</span><span class="project-list-meta">Classified stock movements with historical market data.</span></a>
+            <a class="project-visit-link" href="https://github.com/akhil9tiet/Python_for_finance" target="_blank" rel="noopener noreferrer" aria-label="Visit Stock Price Classifier project" title="Visit Stock Price Classifier project"></a>
+          </li>
         </ul>
-
-        <section class="project-preview" id="project-preview" role="tabpanel" aria-labelledby="project-tab-jitter-charts" aria-live="polite">
-          <div class="project-preview-heading">
-            <div>
-              <h4 id="project-preview-title">Jitter-charts</h4>
-              <p id="project-preview-description">An npm package for creating jitter charts.</p>
-            </div>
-            <a class="project-preview-link" id="project-preview-link" data-text="View repository" href="https://akhil9tiet.github.io/jitter-charts/" target="_blank" rel="noopener noreferrer" hidden>View repository</a>
-          </div>
-          <div class="project-frame-wrap" id="project-preview-content">
-            <iframe src="https://akhil9tiet.github.io/jitter-charts/" title="Jitter-charts live preview" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
-          </div>
-        </section>
       </div>
+      <aside class="project-hover-preview" id="project-hover-preview" aria-hidden="true"></aside>
 		</div>
 	</div>
 
@@ -3114,93 +2934,128 @@ function initAIScrollytelling() {
 }
 
 function initProjectShowcase() {
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.project-list [role="tab"]'));
-  var preview = document.getElementById('project-preview');
-  var title = document.getElementById('project-preview-title');
-  var description = document.getElementById('project-preview-description');
-  var previewLink = document.getElementById('project-preview-link');
-  var content = document.getElementById('project-preview-content');
-  if (!tabs.length || !preview || !content) return;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.project-list li'));
+  var preview = document.getElementById('project-hover-preview');
+  if (!items.length || !preview) return;
 
-  function selectProject(tab, moveFocus) {
-    tabs.forEach(function(item) {
-      var selected = item === tab;
-      item.setAttribute('aria-selected', String(selected));
-      item.tabIndex = selected ? 0 : -1;
-    });
+  document.body.appendChild(preview);
+  var hideTimer;
+  var scrambleTimer;
+  var scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}=+*^?#';
 
-    var projectTitle = tab.getAttribute('data-title');
-    var projectDescription = tab.getAttribute('data-description');
-    var projectUrl = tab.getAttribute('data-url');
-    var isIframe = tab.getAttribute('data-type') === 'iframe';
+  function scramble(titleElement, originalText) {
+    window.clearInterval(scrambleTimer);
+    var startedAt = Date.now();
+    var duration = 440;
 
-    title.textContent = projectTitle;
-    description.textContent = projectDescription;
-    preview.setAttribute('aria-labelledby', tab.id);
-    content.replaceChildren();
+    scrambleTimer = window.setInterval(function() {
+      var progress = Math.min((Date.now() - startedAt) / duration, 1);
+      var settledCount = Math.floor(progress * originalText.length);
+      var displayText = '';
 
-    if (isIframe) {
-      content.className = 'project-frame-wrap';
-      previewLink.hidden = true;
+      for (var i = 0; i < originalText.length; i++) {
+        if (i < settledCount || originalText[i] === ' ') {
+          displayText += originalText[i];
+        } else {
+          displayText += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+        }
+      }
 
-      var frameLink = document.createElement('a');
-      frameLink.className = 'project-frame-link';
-      frameLink.href = projectUrl;
-      frameLink.target = '_blank';
-      frameLink.rel = 'noopener noreferrer';
-      frameLink.setAttribute('aria-label', 'Open ' + projectTitle);
-      frameLink.setAttribute('title', 'Open ' + projectTitle);
-      frameLink.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></svg>';
-
-      var frame = document.createElement('iframe');
-      frame.src = projectUrl;
-      frame.title = projectTitle + ' live preview';
-      frame.loading = 'lazy';
-      frame.tabIndex = -1;
-      frame.setAttribute('aria-hidden', 'true');
-      frame.setAttribute('scrolling', 'no');
-      content.appendChild(frame);
-      content.appendChild(frameLink);
-    } else {
-      content.className = 'project-image-wrap';
-      previewLink.hidden = false;
-      previewLink.href = projectUrl;
-      previewLink.textContent = 'View repository';
-      previewLink.setAttribute('data-text', 'View repository');
-      previewLink.setAttribute('aria-label', 'View ' + projectTitle + ' repository on GitHub');
-
-      var image = document.createElement('img');
-      image.src = tab.getAttribute('data-image');
-      image.alt = projectTitle + ' project preview';
-      image.loading = 'lazy';
-      content.appendChild(image);
-    }
-
-    if (moveFocus) tab.focus();
+      titleElement.textContent = displayText;
+      if (progress === 1) {
+        titleElement.textContent = originalText;
+        window.clearInterval(scrambleTimer);
+      }
+    }, 28);
   }
 
-  tabs.forEach(function(tab, index) {
-    tab.addEventListener('click', function() {
-      selectProject(tab, false);
+  function showPreview(item) {
+    window.clearTimeout(hideTimer);
+    var title = item.getAttribute('data-title');
+    var url = item.getAttribute('data-url');
+    var itemRect = item.getBoundingClientRect();
+    var previewHeight = preview.offsetHeight || 300;
+    var gap = 14;
+    var previewViewportTop = itemRect.bottom + gap;
+    if (previewViewportTop + previewHeight > window.innerHeight - 12 && itemRect.top - gap - previewHeight > 12) {
+      previewViewportTop = itemRect.top - gap - previewHeight;
+    }
+    preview.style.top = (window.scrollY + previewViewportTop) + 'px';
+    var media;
+    preview.replaceChildren();
+
+    if (item.getAttribute('data-type') === 'iframe') {
+      media = document.createElement('iframe');
+      media.src = url;
+      media.title = title + ' live preview';
+      media.loading = 'eager';
+      media.tabIndex = -1;
+      media.setAttribute('aria-hidden', 'true');
+      media.setAttribute('scrolling', 'no');
+    } else {
+      media = document.createElement('img');
+      media.src = item.getAttribute('data-image');
+      media.alt = '';
+    }
+
+    var label = document.createElement('p');
+    label.className = 'project-preview-label';
+    label.textContent = title;
+    preview.appendChild(media);
+    preview.appendChild(label);
+    preview.classList.remove('is-leaving', 'is-entering');
+    preview.classList.add('is-visible');
+    preview.setAttribute('aria-hidden', 'true');
+    window.requestAnimationFrame(function() {
+      preview.classList.add('is-entering');
+    });
+  }
+
+  function hidePreview() {
+    window.clearTimeout(hideTimer);
+    preview.classList.remove('is-visible', 'is-entering');
+    preview.classList.add('is-leaving');
+    hideTimer = window.setTimeout(function() {
+      if (!preview.classList.contains('is-visible')) {
+        preview.replaceChildren();
+        preview.classList.remove('is-leaving');
+      }
+    }, 100);
+  }
+
+  items.forEach(function(item) {
+    var titleElement = item.querySelector('.project-list-title');
+    var originalText = titleElement.textContent;
+
+    item.addEventListener('click', function(event) {
+      if (event.target.closest('a')) return;
+      window.open(item.getAttribute('data-url'), '_blank', 'noopener,noreferrer');
     });
 
-    tab.addEventListener('keydown', function(event) {
-      var nextIndex = index;
-      if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
-      else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
-      else if (event.key === 'Home') nextIndex = 0;
-      else if (event.key === 'End') nextIndex = tabs.length - 1;
-      else return;
+    item.addEventListener('mouseenter', function() {
+      scramble(titleElement, originalText);
+      showPreview(item);
+    });
 
-      event.preventDefault();
-      selectProject(tabs[nextIndex], true);
+    item.addEventListener('mouseleave', function() {
+      window.clearInterval(scrambleTimer);
+      titleElement.textContent = originalText;
+      hidePreview();
+    });
+
+    item.addEventListener('focusin', function() {
+      scramble(titleElement, originalText);
+      showPreview(item);
+    });
+
+    item.addEventListener('focusout', function(event) {
+      if (!item.contains(event.relatedTarget)) {
+        window.clearInterval(scrambleTimer);
+        titleElement.textContent = originalText;
+        hidePreview();
+      }
     });
   });
-
-  var initialTab = tabs.find(function(tab) {
-    return tab.getAttribute('aria-selected') === 'true';
-  }) || tabs[0];
-  selectProject(initialTab, false);
 }
 
 // Initialize AI Scrollytelling when DOM is ready

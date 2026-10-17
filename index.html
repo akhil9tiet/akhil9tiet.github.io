@@ -1142,206 +1142,459 @@ body.nav-open {
   }
 }
 
-/* Interactive project showcase */
+/* ==========================================================================
+   Experiments Section - Tactile Convex Folder Stack
+   ========================================================================== */
 .experiments {
-  --project-bg: #e7e9ec;
-  --project-ink: #414752;
-  --project-muted: #777f8a;
+  --project-bg: #e8edf2;
+  --project-ink: #2b333e;
+  --project-muted: #6b7785;
   background: var(--project-bg);
   color: var(--project-ink);
   padding: 5rem 0 6rem;
 }
 
 .experiments .container {
-  max-width: 1240px;
+  max-width: 1200px;
+}
+
+.experiments-header-wrap {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
 }
 
 .experiments .section-header {
   color: var(--project-ink);
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(173, 180, 190, 0.45);
-}
-
-.project-showcase {
-  margin-top: 2.5rem;
-}
-
-.project-list {
-  display: block;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.project-list li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.8rem 0;
-  color: var(--project-ink);
-}
-
-.project-list-copy {
-  display: block;
-  min-width: 0;
-  color: inherit;
-  text-decoration: none;
-}
-
-.project-list-copy:focus-visible {
-  outline: 2px solid #168a53;
-  outline-offset: 5px;
-}
-
-.project-list-title {
-  display: block;
-  font-size: clamp(1.2rem, 2vw, 1.65rem);
-  font-weight: 800;
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
+  font-weight: 700;
   letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
-.project-list-meta {
-  display: block;
-  margin-top: 0.35rem;
+.experiments .section-desc {
   color: var(--project-muted);
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
   line-height: 1.5;
+  margin: 0 auto;
 }
 
-.project-visit-link {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border-radius: 50%;
-  color: #168a53;
-  font-size: 1.8rem;
-  line-height: 1;
-  text-decoration: none;
-}
-
-.project-visit-link::after {
-  content: '\2197';
-}
-
-.project-visit-link:hover,
-.project-visit-link:focus-visible {
-  outline: none;
-  color: #11a963;
-  text-shadow: 0 0 5px rgba(17, 169, 99, 0.75), 0 0 13px rgba(17, 169, 99, 0.55), 0 0 24px rgba(17, 169, 99, 0.36);
-}
-
-.project-hover-preview {
-  position: absolute;
-  z-index: 10000;
-  left: 50%;
-  width: min(400px, calc(100vw - 2rem));
-  height: min(300px, calc(100svh - 2rem));
+/* Card container: sky gradient + film grain */
+.folder-card {
+  --tab-h: 46px;          /* height of a convex tab */
+  --base: 66px;           /* visible height of closed sheet before next folder */
+  --overlap: 24px;        /* how far the next folder covers this sheet */
+  --r: 16px;              /* corner radius */
+  --fillet: 14px;         /* concave radius where tab meets sheet */
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
-  border: 1px solid rgba(114, 246, 223, 0.78);
-  border-radius: 18px;
-  background: #101923;
-  box-shadow: 0 0 0 1px rgba(114, 246, 223, 0.2), 0 18px 52px rgba(0, 0, 0, 0.36), 0 0 28px rgba(72, 244, 218, 0.18);
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  transform: translate(-50%, 0) scale(0.97);
-  transition: opacity 180ms ease, transform 280ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s linear 280ms;
+  width: min(100%, 780px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #b8d4ec 0%, #e1edf6 35%, #ebf2f8 100%);
+  box-shadow:
+    0 24px 48px -12px rgba(35, 55, 80, 0.16),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-.project-hover-preview.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, 0) scale(1);
-  transition: opacity 220ms ease, transform 340ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s;
-}
-
-.project-hover-preview.is-leaving {
-  opacity: 0;
-  transform: translate(-50%, 0) scale(0.985);
-  transition-duration: 110ms;
-}
-
-.project-hover-preview::before {
+/* Authentic film grain overlay over everything */
+.folder-card::after {
+  content: "";
   position: absolute;
-  z-index: 2;
-  top: 0;
-  bottom: 0;
-  left: -60%;
-  width: 45%;
-  background: linear-gradient(100deg, transparent, rgba(174, 255, 236, 0.34), transparent);
-  content: '';
-  opacity: 0;
+  inset: 0;
+  z-index: 10;
   pointer-events: none;
-  transform: skewX(-18deg);
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.project-hover-preview.is-entering::before {
-  animation: project-preview-sheen 600ms ease-out both;
+/* Stack of overlapping folders */
+.folder-card .stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(48px, 9vw, 84px);
+  padding-bottom: 0;
 }
 
-@keyframes project-preview-sheen {
-  0% { left: -60%; opacity: 0; }
-  18% { opacity: 0.7; }
-  100% { left: 125%; opacity: 0; }
+/* ── A folder = convex tab + sheet ─────────────────────────────────── */
+.folder {
+  --rows: 0fr;
+  --o: 0;
+  --y: -8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 -8px 12px rgba(45, 20, 20, 0.13)) drop-shadow(0 -1px 2px rgba(45, 20, 20, 0.10));
+  transition: filter 0.45s var(--ease);
 }
 
-.project-hover-preview iframe,
-.project-hover-preview img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: #101923;
-  object-fit: cover;
+/* Tuck each folder under the folder in front */
+.folder + .folder {
+  margin-top: calc(-1 * (var(--tab-h) + var(--overlap)));
 }
 
-.project-hover-preview iframe {
-  pointer-events: none;
+.folder:last-child {
+  flex: 1;
+  min-height: 120px;
 }
 
-.project-preview-label {
-  position: absolute;
-  z-index: 3;
-  right: 0.8rem;
-  bottom: 0.8rem;
-  left: 0.8rem;
-  margin: 0;
-  color: #fff;
-  font-family: 'Space Mono', Consolas, monospace;
-  font-size: 0.8rem;
+/* Open states: hover (mouse), keyboard focus, or clicked/tapped (.is-open) */
+.folder.is-open,
+.folder:has(:focus-visible) {
+  --rows: 1fr;
+  --o: 1;
+  --y: 0px;
+  filter: drop-shadow(0 -12px 20px rgba(45, 20, 20, 0.22)) drop-shadow(0 -1px 3px rgba(45, 20, 20, 0.15));
+}
+
+@media (hover: hover) {
+  .folder:hover {
+    --rows: 1fr;
+    --o: 1;
+    --y: 0px;
+    filter: drop-shadow(0 -12px 20px rgba(45, 20, 20, 0.22)) drop-shadow(0 -1px 3px rgba(45, 20, 20, 0.15));
+  }
+}
+
+/* ── The convex tab ─────────────────────────────────────────────────── */
+.folder .tab {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  height: var(--tab-h);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--c);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: clamp(13px, 1.4vw, 16px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  border-radius: var(--r) var(--r) 0 0;
+  align-self: flex-start;
+  margin-left: var(--ml, 6%);
+  white-space: nowrap;
+  user-select: none;
+  transition: transform 0.3s var(--ease);
+}
+
+.folder[data-side="right"] .tab {
+  align-self: flex-end;
+  margin-left: 0;
+  margin-right: var(--mr, 6%);
+}
+
+.folder .tab:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+}
+
+.folder .tab-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.04em;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+  opacity: 0.65;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
-@media (max-width: 767px) {
-  .experiments {
-    padding: 3.5rem 0 4.5rem;
-  }
+/* Concave "shoulders" fillets: tab flares smoothly into the sheet */
+.folder .tab::before,
+.folder .tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: var(--fillet);
+  height: var(--fillet);
+  pointer-events: none;
+}
 
-  .project-list li {
-    gap: 0.8rem;
-    padding: 1.35rem 0;
-  }
+.folder .tab::before {
+  left: calc(-1 * var(--fillet));
+  background: radial-gradient(circle at 0 0, transparent calc(var(--fillet) - 0.5px), var(--c) var(--fillet));
+}
 
-  .project-list-meta {
-    font-size: 0.9rem;
-  }
+.folder .tab::after {
+  right: calc(-1 * var(--fillet));
+  background: radial-gradient(circle at 100% 0, transparent calc(var(--fillet) - 0.5px), var(--c) var(--fillet));
+}
 
-  .project-visit-link {
-    width: 40px;
-    height: 40px;
+.folder .tab-title {
+  display: inline-block;
+  line-height: 1;
+}
+
+.folder .tab-arrow {
+  display: inline-block;
+  font-size: 0.85em;
+  opacity: 0.65;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.folder:hover .tab-arrow,
+.folder.is-open .tab-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* ── The sheet ──────────────────────────────────────────────────────── */
+.folder .sheet {
+  flex: 1 1 auto;
+  display: grid;
+  align-content: start;
+  grid-template-rows: var(--base) var(--rows);
+  background: var(--c);
+  border-radius: var(--r) var(--r) 0 0;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+
+/* Peek strip: sits in the first grid row, visible when sheet is open */
+.folder .peek {
+  padding: 12px 26px 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: calc(var(--o) * 0.6);
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+.folder[data-side="left"] .peek {
+  text-align: right;
+}
+
+.folder[data-side="right"] .peek {
+  text-align: left;
+}
+
+/* Reveal strip: expands from 0fr to 1fr */
+.folder .reveal {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.folder .content {
+  padding: 0 7% calc(var(--overlap) + 22px);
+  color: var(--ink);
+  opacity: var(--o);
+  transform: translateY(var(--y));
+  transition: opacity 0.3s ease 0.08s, transform 0.45s var(--ease) 0.04s;
+}
+
+.folder .content-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 4px;
+}
+
+.folder .content-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.folder .content h3 {
+  margin: 0 0 6px;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(17px, 2.2vw, 21px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.folder .content p {
+  margin: 0 0 10px;
+  max-width: 50ch;
+  font-size: clamp(13px, 1.4vw, 14.5px);
+  line-height: 1.45;
+  opacity: 0.88;
+}
+
+.folder .content-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.folder .content-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
+  color: var(--ink);
+}
+
+.folder .folder-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--c) 80%, white 20%);
+  border: 1.5px solid color-mix(in srgb, var(--ink) 24%, transparent);
+  border-radius: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.22s var(--ease);
+}
+
+.folder .folder-action-btn:hover {
+  background: var(--ink);
+  color: var(--c);
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   Cohesive Color Palette (20 Muted & Graph-Inspired Pastel + Accent Colors)
+   ========================================================================== */
+.folder.f1  { --c: #f3a38c; --ink: #6d2e22; } /* Coral Salmon */
+.folder.f2  { --c: #bcd7e8; --ink: #1b4460; } /* Graph Paper Blue */
+.folder.f3  { --c: #c3ddd0; --ink: #1e4b3c; } /* Graph Paper Green / Sage */
+.folder.f4  { --c: #d9a1a7; --ink: #5d2b34; } /* Dusty Mauve Rose */
+.folder.f5  { --c: #3a0a16; --ink: #fff5ee; } /* Deep Plum Wine Accent */
+.folder.f6  { --c: #eeb48c; --ink: #633618; } /* Warm Apricot Peach */
+.folder.f7  { --c: #d4c7e6; --ink: #3d2f5a; } /* Soft Lavender Lilac */
+.folder.f8  { --c: #bde4d5; --ink: #1c4b3a; } /* Muted Mint Celadon */
+.folder.f9  { --c: #e6e0d6; --ink: #4f463c; } /* Warm Oatmeal Linen */
+.folder.f10 { --c: #19253d; --ink: #edf3fc; } /* Deep Indigo Midnight Accent */
+
+/* Additional 10 colors for when experiments increase */
+.folder.f11 { --c: #b2d4e7; --ink: #1a425a; } /* Drafting Cyan Pastel */
+.folder.f12 { --c: #c9e2d3; --ink: #1f4a38; } /* Millimeter Pale Green */
+.folder.f13 { --c: #eddba6; --ink: #524316; } /* Warm Butter Honey */
+.folder.f14 { --c: #e4aa9c; --ink: #5f2a1e; } /* Vintage Terracotta Clay */
+.folder.f15 { --c: #bcc6de; --ink: #2b3854; } /* Slate Periwinkle */
+.folder.f16 { --c: #d7deb6; --ink: #3b4719; } /* Pale Olive Matcha */
+.folder.f17 { --c: #15382e; --ink: #ebf6f1; } /* Deep Forest Cypress Accent */
+.folder.f18 { --c: #e6c8a7; --ink: #573c1d; } /* Blush Ochre */
+.folder.f19 { --c: #cdc0dd; --ink: #382c4f; } /* Soft Orchid Heather */
+.folder.f20 { --c: #2d211e; --ink: #f8eee7; } /* Rich Espresso Charcoal Accent */
+
+/* Automatic nth-child color fallbacks */
+.folder:nth-child(20n + 1)  { --c: #f3a38c; --ink: #6d2e22; }
+.folder:nth-child(20n + 2)  { --c: #bcd7e8; --ink: #1b4460; }
+.folder:nth-child(20n + 3)  { --c: #c3ddd0; --ink: #1e4b3c; }
+.folder:nth-child(20n + 4)  { --c: #d9a1a7; --ink: #5d2b34; }
+.folder:nth-child(20n + 5)  { --c: #3a0a16; --ink: #fff5ee; }
+.folder:nth-child(20n + 6)  { --c: #eeb48c; --ink: #633618; }
+.folder:nth-child(20n + 7)  { --c: #d4c7e6; --ink: #3d2f5a; }
+.folder:nth-child(20n + 8)  { --c: #bde4d5; --ink: #1c4b3a; }
+.folder:nth-child(20n + 9)  { --c: #e6e0d6; --ink: #4f463c; }
+.folder:nth-child(20n + 10) { --c: #19253d; --ink: #edf3fc; }
+.folder:nth-child(20n + 11) { --c: #b2d4e7; --ink: #1a425a; }
+.folder:nth-child(20n + 12) { --c: #c9e2d3; --ink: #1f4a38; }
+.folder:nth-child(20n + 13) { --c: #eddba6; --ink: #524316; }
+.folder:nth-child(20n + 14) { --c: #e4aa9c; --ink: #5f2a1e; }
+.folder:nth-child(20n + 15) { --c: #bcc6de; --ink: #2b3854; }
+.folder:nth-child(20n + 16) { --c: #d7deb6; --ink: #3b4719; }
+.folder:nth-child(20n + 17) { --c: #15382e; --ink: #ebf6f1; }
+.folder:nth-child(20n + 18) { --c: #e6c8a7; --ink: #573c1d; }
+.folder:nth-child(20n + 19) { --c: #cdc0dd; --ink: #382c4f; }
+.folder:nth-child(20n)      { --c: #2d211e; --ink: #f8eee7; }
+
+/* Special styling for dark accent folders */
+.folder.f5 .tab strong,
+.folder.f10 .tab strong,
+.folder.f17 .tab strong,
+.folder.f20 .tab strong {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.folder.f5, .folder.f10, .folder.f17, .folder.f20 {
+  filter: drop-shadow(0 -10px 16px rgba(0, 0, 0, 0.26)) drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Stagger offsets for desktop */
+.folder.f1  { --ml: 4%; }
+.folder.f2  { --mr: 6%; }
+.folder.f3  { --ml: 22%; }
+.folder.f4  { --mr: 20%; }
+.folder.f5  { --ml: 40%; }
+.folder.f6  { --ml: 8%; }
+.folder.f7  { --mr: 12%; }
+.folder.f8  { --ml: 26%; }
+.folder.f9  { --mr: 26%; }
+.folder.f10 { --ml: 42%; }
+
+/* Mobile and tablet responsive rules */
+@media (max-width: 768px) {
+  .folder-card {
+    --tab-h: 44px;
+    --base: 82px;
+    --overlap: 28px;
+    --r: 14px;
+    --fillet: 12px;
+    border-radius: 18px;
+  }
+  .folder .tab {
+    padding: 0 18px;
+    font-size: 14px;
+  }
+  .folder .content-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .folder .folder-action-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .folder[data-side="left"] {
+    --ml: 4% !important;
+  }
+  .folder[data-side="right"] {
+    --mr: 4% !important;
+  }
+  .folder .content {
+    padding: 0 5% calc(var(--overlap) + 16px);
+  }
+  .folder .peek {
+    padding: 12px 18px;
+    font-size: 10px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-hover-preview {
-    animation: none !important;
+  .folder,
+  .folder .sheet,
+  .folder .content,
+  .folder .tab {
     transition: none !important;
-  }
-
-  .project-hover-preview.is-entering::before {
-    animation: none !important;
   }
 }
 
@@ -2043,53 +2296,334 @@ body.nav-open {
 
 	<div id="experiments" class="section experiments">
 		<div class="container">
-			<h3 class="section-header">Experiments</h3>
+			<div class="experiments-header-wrap">
+				<h3 class="section-header">Experiments</h3>
+				<p class="section-desc">Tactile interactive systems, data visual essays, generative graphics, and software experiments.</p>
+			</div>
 
-      <div class="project-showcase">
-        <ul class="project-list" aria-label="Experiments">
-          <li data-title="Jitter-charts" data-description="An npm package for creating jitter charts." data-type="iframe" data-url="https://akhil9tiet.github.io/jitter-charts/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/jitter-charts/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Jitter-charts</span><span class="project-list-meta">An npm package for creating jitter charts.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/jitter-charts/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jitter-charts project" title="Visit Jitter-charts project"></a>
-          </li>
-          <li data-title="Mapbox Scrolly" data-description="Scroll-driven storytelling with Mapbox and layered geography." data-type="iframe" data-url="https://akhil9tiet.github.io/mapbox-scrolly/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/mapbox-scrolly/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Mapbox Scrolly</span><span class="project-list-meta">Scroll-driven storytelling with Mapbox and layered geography.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/mapbox-scrolly/" target="_blank" rel="noopener noreferrer" aria-label="Visit Mapbox Scrolly project" title="Visit Mapbox Scrolly project"></a>
-          </li>
-          <li data-title="System Thoughts" data-description="A visual notebook for exploring systems." data-type="iframe" data-url="https://akhil9tiet.github.io/systemThoughts/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/systemThoughts/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">System Thoughts</span><span class="project-list-meta">A visual notebook for exploring systems.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/systemThoughts/" target="_blank" rel="noopener noreferrer" aria-label="Visit System Thoughts project" title="Visit System Thoughts project"></a>
-          </li>
-          <li data-title="Three Isometric Area Chart" data-description="Isometric area charts rendered with Three.js." data-type="iframe" data-url="https://akhil9tiet.github.io/Three-isometric-area-chart/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/Three-isometric-area-chart/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Three Isometric Area Chart</span><span class="project-list-meta">Isometric area charts rendered with Three.js.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/Three-isometric-area-chart/" target="_blank" rel="noopener noreferrer" aria-label="Visit Three Isometric Area Chart project" title="Visit Three Isometric Area Chart project"></a>
-          </li>
-          <li data-title="Lyrical Matrix" data-description="Explore song lyrics through an interactive heatmap." data-type="iframe" data-url="https://akhil9tiet.github.io/Lyrical-Matrix/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/Lyrical-Matrix/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Lyrical Matrix</span><span class="project-list-meta">Explore song lyrics through an interactive heatmap.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/Lyrical-Matrix/" target="_blank" rel="noopener noreferrer" aria-label="Visit Lyrical Matrix project" title="Visit Lyrical Matrix project"></a>
-          </li>
-          <li data-title="Claude Loader" data-description="Conversational loading experiences built with React." data-type="iframe" data-url="https://akhil9tiet.github.io/claudeLoader/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Claude Loader</span><span class="project-list-meta">Conversational loading experiences built with React.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer" aria-label="Visit Claude Loader project" title="Visit Claude Loader project"></a>
-          </li>
-          <li data-title="Movie Emotion Arc" data-description="Map emotional arcs across Christopher Nolan films." data-type="iframe" data-url="https://akhil9tiet.github.io/MovieArcs/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/MovieArcs/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Movie Emotion Arc</span><span class="project-list-meta">Map emotional arcs across Christopher Nolan films.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/MovieArcs/" target="_blank" rel="noopener noreferrer" aria-label="Visit Movie Emotion Arc project" title="Visit Movie Emotion Arc project"></a>
-          </li>
-          <li data-title="Average H1B Salaries" data-description="Compare salary trends across H-1B occupations." data-type="iframe" data-url="https://akhil9tiet.github.io/react-d3-map-histogram/">
-            <a class="project-list-copy" href="https://akhil9tiet.github.io/react-d3-map-histogram/" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Average H1B Salaries</span><span class="project-list-meta">Compare salary trends across H-1B occupations.</span></a>
-            <a class="project-visit-link" href="https://akhil9tiet.github.io/react-d3-map-histogram/" target="_blank" rel="noopener noreferrer" aria-label="Visit Average H1B Salaries project" title="Visit Average H1B Salaries project"></a>
-          </li>
-          <li data-title="Hackathon Winner @ UMD" data-description="Matched volunteers with nonprofits through recommendations." data-type="image" data-image="assets/images/visualization.png" data-url="https://github.com/akhil9tiet/DaemonDash2017">
-            <a class="project-list-copy" href="https://github.com/akhil9tiet/DaemonDash2017" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Hackathon Winner @ UMD</span><span class="project-list-meta">Matched volunteers with nonprofits through recommendations.</span></a>
-            <a class="project-visit-link" href="https://github.com/akhil9tiet/DaemonDash2017" target="_blank" rel="noopener noreferrer" aria-label="Visit Hackathon Winner @ UMD project" title="Visit Hackathon Winner @ UMD project"></a>
-          </li>
-          <li data-title="Stock Price Classifier" data-description="Classified stock movements with historical market data." data-type="image" data-image="assets/images/stockprice.jpg" data-url="https://github.com/akhil9tiet/Python_for_finance">
-            <a class="project-list-copy" href="https://github.com/akhil9tiet/Python_for_finance" target="_blank" rel="noopener noreferrer"><span class="project-list-title">Stock Price Classifier</span><span class="project-list-meta">Classified stock movements with historical market data.</span></a>
-            <a class="project-visit-link" href="https://github.com/akhil9tiet/Python_for_finance" target="_blank" rel="noopener noreferrer" aria-label="Visit Stock Price Classifier project" title="Visit Stock Price Classifier project"></a>
-          </li>
-        </ul>
-      </div>
-      <aside class="project-hover-preview" id="project-hover-preview" aria-hidden="true"></aside>
+			<div class="card folder-card">
+				<div class="stack">
+					<!-- Folder 1 -->
+					<section class="folder f1" data-side="left">
+						<button class="tab" aria-expanded="false" aria-controls="exp-1">
+							<span class="tab-num">01</span>
+							<span class="tab-title">Jitter-charts</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">01 / NPM</div>
+							<div class="reveal">
+								<div class="content" id="exp-1">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Jitter-charts</h3>
+											<p>An npm package for creating jitter charts.</p>
+											<div class="content-tags">
+												<span class="content-tag">NPM Package</span>
+												<span class="content-tag">Data Visualization</span>
+												<span class="content-tag">D3.js</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/jitter-charts/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 2 -->
+					<section class="folder f2" data-side="right">
+						<button class="tab" aria-expanded="false" aria-controls="exp-2">
+							<span class="tab-num">02</span>
+							<span class="tab-title">Mapbox Scrolly</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">02 / GIS</div>
+							<div class="reveal">
+								<div class="content" id="exp-2">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Mapbox Scrolly</h3>
+											<p>Scroll-driven storytelling with Mapbox and layered geography.</p>
+											<div class="content-tags">
+												<span class="content-tag">Mapbox GL</span>
+												<span class="content-tag">Scrollytelling</span>
+												<span class="content-tag">Geospatial</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/mapbox-scrolly/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 3 -->
+					<section class="folder f3" data-side="left">
+						<button class="tab" aria-expanded="false" aria-controls="exp-3">
+							<span class="tab-num">03</span>
+							<span class="tab-title">System Thoughts</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">03 / SYSTEMS</div>
+							<div class="reveal">
+								<div class="content" id="exp-3">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>System Thoughts</h3>
+											<p>A visual notebook for exploring systems.</p>
+											<div class="content-tags">
+												<span class="content-tag">Systems Thinking</span>
+												<span class="content-tag">Visual Notebook</span>
+												<span class="content-tag">Interactive</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/systemThoughts/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 4 -->
+					<section class="folder f4" data-side="right">
+						<button class="tab" aria-expanded="false" aria-controls="exp-4">
+							<span class="tab-num">04</span>
+							<span class="tab-title">Three Isometric Area Chart</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">04 / 3D WEBGL</div>
+							<div class="reveal">
+								<div class="content" id="exp-4">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Three Isometric Area Chart</h3>
+											<p>Isometric area charts rendered with Three.js.</p>
+											<div class="content-tags">
+												<span class="content-tag">Three.js</span>
+												<span class="content-tag">WebGL</span>
+												<span class="content-tag">3D Visualization</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/Three-isometric-area-chart/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 5 -->
+					<section class="folder f5" data-side="left">
+						<button class="tab" aria-expanded="false" aria-controls="exp-5">
+							<span class="tab-num">05</span>
+							<span class="tab-title"><strong>Lyrical</strong>&nbsp;Matrix</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">05 / NLP</div>
+							<div class="reveal">
+								<div class="content" id="exp-5">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Lyrical Matrix</h3>
+											<p>Explore song lyrics through an interactive heatmap.</p>
+											<div class="content-tags">
+												<span class="content-tag">NLP</span>
+												<span class="content-tag">Text Analytics</span>
+												<span class="content-tag">Interactive Matrix</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/Lyrical-Matrix/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 6 -->
+					<section class="folder f6" data-side="left">
+						<button class="tab" aria-expanded="false" aria-controls="exp-6">
+							<span class="tab-num">06</span>
+							<span class="tab-title">Claude Loader</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">06 / UI-UX</div>
+							<div class="reveal">
+								<div class="content" id="exp-6">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Claude Loader</h3>
+											<p>Conversational loading experiences built with React.</p>
+											<div class="content-tags">
+												<span class="content-tag">React</span>
+												<span class="content-tag">Conversational UI</span>
+												<span class="content-tag">Micro-interactions</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/claudeLoader/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 7 -->
+					<section class="folder f7" data-side="right">
+						<button class="tab" aria-expanded="false" aria-controls="exp-7">
+							<span class="tab-num">07</span>
+							<span class="tab-title">Movie Emotion Arc</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">07 / CINEMA</div>
+							<div class="reveal">
+								<div class="content" id="exp-7">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Movie Emotion Arc</h3>
+											<p>Map emotional arcs across Christopher Nolan films.</p>
+											<div class="content-tags">
+												<span class="content-tag">Sentiment Analysis</span>
+												<span class="content-tag">Cinema</span>
+												<span class="content-tag">D3.js</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/MovieArcs/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 8 -->
+					<section class="folder f8" data-side="left">
+						<button class="tab" aria-expanded="false" aria-controls="exp-8">
+							<span class="tab-num">08</span>
+							<span class="tab-title">Average H1B Salaries</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">08 / SALARIES</div>
+							<div class="reveal">
+								<div class="content" id="exp-8">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Average H1B Salaries</h3>
+											<p>Compare salary trends across H-1B occupations.</p>
+											<div class="content-tags">
+												<span class="content-tag">React</span>
+												<span class="content-tag">D3 Histogram</span>
+												<span class="content-tag">US Labor Data</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://akhil9tiet.github.io/react-d3-map-histogram/" target="_blank" rel="noopener noreferrer">
+												Launch Experiment <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 9 -->
+					<section class="folder f9" data-side="right">
+						<button class="tab" aria-expanded="false" aria-controls="exp-9">
+							<span class="tab-num">09</span>
+							<span class="tab-title">Hackathon Winner @ UMD</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">09 / HACKATHON</div>
+							<div class="reveal">
+								<div class="content" id="exp-9">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Hackathon Winner @ UMD</h3>
+											<p>Matched volunteers with nonprofits through recommendations.</p>
+											<div class="content-tags">
+												<span class="content-tag">Recommendation Engine</span>
+												<span class="content-tag">DaemonDash Winner</span>
+												<span class="content-tag">Python</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://github.com/akhil9tiet/DaemonDash2017" target="_blank" rel="noopener noreferrer">
+												View Project on GitHub <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Folder 10 -->
+					<section class="folder f10" data-side="left">
+						<button class="tab" aria-expanded="false" aria-controls="exp-10">
+							<span class="tab-num">10</span>
+							<span class="tab-title"><strong>Stock Price</strong>&nbsp;Classifier</span>
+							<span class="tab-arrow" aria-hidden="true">↗</span>
+						</button>
+						<div class="sheet">
+							<div class="peek">10 / FINANCE</div>
+							<div class="reveal">
+								<div class="content" id="exp-10">
+									<div class="content-body">
+										<div class="content-main">
+											<h3>Stock Price Classifier</h3>
+											<p>Classified stock movements with historical market data.</p>
+											<div class="content-tags">
+												<span class="content-tag">Python</span>
+												<span class="content-tag">Machine Learning</span>
+												<span class="content-tag">Quantitative Finance</span>
+											</div>
+										</div>
+										<div class="content-action-wrap">
+											<a class="folder-action-btn" href="https://github.com/akhil9tiet/Python_for_finance" target="_blank" rel="noopener noreferrer">
+												View Project on GitHub <span aria-hidden="true">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -2934,219 +3468,58 @@ function initAIScrollytelling() {
 }
 
 function initProjectShowcase() {
-  var items = Array.prototype.slice.call(document.querySelectorAll('.project-list li'));
-  var preview = document.getElementById('project-hover-preview');
-  if (!items.length || !preview) return;
+  var folders = Array.prototype.slice.call(document.querySelectorAll('.folder-card .folder'));
+  if (!folders.length) return;
 
-  document.body.appendChild(preview);
-  var hideTimer;
-  var scrambleTimer;
-  var activeItem = null;
-  var touchPreviewItem = null;
-  var touchScrollTimer;
-  var touchInput = false;
-  var scrollFramePending = false;
-  var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var touchOnly = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  var scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}=+*^?#';
+  var canHover = window.matchMedia('(hover: hover)');
 
-  function scramble(titleElement, originalText) {
-    window.clearInterval(scrambleTimer);
-    var startedAt = Date.now();
-    var duration = 440;
-
-    scrambleTimer = window.setInterval(function() {
-      var progress = Math.min((Date.now() - startedAt) / duration, 1);
-      var settledCount = Math.floor(progress * originalText.length);
-      var displayText = '';
-
-      for (var i = 0; i < originalText.length; i++) {
-        if (i < settledCount || originalText[i] === ' ') {
-          displayText += originalText[i];
-        } else {
-          displayText += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-        }
-      }
-
-      titleElement.textContent = displayText;
-      if (progress === 1) {
-        titleElement.textContent = originalText;
-        window.clearInterval(scrambleTimer);
-      }
-    }, 28);
+  function isOpen(folder) {
+    return folder.classList.contains('is-open') ||
+           folder.matches(':has(:focus-visible)') ||
+           (canHover.matches && folder.matches(':hover'));
   }
 
-  function positionPreview(item) {
-    var itemRect = item.getBoundingClientRect();
-    var previewHeight = preview.offsetHeight || 300;
-    var gap = 14;
-    var previewViewportTop = itemRect.bottom + gap;
-    if (previewViewportTop + previewHeight > window.innerHeight - 12 && itemRect.top - gap - previewHeight > 12) {
-      previewViewportTop = itemRect.top - gap - previewHeight;
+  function sync(folder) {
+    var tab = folder.querySelector('.tab');
+    if (tab) {
+      tab.setAttribute('aria-expanded', isOpen(folder) ? 'true' : 'false');
     }
-    preview.style.top = (window.scrollY + previewViewportTop) + 'px';
   }
 
-  function showPreview(item) {
-    window.clearTimeout(hideTimer);
-    positionPreview(item);
-    if (activeItem === item && preview.classList.contains('is-visible')) return;
+  folders.forEach(function(folder) {
+    var tab = folder.querySelector('.tab');
+    if (!tab) return;
 
-    activeItem = item;
-    var title = item.getAttribute('data-title');
-    var url = item.getAttribute('data-url');
-    var media;
-    preview.replaceChildren();
-
-    if (item.getAttribute('data-type') === 'iframe') {
-      media = document.createElement('iframe');
-      media.src = url;
-      media.title = title + ' live preview';
-      media.loading = 'eager';
-      media.tabIndex = -1;
-      media.setAttribute('aria-hidden', 'true');
-      media.setAttribute('scrolling', 'no');
-    } else {
-      media = document.createElement('img');
-      media.src = item.getAttribute('data-image');
-      media.alt = '';
-    }
-
-    var label = document.createElement('p');
-    label.className = 'project-preview-label';
-    label.textContent = title;
-    preview.appendChild(media);
-    preview.appendChild(label);
-    preview.classList.remove('is-leaving', 'is-entering');
-    preview.classList.add('is-visible');
-    preview.setAttribute('aria-hidden', 'true');
-    window.requestAnimationFrame(function() {
-      preview.classList.add('is-entering');
-    });
-  }
-
-  function hidePreview() {
-    window.clearTimeout(hideTimer);
-    activeItem = null;
-    preview.classList.remove('is-visible', 'is-entering');
-    preview.classList.add('is-leaving');
-    hideTimer = window.setTimeout(function() {
-      if (!preview.classList.contains('is-visible')) {
-        preview.replaceChildren();
-        preview.classList.remove('is-leaving');
+    tab.addEventListener('click', function(e) {
+      var isAlreadyOpen = folder.classList.contains('is-open');
+      folders.forEach(function(other) {
+        other.classList.remove('is-open');
+        sync(other);
+      });
+      if (!isAlreadyOpen) {
+        folder.classList.add('is-open');
       }
-    }, 100);
-  }
-
-  function restoreTouchTitle() {
-    if (!touchPreviewItem) return;
-    window.clearInterval(scrambleTimer);
-    var titleElement = touchPreviewItem.querySelector('.project-list-title');
-    titleElement.textContent = touchPreviewItem.getAttribute('data-title');
-    touchPreviewItem = null;
-  }
-
-  items.forEach(function(item) {
-    var titleElement = item.querySelector('.project-list-title');
-    var originalText = titleElement.textContent;
-
-    item.addEventListener('click', function(event) {
-      if (event.target.closest('a')) return;
-      window.open(item.getAttribute('data-url'), '_blank', 'noopener,noreferrer');
+      sync(folder);
     });
 
-    item.addEventListener('mouseenter', function() {
-      if (!canHover) return;
-      scramble(titleElement, originalText);
-      showPreview(item);
-    });
-
-    item.addEventListener('mouseleave', function() {
-      if (!canHover) return;
-      window.clearInterval(scrambleTimer);
-      titleElement.textContent = originalText;
-      hidePreview();
-    });
-
-    item.addEventListener('focusin', function() {
-      if (touchInput) return;
-      scramble(titleElement, originalText);
-      showPreview(item);
-    });
-
-    item.addEventListener('focusout', function(event) {
-      if (!touchInput && !item.contains(event.relatedTarget)) {
-        window.clearInterval(scrambleTimer);
-        titleElement.textContent = originalText;
-        hidePreview();
-      }
+    ['pointerenter', 'pointerleave', 'focusin', 'focusout'].forEach(function(event) {
+      folder.addEventListener(event, function() {
+        sync(folder);
+      });
     });
   });
 
-  if (touchOnly) {
-    function updateTouchPreview() {
-      scrollFramePending = false;
-      var section = document.getElementById('experiments');
-      var sectionRect = section.getBoundingClientRect();
-      if (sectionRect.bottom <= 0 || sectionRect.top >= window.innerHeight) {
-        if (activeItem) hidePreview();
-        restoreTouchTitle();
-        return;
-      }
-
-      var viewportCenter = window.innerHeight * 0.48;
-      var closestItem = null;
-      var closestDistance = Infinity;
-
-      items.forEach(function(item) {
-        var rect = item.getBoundingClientRect();
-        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
-        var distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestItem = item;
+  // Clicking outside any folder collapses pinned open folders
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.folder-card')) {
+      folders.forEach(function(f) {
+        if (f.classList.contains('is-open')) {
+          f.classList.remove('is-open');
+          sync(f);
         }
       });
-
-      if (closestItem && closestDistance < window.innerHeight * 0.42) {
-        if (touchPreviewItem !== closestItem) {
-          restoreTouchTitle();
-          touchPreviewItem = closestItem;
-          var titleElement = closestItem.querySelector('.project-list-title');
-          scramble(titleElement, titleElement.textContent);
-        }
-        showPreview(closestItem);
-      } else if (activeItem) {
-        restoreTouchTitle();
-        hidePreview();
-      }
     }
-
-    function scheduleTouchPreview() {
-      window.clearTimeout(touchScrollTimer);
-      touchScrollTimer = window.setTimeout(function() {
-        if (scrollFramePending) return;
-        scrollFramePending = true;
-        window.requestAnimationFrame(updateTouchPreview);
-      }, 90);
-    }
-
-    window.addEventListener('scroll', scheduleTouchPreview, { passive: true });
-    window.addEventListener('resize', scheduleTouchPreview);
-    window.addEventListener('pointerdown', function(event) {
-      touchInput = event.pointerType === 'touch';
-    }, true);
-    window.addEventListener('keydown', function() {
-      touchInput = false;
-    }, true);
-  } else {
-    window.addEventListener('pointerdown', function(event) {
-      touchInput = event.pointerType === 'touch';
-    }, true);
-    window.addEventListener('keydown', function() {
-      touchInput = false;
-    }, true);
-  }
+  });
 }
 
 // Initialize AI Scrollytelling when DOM is ready

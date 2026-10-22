@@ -1812,6 +1812,30 @@ body.nav-open {
     --overlap: 22px;
   }
 
+  .folder[data-side="left"] {
+    --ml: 16px !important;
+  }
+
+  .folder[data-side="right"] {
+    --mr: 16px !important;
+  }
+
+  .folder .tab {
+    max-width: calc(100% - 32px);
+    padding-inline: 12px;
+  }
+
+  .folder .tab-num,
+  .folder .tab-arrow {
+    flex: 0 0 auto;
+  }
+
+  .folder .tab-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .folder .content {
     padding-inline: 5%;
   }

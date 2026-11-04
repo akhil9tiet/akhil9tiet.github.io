@@ -4061,6 +4061,88 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
+<!-- site-glyph 2026-11-04: departures split-flap board (one scene at a time; replaces previous glyph) -->
+<section id="site-glyph" aria-label="Departures board">
+  <div class="glyph-term">
+    <div class="glyph-term__bar"><span class="glyph-term__lights"><i></i><i></i><i></i></span><span class="glyph-term__title">akhil@github.io — departures</span></div>
+    <pre class="glyph-term__board" id="glyph-board" aria-hidden="true"></pre>
+    <p class="glyph-term__caption">now boarding · open-source contributions welcome aboard</p>
+  </div>
+</section>
+<style>
+#site-glyph{width:100%;background:#0a0a0a;padding:3.5rem 1rem;display:flex;justify-content:center}
+.glyph-term{width:min(860px,100%);border:1px solid #1e2a38;border-radius:10px;background:#070b10;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.glyph-term__bar{display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:#0d141c;border-bottom:1px solid #1e2a38}
+.glyph-term__lights{display:flex;gap:7px}.glyph-term__lights i{width:8px;height:8px;border-radius:50%;background:#ff6c67}
+.glyph-term__lights i:nth-child(2){background:#f3c969}.glyph-term__lights i:nth-child(3){background:#74d9a0}
+.glyph-term__title{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;color:#8b98a8}
+.glyph-term__board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(.68rem,1.9vw,.95rem);line-height:2;color:#74d9a0;padding:1.4rem 1.2rem;margin:0;white-space:pre;overflow-x:auto;text-shadow:0 0 8px rgba(116,217,160,.35)}
+.glyph-term__board .flap-h{color:#f3c969}.glyph-term__board .flap-s{color:#9be7c0}
+.glyph-term__caption{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;color:#5b6b7d;padding:0 1.2rem 1.2rem;margin:0}
+@media (prefers-reduced-motion:reduce){.glyph-term__board{text-shadow:none}}
+</style>
+<script>
+(function(){
+var board=document.getElementById('glyph-board');if(!board)return;
+var GLYPHS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·/-';
+var HEADER='FLT   DESTINATION               STATUS';
+var ROWS=[
+ ['AKH01','SENIOR AI ENGINEER','LIVE'],
+ ['TSLA1','TESLA','ON DUTY'],
+ ['OSS26','OPEN SOURCE','MERGED'],
+ ['AGT42','AGENTIC SYSTEMS','BUILDING'],
+ ['WEB00','AKHIL9TIET.GITHUB.IO','SERVING']
+];
+function pad(s,n){s=String(s);while(s.length<n)s+=' ';return s.slice(0,n);}
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var line0='<span class="flap-h">'+HEADER+'</span>';
+var spans=[];
+function buildStatic(){
+ var html=line0+'\n';
+ ROWS.forEach(function(r){html+=pad(r[0],6)+pad(r[1],26)+'<span class="flap-s">'+pad(r[2],12)+'</span>\n';});
+ board.innerHTML=html;
+}
+if(reduce){buildStatic();return;}
+var cells=[];
+function buildAnimated(){
+ var html=line0+'\n',idx=0;
+ ROWS.forEach(function(r){
+  var line=pad(r[0],6)+pad(r[1],26),target=pad(r[2],12);
+  html+=line;
+  for(var i=0;i<target.length;i++){html+='<span data-c="'+idx+'"> </span>';cells.push({el:null,ch:target[i],delay:idx*28});idx++;}
+  html+='\n';
+ });
+ board.innerHTML=html;
+ cells.forEach(function(c,i){c.el=board.querySelector('[data-c="'+i+'"]');c.el.className='flap-s';});
+}
+buildAnimated();
+var running=true,t0=null,raf=null;
+function frame(ts){
+ if(!running)return;
+ if(t0===null)t0=ts;
+ var dirty=false;
+ for(var i=0;i<cells.length;i++){var c=cells[i],e=ts-t0-c.delay;
+  if(e<0){dirty=true;continue;}
+  if(e<420){c.el.textContent=GLYPHS[Math.floor(Math.random()*GLYPHS.length)];dirty=true;}
+  else if(c.el.textContent!==c.ch){c.el.textContent=c.ch;}
+ }
+ if(dirty){raf=requestAnimationFrame(frame);}else{raf=null;}
+}
+var started=false;
+function start(){if(started)return;started=true;running=true;t0=null;raf=requestAnimationFrame(frame);}
+function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null;}
+if('IntersectionObserver' in window){
+ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){start();}else{stop();}});},{threshold:.15}).observe(board);
+}else{start();}
+// ambient: re-flip one random status word every 9s
+setInterval(function(){
+ if(!running||document.hidden)return;
+ var i=Math.floor(Math.random()*cells.length),c=cells[i],n=0;
+ var iv=setInterval(function(){c.el.textContent=GLYPHS[Math.floor(Math.random()*GLYPHS.length)];if(++n>8){clearInterval(iv);c.el.textContent=c.ch;}},60);
+},9000);
+})();
+</script>
+
 </body>
 
 </html>

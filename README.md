@@ -1,13 +1,31 @@
 # Akhil Gupta — AI Engineer Portfolio
 
+
 Personal portfolio site for Akhil Gupta, AI engineer. Live at **https://akhil9tiet.github.io**.
 
+
 [![Live Website](https://img.shields.io/badge/Live_Website-akhil9tiet.github.io-6366f1?style=for-the-badge)](https://akhil9tiet.github.io)
+
+## About
+
+Akhil Gupta is a Senior AI Engineer at Tesla with 10+ years of software engineering experience, building agentic AI systems — autonomous agents, tool-using LLM applications, and the infrastructure that makes them reliable in production.
+
+## Focus
+
+- **Agentic AI** — multi-step agents, tool calling, and eval-driven iteration
+- **AI engineering** — LLM applications, retrieval, and production AI systems
+- **Open source** — fixes and features in NVIDIA NVSentinel, Microsoft PyRIT, Meta Pyrefly, Hugging Face Diffusers, and more (see [pull requests](https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet))
+
+## Hire me
+
+Looking for a Senior AI Engineer? See the [hire-me page](https://akhil9tiet.github.io/hire-ai-engineer.html) or reach out at [akhilgupta.swe@gmail.com](mailto:akhilgupta.swe@gmail.com).
 
 ## Pages
 
 - `index.html` — main portfolio
+
 - `hire-ai-engineer.html` — hire-me landing page
+
 - `claudeLoader/index.html` — standalone demo page
 
 ## Structure

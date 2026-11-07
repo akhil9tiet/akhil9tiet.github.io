@@ -4062,12 +4062,12 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- site-glyph 2026-11-04: departures split-flap board (one scene at a time; replaces previous glyph) -->
-<section id="site-glyph" aria-label="Departures board">
+<!-- site-glyph 2026-11-07: conway's game of life (one scene at a time; replaces previous glyph) -->
+<section id="site-glyph" aria-label="Conway's Game of Life">
   <div class="glyph-term">
-    <div class="glyph-term__bar"><span class="glyph-term__lights"><i></i><i></i><i></i></span><span class="glyph-term__title">akhil@github.io — departures</span></div>
+    <div class="glyph-term__bar"><span class="glyph-term__lights"><i></i><i></i><i></i></span><span class="glyph-term__title">akhil@github.io — conway</span></div>
     <pre class="glyph-term__board" id="glyph-board" aria-hidden="true"></pre>
-    <p class="glyph-term__caption">now boarding · open-source contributions welcome aboard</p>
+    <p class="glyph-term__caption"><span id="glyph-stats">generation 0 · population 0</span> — conway's game of life · b3/s23 · cells live, die, and are reborn</p>
   </div>
 </section>
 <style>
@@ -4077,70 +4077,67 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 .glyph-term__lights{display:flex;gap:7px}.glyph-term__lights i{width:8px;height:8px;border-radius:50%;background:#ff6c67}
 .glyph-term__lights i:nth-child(2){background:#f3c969}.glyph-term__lights i:nth-child(3){background:#74d9a0}
 .glyph-term__title{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;color:#8b98a8}
-.glyph-term__board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(.68rem,1.9vw,.95rem);line-height:2;color:#74d9a0;padding:1.4rem 1.2rem;margin:0;white-space:pre;overflow-x:auto;text-shadow:0 0 8px rgba(116,217,160,.35)}
-.glyph-term__board .flap-h{color:#f3c969}.glyph-term__board .flap-s{color:#9be7c0}
+.glyph-term__board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(.6rem,1.7vw,.85rem);line-height:1.15;color:#74d9a0;padding:1.2rem 1.2rem .4rem;margin:0;white-space:pre;overflow-x:auto;text-shadow:0 0 8px rgba(116,217,160,.35)}
 .glyph-term__caption{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;color:#5b6b7d;padding:0 1.2rem 1.2rem;margin:0}
+.glyph-term__caption #glyph-stats{color:#f3c969}
 @media (prefers-reduced-motion:reduce){.glyph-term__board{text-shadow:none}}
 </style>
 <script>
 (function(){
-var board=document.getElementById('glyph-board');if(!board)return;
-var GLYPHS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·/-';
-var HEADER='FLT   DESTINATION               STATUS';
-var ROWS=[
- ['AKH01','SENIOR AI ENGINEER','LIVE'],
- ['TSLA1','TESLA','ON DUTY'],
- ['OSS26','OPEN SOURCE','MERGED'],
- ['AGT42','AGENTIC SYSTEMS','BUILDING'],
- ['WEB00','AKHIL9TIET.GITHUB.IO','SERVING']
-];
-function pad(s,n){s=String(s);while(s.length<n)s+=' ';return s.slice(0,n);}
+var board=document.getElementById('glyph-board');
+var stats=document.getElementById('glyph-stats');
+if(!board)return;
+var COLS=72,ROWS=22;
+// deterministic seed so the static frame is stable
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rnd=mulberry32(20261107);
+var grid=[],next=[];
+function idx(x,y){return ((y+ROWS)%ROWS)*COLS+((x+COLS)%COLS);}
+function set(x,y,v){grid[idx(x,y)]=v?1:0;}
+// Gosper glider gun, top-left
+var gun=[[24,0],[22,1],[24,1],[12,2],[13,2],[20,2],[21,2],[34,2],[35,2],[11,3],[15,3],[20,3],[21,3],[34,3],[35,3],[0,4],[1,4],[10,4],[16,4],[20,4],[21,4],[0,5],[1,5],[10,5],[14,5],[16,5],[17,5],[22,5],[24,5],[10,6],[16,6],[24,6],[11,7],[15,7],[12,8],[13,8]];
+// a small random soup, bottom-right quadrant
+function seed(){
+  grid=new Array(COLS*ROWS).fill(0);next=new Array(COLS*ROWS).fill(0);
+  gun.forEach(function(c){set(c[0]+2,c[1]+1,1);});
+  for(var y=12;y<ROWS-1;y++)for(var x=40;x<COLS-2;x++){if(rnd()<0.22)set(x,y,1);}
+}
+function step(){
+  for(var y=0;y<ROWS;y++)for(var x=0;x<COLS;x++){
+    var n=0;
+    for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){if(dx||dy)n+=grid[idx(x+dx,y+dy)];}
+    var alive=grid[idx(x,y)];
+    next[idx(x,y)]=(alive?(n===2||n===3):n===3)?1:0;
+  }
+  var t=grid;grid=next;next=t;
+}
+function render(gen){
+  var out='',pop=0;
+  for(var y=0;y<ROWS;y++){
+    for(var x=0;x<COLS;x++){var a=grid[idx(x,y)];if(a){pop++;out+='\u2588';}else{out+=' ';}}
+    out+='\n';
+  }
+  board.textContent=out;
+  if(stats)stats.textContent='generation '+gen+' \u00b7 population '+pop;
+  return pop;
+}
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var line0='<span class="flap-h">'+HEADER+'</span>';
-var spans=[];
-function buildStatic(){
- var html=line0+'\n';
- ROWS.forEach(function(r){html+=pad(r[0],6)+pad(r[1],26)+'<span class="flap-s">'+pad(r[2],12)+'</span>\n';});
- board.innerHTML=html;
-}
-if(reduce){buildStatic();return;}
-var cells=[];
-function buildAnimated(){
- var html=line0+'\n',idx=0;
- ROWS.forEach(function(r){
-  var line=pad(r[0],6)+pad(r[1],26),target=pad(r[2],12);
-  html+=line;
-  for(var i=0;i<target.length;i++){html+='<span data-c="'+idx+'"> </span>';cells.push({el:null,ch:target[i],delay:idx*28});idx++;}
-  html+='\n';
- });
- board.innerHTML=html;
- cells.forEach(function(c,i){c.el=board.querySelector('[data-c="'+i+'"]');c.el.className='flap-s';});
-}
-buildAnimated();
-var running=true,t0=null,raf=null;
+seed();
+var gen=0;
+if(reduce){for(var i=0;i<24;i++){step();gen++;}render(gen);return;}
+var running=false,raf=null,last=0;
 function frame(ts){
- if(!running)return;
- if(t0===null)t0=ts;
- var dirty=false;
- for(var i=0;i<cells.length;i++){var c=cells[i],e=ts-t0-c.delay;
-  if(e<0){dirty=true;continue;}
-  if(e<420){c.el.textContent=GLYPHS[Math.floor(Math.random()*GLYPHS.length)];dirty=true;}
-  else if(c.el.textContent!==c.ch){c.el.textContent=c.ch;}
- }
- if(dirty){raf=requestAnimationFrame(frame);}else{raf=null;}
+  if(!running)return;
+  if(ts-last>=140){step();gen++;render(gen);last=ts;
+    if(gen>400){seed();gen=0;}} // reseed so the show never goes quiet
+  raf=requestAnimationFrame(frame);
 }
-var started=false;
-function start(){if(started)return;started=true;running=true;t0=null;raf=requestAnimationFrame(frame);}
+function start(){if(running)return;running=true;last=0;raf=requestAnimationFrame(frame);}
 function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null;}
+render(0);
 if('IntersectionObserver' in window){
- new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){start();}else{stop();}});},{threshold:.15}).observe(board);
+  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){start();}else{stop();}});},{threshold:.15}).observe(board);
 }else{start();}
-// ambient: re-flip one random status word every 9s
-setInterval(function(){
- if(!running||document.hidden)return;
- var i=Math.floor(Math.random()*cells.length),c=cells[i],n=0;
- var iv=setInterval(function(){c.el.textContent=GLYPHS[Math.floor(Math.random()*GLYPHS.length)];if(++n>8){clearInterval(iv);c.el.textContent=c.ch;}},60);
-},9000);
 })();
 </script>
 

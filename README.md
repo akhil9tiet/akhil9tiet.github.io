@@ -22,6 +22,7 @@ Merged contributions to AI and developer-tooling projects:
 
 - **NVIDIA NVSentinel** — exclude repeated XID 45 errors from `RepeatedXIDErrorOnSameGPU` ([PR #2064](https://github.com/NVIDIA/NVSentinel/pull/2064))
 - **Microsoft PyRIT** — use lazy logging args in `apply_defaults` debug logs ([PR #3925](https://github.com/microsoft/PyRIT/pull/3925))
+- **Microsoft PyRIT** — concurrent first calls can no longer construct multiple `Singleton` instances ([PR #3973](https://github.com/microsoft/PyRIT/pull/3973))
 - **microsoft/nvx** — `check-required-ci` no longer silently accepts malformed `--run-*` flags ([PR #498](https://github.com/microsoft/nvx/pull/498)); `doctor check_rate` no longer fails H4 when the host clocksource is unreadable ([PR #509](https://github.com/microsoft/nvx/pull/509))
 
 See the full list of [pull requests](https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet).

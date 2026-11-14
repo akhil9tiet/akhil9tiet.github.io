@@ -24,6 +24,9 @@ Merged contributions to AI and developer-tooling projects:
 - **Microsoft PyRIT** — use lazy logging args in `apply_defaults` debug logs ([PR #3925](https://github.com/microsoft/PyRIT/pull/3925))
 - **Microsoft PyRIT** — concurrent first calls can no longer construct multiple `Singleton` instances ([PR #3973](https://github.com/microsoft/PyRIT/pull/3973))
 - **microsoft/nvx** — `check-required-ci` no longer silently accepts malformed `--run-*` flags ([PR #498](https://github.com/microsoft/nvx/pull/498)); `doctor check_rate` no longer fails H4 when the host clocksource is unreadable ([PR #509](https://github.com/microsoft/nvx/pull/509))
+- **Hugging Face Diffusers** — derive text-encoder `alpha_pattern` keys from the LoRA module name ([PR #14972](https://github.com/huggingface/diffusers/pull/14972))
+- **Microsoft vscode-mypy** — bump typing-extensions to >=4.14.1 to fix the Python 3.15 crash ([PR #636](https://github.com/microsoft/vscode-mypy/pull/636))
+- **NVIDIA cuOpt** — reject duplicate `Constraint` in `Problem.addConstraint` ([PR #2226](https://github.com/NVIDIA/cuopt/pull/2226))
 
 See the full list of [pull requests](https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet).
 
@@ -68,3 +71,4 @@ No build step — plain HTML/CSS/JS served by GitHub Pages.
 py -m http.server 8000
 # open http://localhost:8000
 ```
+

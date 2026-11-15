@@ -3151,7 +3151,7 @@ body.nav-open {
       <li class="experience-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Tesla%2C_Inc._-_Logo_%28black_script_version%29.svg" alt="Tesla" loading="lazy"></li>
       <li class="experience-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" loading="lazy"></li>
       <li class="experience-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Visa_Inc._logo_%282021%E2%80%93present%29.svg" alt="Visa" loading="lazy"></li>
-      <li class="experience-logo"><img src="https://umd-brand.transforms.svdcdn.com/production/uploads/images/logos-wordmark-dark-text.png?auto=compress%2Cformat&amp;dm=1613776231&amp;fit=crop&amp;h=173&amp;s=18e1bd165ab2c8ce21d2866f030a48cd&amp;w=575" alt="University of Maryland" loading="lazy"></li>
+      <li class="experience-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/d/df/University_of_Maryland_wordmark.svg" alt="University of Maryland" loading="lazy"></li>
       <li class="experience-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Logo_of_Deloitte.svg" alt="Deloitte" loading="lazy"></li>
     </ul>
   </div>
@@ -4069,30 +4069,18 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- site-glyph 2026-11-13: starfield warp (one scene at a time; replaces previous glyph) -->
+<!-- site-glyph 2026-11-13: starfield warp (one scene at a time; replaces previous glyph) — full-page chrome-free restyle 2026-11-14 -->
 <section id="site-glyph" aria-label="Starfield warp">
-  <div class="glyph-term">
-    <div class="glyph-term__bar"><span class="glyph-term__lights"><i></i><i></i><i></i></span><span class="glyph-term__title">akhil@github.io — starfield warp</span></div>
-    <pre class="glyph-term__board" id="glyph-board" aria-hidden="true"></pre>
-    <p class="glyph-term__caption"><span id="glyph-stats">frame 0 · stars 0 · warp ×1.0</span> — starfield warp · hold on, the name is coming into focus</p>
-  </div>
+  <pre class="glyph-board" id="glyph-board" aria-hidden="true"></pre>
 </section>
 <style>
-#site-glyph{width:100%;background:#0a0a0a;padding:3.5rem 1rem;display:flex;justify-content:center}
-.glyph-term{width:min(860px,100%);border:1px solid #1e2a38;border-radius:10px;background:#070b10;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.55)}
-.glyph-term__bar{display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:#0d141c;border-bottom:1px solid #1e2a38}
-.glyph-term__lights{display:flex;gap:7px}.glyph-term__lights i{width:8px;height:8px;border-radius:50%;background:#ff6c67}
-.glyph-term__lights i:nth-child(2){background:#f3c969}.glyph-term__lights i:nth-child(3){background:#74d9a0}
-.glyph-term__title{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;color:#8b98a8}
-.glyph-term__board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(.6rem,1.7vw,.85rem);line-height:1.15;color:#74d9a0;padding:1.2rem 1.2rem .4rem;margin:0;white-space:pre;overflow-x:auto;text-shadow:0 0 8px rgba(116,217,160,.35)}
-.glyph-term__caption{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;color:#5b6b7d;padding:0 1.2rem 1.2rem;margin:0}
-.glyph-term__caption #glyph-stats{color:#f3c969}
-@media (prefers-reduced-motion:reduce){.glyph-term__board{text-shadow:none}}
+#site-glyph{width:100%;min-height:100vh;min-height:100svh;margin:0;padding:0;background:#070b10;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.glyph-board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:2.1vw;font-size:min(2.1vw,3.6vh);line-height:1.15;color:#74d9a0;margin:0;padding:0;white-space:pre;text-shadow:0 0 8px rgba(116,217,160,.35)}
+@media (prefers-reduced-motion:reduce){.glyph-board{text-shadow:none}}
 </style>
 <script>
 (function(){
 var board=document.getElementById('glyph-board');
-var stats=document.getElementById('glyph-stats');
 var COLS=72,ROWS=22,CX=(COLS-1)/2,CY=(ROWS-1)/2;
 var PHRASE='AKHIL GUPTA',PHRASE_ROW=11,PHRASE_COL=Math.floor((COLS-PHRASE.length)/2);
 var N=220,stars=[],frame=0;
@@ -4134,7 +4122,6 @@ function render(){
   var out='';
   for(r=0;r<ROWS;r++){out+=grid[r].join('')+'\n';}
   board.textContent=out;
-  stats.textContent='frame '+frame+' · stars '+stars.length+' · warp ×'+warp().toFixed(1);
 }
 function staticFrame(){
   // reduced motion: one settled mid-warp frame with the name visible

@@ -4070,8 +4070,8 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- site-glyph 2026-11-13: starfield warp (one scene at a time; replaces previous glyph) — full-page chrome-free restyle 2026-11-14 -->
-<section id="site-glyph" aria-label="Starfield warp">
+<!-- site-glyph 2026-11-16: radar sweep with blips (one scene at a time; replaces previous glyph) — full-page chrome-free restyle 2026-11-14 -->
+<section id="site-glyph" aria-label="Radar sweep">
   <pre class="glyph-board" id="glyph-board" aria-hidden="true"></pre>
 </section>
 <style>
@@ -4082,42 +4082,62 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 <script>
 (function(){
 var board=document.getElementById('glyph-board');
-var COLS=72,ROWS=22,CX=(COLS-1)/2,CY=(ROWS-1)/2;
+var COLS=72,ROWS=22,CX=35.5,CY=10.5,RX=20,RY=10;
 var PHRASE='AKHIL GUPTA',PHRASE_ROW=11,PHRASE_COL=Math.floor((COLS-PHRASE.length)/2);
-var N=220,stars=[],frame=0;
-var CYCLE=360,LOCK_START=240,LOCK_END=330; // phrase locks in during frames 240-330 of each cycle
-function rnd(){return Math.random();}
-function newStar(){
-  // x,y in [-1,1] (off-centre), z depth 0..1 (1 = far)
-  var a=rnd()*Math.PI*2,r=Math.sqrt(rnd())*0.95+0.05;
-  return {x:Math.cos(a)*r,y:Math.sin(a)*r*0.55,z:0.15+rnd()*0.85};
-}
-function seed(){stars=[];for(var i=0;i<N;i++){stars.push(newStar());}}
-function warp(){ // 1.0 -> 3.0 and back across the cycle
-  var p=(frame%CYCLE)/CYCLE;
-  return 1+2*Math.sin(p*Math.PI);
-}
+var BLIPS=[
+ {a:20,r:0.55,t:'LLM'},
+ {a:70,r:0.80,t:'RAG'},
+ {a:120,r:0.45,t:'AGENT'},
+ {a:170,r:0.70,t:'OSS'},
+ {a:220,r:0.60,t:'TESLA'},
+ {a:280,r:0.85,t:'AI'},
+ {a:320,r:0.50,t:'MCP'},
+ {a:350,r:0.75,t:'API'}
+];
+var SWEEP_STEP=3,frame=0,angle=90;
+var ping={};
+function angDiff(a,b){var d=(a-b)%360;if(d<0)d+=360;return d;}
+function cellAngle(x,y){return (Math.atan2(-(y-CY)/RY,(x-CX)/RX)*180/Math.PI+360)%360;}
+function cellR(x,y){var dx=(x-CX)/RX,dy=(y-CY)/RY;return Math.sqrt(dx*dx+dy*dy);}
 function step(){
-  var w=warp(),dz=0.012*w;
-  for(var i=0;i<stars.length;i++){
-    var s=stars[i];s.z-=dz;
-    if(s.z<=0.06){stars[i]=newStar();stars[i].z=1;}
+  angle=(angle-SWEEP_STEP+360)%360;frame++;
+  for(var i=0;i<BLIPS.length;i++){
+    var b=BLIPS[i];
+    if(angDiff(b.a,angle)<SWEEP_STEP)ping[b.t]=0;
+    else if(ping[b.t]!==undefined)ping[b.t]++;
   }
 }
-function render(){
+function blipPos(b){
+  var rad=b.a*Math.PI/180;
+  return {x:Math.round(CX+Math.cos(rad)*b.r*RX),y:Math.round(CY-Math.sin(rad)*b.r*RY)};
+}
+function render(showPhrase){
   var grid=[],r,c;
   for(r=0;r<ROWS;r++){grid.push(new Array(COLS).fill(' '));}
-  for(var i=0;i<stars.length;i++){
-    var s=stars[i];
-    var sx=Math.round(CX+s.x/s.z*CX),sy=Math.round(CY+s.y/s.z*CY);
-    if(sx<0||sx>=COLS||sy<0||sy>=ROWS)continue;
-    var ch=s.z>0.6?'.':(s.z>0.32?'+':(s.z>0.16?'*':'#'));
-    // nearer stars win over farther ones
-    var cur=grid[sy][sx];
-    if(cur===' '||(' .+*#'.indexOf(ch)>' .+*#'.indexOf(cur)))grid[sy][sx]=ch;
+  for(r=0;r<ROWS;r++)for(c=0;c<COLS;c++){
+    var rr=cellR(c,r);
+    if(rr<=1){
+      if(Math.abs(rr-1)<0.06||Math.abs(rr-0.66)<0.06||Math.abs(rr-0.33)<0.06)grid[r][c]='.';
+      var d=angDiff(cellAngle(c,r),angle);
+      if(d<2)grid[r][c]='#';
+      else if(d<8)grid[r][c]='*';
+      else if(d<20)grid[r][c]='+';
+      else if(d<40&&grid[r][c]===' ')grid[r][c]='.';
+    }
   }
-  var f=frame%CYCLE;
-  if(f>=LOCK_START&&f<LOCK_END){ // warp steadies, the name locks in
+  grid[10][35]='+';grid[10][36]='+';grid[11][35]='+';grid[11][36]='+';
+  for(var i=0;i<BLIPS.length;i++){
+    var b=BLIPS[i],p=blipPos(b),age=ping[b.t];
+    var ch=age===undefined?'o':(age<10?'@':(age<25?'O':(age<45?'o':'.')));
+    if(p.y>=0&&p.y<ROWS&&p.x>=0&&p.x<COLS)grid[p.y][p.x]=ch;
+    var lx=p.x+2;
+    if(lx+b.t.length>COLS)lx=p.x-1-b.t.length;
+    for(var k=0;k<b.t.length;k++){
+      var cx=lx+k;
+      if(cx>=0&&cx<COLS&&p.y>=0&&p.y<ROWS)grid[p.y][cx]=b.t[k];
+    }
+  }
+  if(showPhrase){
     for(var k=0;k<PHRASE.length;k++){grid[PHRASE_ROW][PHRASE_COL+k]=PHRASE[k];}
   }
   var out='';
@@ -4125,10 +4145,11 @@ function render(){
   board.textContent=out;
 }
 function staticFrame(){
-  // reduced motion: one settled mid-warp frame with the name visible
-  seed();frame=LOCK_START+20;render();
+  angle=120;
+  var ages=[5,20,40,60,8,30,50,15];
+  for(var i=0;i<BLIPS.length;i++){ping[BLIPS[i].t]=ages[i];}
+  render(true);
 }
-seed();
 if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   staticFrame();
   return;
@@ -4136,12 +4157,12 @@ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matc
 var running=false,raf=null,last=0;
 function animate(ts){
   if(!running)return;
-  if(ts-last>=50){step();frame++;render();last=ts;}
+  if(ts-last>=50){step();render(angle<=18);last=ts;}
   raf=requestAnimationFrame(animate);
 }
 function start(){if(running)return;running=true;last=0;raf=requestAnimationFrame(animate);}
 function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null;}
-render();
+render(false);
 if('IntersectionObserver' in window){
   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){start();}else{stop();}});},{threshold:.15}).observe(board);
 }else{start();}

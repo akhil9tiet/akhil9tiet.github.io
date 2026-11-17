@@ -27,6 +27,8 @@ Merged contributions to AI and developer-tooling projects:
 - **Hugging Face Diffusers** — derive text-encoder `alpha_pattern` keys from the LoRA module name ([PR #14972](https://github.com/huggingface/diffusers/pull/14972))
 - **Microsoft vscode-mypy** — bump typing-extensions to >=4.14.1 to fix the Python 3.15 crash ([PR #636](https://github.com/microsoft/vscode-mypy/pull/636))
 - **NVIDIA cuOpt** — reject duplicate `Constraint` in `Problem.addConstraint` ([PR #2226](https://github.com/NVIDIA/cuopt/pull/2226))
+- **Microsoft PyRIT** — `URLDataTypeSerializer` now recognizes mixed-case HTTP(S) schemes ([PR #3918](https://github.com/microsoft/PyRIT/pull/3918))
+- **Microsoft waza** — remove unsupported `--stdio` flag from serve CLI reference ([PR #932](https://github.com/microsoft/waza/pull/932))
 
 See the full list of [pull requests](https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet).
 

@@ -2926,6 +2926,112 @@ body.nav-open {
 		</div>
 	</div>
 
+	<!--.................Open Source....................-->
+<style>
+.oss-section{box-sizing:border-box;padding:clamp(3rem,7svh,6rem) 0;background:#0c110e;color:#e8edf2}
+.oss-section .container{box-sizing:border-box;width:min(100%,1200px);margin:0 auto;padding-inline:clamp(18px,4vw,72px)}
+.oss-heading{max-width:860px;margin:0 auto clamp(1.5rem,4svh,2.5rem);text-align:center}
+.oss-kicker{margin:0 0 .6rem;font-family:'Fira Code',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:#74d9a0}
+.oss-heading h2{margin:0;font-family:'Poppins','Lato',sans-serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:600;letter-spacing:-.04em;line-height:1.02}
+.oss-heading p{max-width:58ch;margin:1rem auto 0;color:#9fb3a8;font-size:clamp(.95rem,1.15vw,1.08rem);line-height:1.55}
+.oss-table-wrap{overflow-x:auto;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.02);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.oss-table{width:100%;border-collapse:collapse;font-size:.98rem;line-height:1.5}
+.oss-table thead th{padding:1rem 1.25rem;text-align:left;font-family:'Fira Code',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#74d9a0;border-bottom:1px solid rgba(255,255,255,.12);background:rgba(116,217,160,.06);white-space:nowrap}
+.oss-table tbody td{padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+.oss-table tbody tr:last-child td{border-bottom:0}
+.oss-table tbody tr{transition:background .25s ease}
+.oss-table tbody tr:hover{background:rgba(116,217,160,.07)}
+.oss-project{white-space:nowrap}
+.oss-project a{color:#e8edf2;text-decoration:none;font-weight:600}
+.oss-project a:hover{color:#74d9a0;text-decoration:underline}
+.oss-dot{display:inline-block;width:.55em;height:.55em;margin-right:.55em;border-radius:50%;vertical-align:middle}
+.oss-table code{font-family:'Fira Code',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;padding:.12em .4em;border-radius:6px;background:rgba(255,255,255,.08);color:#d7ffe9;white-space:nowrap}
+.oss-pr{white-space:nowrap}
+.oss-pr a{display:inline-block;padding:.32rem .8rem;border:1px solid rgba(116,217,160,.5);border-radius:999px;color:#74d9a0;text-decoration:none;font-family:'Fira Code',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;transition:background .25s ease,color .25s ease}
+.oss-pr a:hover{background:#74d9a0;color:#0c110e}
+.oss-more{margin:1.25rem 0 0;text-align:center;color:#9fb3a8}
+.oss-more a{color:#74d9a0}
+@media (max-width:720px){
+  .oss-table thead{display:none}
+  .oss-table,.oss-table tbody,.oss-table tr,.oss-table td{display:block;width:100%}
+  .oss-table tbody tr{padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .oss-table tbody tr:last-child{border-bottom:0}
+  .oss-table tbody td{padding:.45rem 1.25rem;border-bottom:0}
+  .oss-table td::before{content:attr(data-label);display:block;font-family:'Fira Code',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#74d9a0;margin-bottom:.2rem}
+  .oss-table td:first-child::before{display:none}
+  .oss-table code{white-space:normal;word-break:break-word}
+}
+</style>
+<section id="open-source" class="oss-section" aria-labelledby="oss-title">
+  <div class="container">
+    <div class="oss-heading">
+      <p class="oss-kicker">Merged contributions</p>
+      <h2 id="oss-title">Open Source Highlights</h2>
+      <p>Fixes and features merged into AI and developer-tooling projects.</p>
+    </div>
+    <div class="oss-table-wrap">
+      <table class="oss-table">
+        <thead>
+          <tr><th scope="col">Project</th><th scope="col">Contribution</th><th scope="col">Pull request</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#76b900"></span><a href="https://github.com/NVIDIA/NVSentinel" target="_blank" rel="noopener">NVIDIA / NVSentinel</a></td>
+            <td data-label="Contribution">Exclude repeated XID 45 errors from <code>RepeatedXIDErrorOnSameGPU</code></td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/NVIDIA/NVSentinel/pull/2064" target="_blank" rel="noopener">#2064 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/PyRIT" target="_blank" rel="noopener">Microsoft / PyRIT</a></td>
+            <td data-label="Contribution">Use lazy logging args in <code>apply_defaults</code> debug logs</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/PyRIT/pull/3925" target="_blank" rel="noopener">#3925 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/PyRIT" target="_blank" rel="noopener">Microsoft / PyRIT</a></td>
+            <td data-label="Contribution">Concurrent first calls can no longer construct multiple <code>Singleton</code> instances</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/PyRIT/pull/3973" target="_blank" rel="noopener">#3973 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/nvx" target="_blank" rel="noopener">microsoft / nvx</a></td>
+            <td data-label="Contribution"><code>check-required-ci</code> no longer silently accepts malformed <code>--run-*</code> flags</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/nvx/pull/498" target="_blank" rel="noopener">#498 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/nvx" target="_blank" rel="noopener">microsoft / nvx</a></td>
+            <td data-label="Contribution"><code>doctor check_rate</code> no longer fails H4 when the host clocksource is unreadable</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/nvx/pull/509" target="_blank" rel="noopener">#509 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#ffd21e"></span><a href="https://github.com/huggingface/diffusers" target="_blank" rel="noopener">Hugging Face / Diffusers</a></td>
+            <td data-label="Contribution">Derive text-encoder <code>alpha_pattern</code> keys from the LoRA module name</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/huggingface/diffusers/pull/14972" target="_blank" rel="noopener">#14972 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/vscode-mypy" target="_blank" rel="noopener">Microsoft / vscode-mypy</a></td>
+            <td data-label="Contribution">Bump typing-extensions to &gt;=4.14.1 to fix the Python 3.15 crash</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/vscode-mypy/pull/636" target="_blank" rel="noopener">#636 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#76b900"></span><a href="https://github.com/NVIDIA/cuopt" target="_blank" rel="noopener">NVIDIA / cuOpt</a></td>
+            <td data-label="Contribution">Reject duplicate <code>Constraint</code> in <code>Problem.addConstraint</code></td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/NVIDIA/cuopt/pull/2226" target="_blank" rel="noopener">#2226 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/PyRIT" target="_blank" rel="noopener">Microsoft / PyRIT</a></td>
+            <td data-label="Contribution"><code>URLDataTypeSerializer</code> now recognizes mixed-case HTTP(S) schemes</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/PyRIT/pull/3918" target="_blank" rel="noopener">#3918 ↗</a></td>
+          </tr>
+          <tr>
+            <td class="oss-project" data-label="Project"><span class="oss-dot" style="background:#00a4ef"></span><a href="https://github.com/microsoft/waza" target="_blank" rel="noopener">Microsoft / waza</a></td>
+            <td data-label="Contribution">Remove unsupported <code>--stdio</code> flag from serve CLI reference</td>
+            <td class="oss-pr" data-label="Pull request"><a href="https://github.com/microsoft/waza/pull/932" target="_blank" rel="noopener">#932 ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="oss-more">See the full list of <a href="https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet" target="_blank" rel="noopener">pull requests →</a></p>
+  </div>
+</section>
+
   <!--....................AI .............-->
 
 <!-- AI Intro Section with Title -->
@@ -4070,12 +4176,12 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- site-glyph 2026-11-16: radar sweep with blips (one scene at a time; replaces previous glyph) — full-page chrome-free restyle 2026-11-14 -->
+<!-- site-glyph 2026-11-16: radar sweep with blips (one scene at a time; replaces previous glyph) — full-page chrome-free restyle 2026-11-14; background always pure black (#000) -->
 <section id="site-glyph" aria-label="Radar sweep">
   <pre class="glyph-board" id="glyph-board" aria-hidden="true"></pre>
 </section>
 <style>
-#site-glyph{width:100%;min-height:100vh;min-height:100svh;margin:0;padding:0;background:#070b10;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#site-glyph{width:100%;min-height:100vh;min-height:100svh;margin:0;padding:0;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .glyph-board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:2.1vw;font-size:min(2.1vw,3.6vh);line-height:1.15;color:#74d9a0;margin:0;padding:0;white-space:pre;text-shadow:0 0 8px rgba(116,217,160,.35)}
 @media (prefers-reduced-motion:reduce){.glyph-board{text-shadow:none}}
 </style>

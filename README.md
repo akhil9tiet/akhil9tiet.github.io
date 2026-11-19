@@ -29,6 +29,7 @@ Merged contributions to AI and developer-tooling projects:
 - **NVIDIA cuOpt** — reject duplicate `Constraint` in `Problem.addConstraint` ([PR #2226](https://github.com/NVIDIA/cuopt/pull/2226))
 - **Microsoft PyRIT** — `URLDataTypeSerializer` now recognizes mixed-case HTTP(S) schemes ([PR #3918](https://github.com/microsoft/PyRIT/pull/3918))
 - **Microsoft waza** — remove unsupported `--stdio` flag from serve CLI reference ([PR #932](https://github.com/microsoft/waza/pull/932))
+- **NVIDIA NVSentinel** — apply node labels before fault-quarantine restart in CEL E2E test ([PR #2308](https://github.com/NVIDIA/NVSentinel/pull/2308))
 
 See the full list of [pull requests](https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet).
 

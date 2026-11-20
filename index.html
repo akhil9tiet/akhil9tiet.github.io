@@ -4176,102 +4176,89 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- site-glyph 2026-11-16: radar sweep with blips (one scene at a time; replaces previous glyph) — full-page chrome-free restyle 2026-11-14; background always pure black (#000) -->
-<section id="site-glyph" aria-label="Radar sweep">
-  <pre class="glyph-board" id="glyph-board" aria-hidden="true"></pre>
-</section>
+<!-- glyph: snake eating skill names (2026-11-20) -->
+<section class="glyph" aria-hidden="true"><pre id="glyph-snake"></pre></section>
 <style>
-#site-glyph{width:100%;min-height:100vh;min-height:100svh;margin:0;padding:0;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.glyph-board{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:2.1vw;font-size:min(2.1vw,3.6vh);line-height:1.15;color:#74d9a0;margin:0;padding:0;white-space:pre;text-shadow:0 0 8px rgba(116,217,160,.35)}
-@media (prefers-reduced-motion:reduce){.glyph-board{text-shadow:none}}
+.glyph{margin:0;padding:0;width:100%;min-height:100vh;min-height:100svh;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.glyph pre{margin:0;padding:0;background:#000;color:#4ade80;font:14px/1.15 ui-monospace,Menlo,Consolas,monospace;white-space:pre;text-align:left}
 </style>
 <script>
 (function(){
-var board=document.getElementById('glyph-board');
-var COLS=72,ROWS=22,CX=35.5,CY=10.5,RX=20,RY=10;
-var PHRASE='AKHIL GUPTA',PHRASE_ROW=11,PHRASE_COL=Math.floor((COLS-PHRASE.length)/2);
-var BLIPS=[
- {a:20,r:0.55,t:'LLM'},
- {a:70,r:0.80,t:'RAG'},
- {a:120,r:0.45,t:'AGENT'},
- {a:170,r:0.70,t:'OSS'},
- {a:220,r:0.60,t:'TESLA'},
- {a:280,r:0.85,t:'AI'},
- {a:320,r:0.50,t:'MCP'},
- {a:350,r:0.75,t:'API'}
-];
-var SWEEP_STEP=3,frame=0,angle=90;
-var ping={};
-function angDiff(a,b){var d=(a-b)%360;if(d<0)d+=360;return d;}
-function cellAngle(x,y){return (Math.atan2(-(y-CY)/RY,(x-CX)/RX)*180/Math.PI+360)%360;}
-function cellR(x,y){var dx=(x-CX)/RX,dy=(y-CY)/RY;return Math.sqrt(dx*dx+dy*dy);}
-function step(){
-  angle=(angle-SWEEP_STEP+360)%360;frame++;
-  for(var i=0;i<BLIPS.length;i++){
-    var b=BLIPS[i];
-    if(angDiff(b.a,angle)<SWEEP_STEP)ping[b.t]=0;
-    else if(ping[b.t]!==undefined)ping[b.t]++;
+  var pre=document.getElementById('glyph-snake');
+  var W=72,H=22;
+  var SKILLS=['LLM','RAG','AGENT','OSS','TESLA','AI','MCP','API','CUDA','RUST'];
+  var snake,dir,pendingDir,pellets,frame,timer;
+  function reset(){
+    snake=[{x:36,y:11},{x:35,y:11},{x:34,y:11},{x:33,y:11}];
+    dir={x:1,y:0};pendingDir=dir;pellets=[];frame=0;
+    for(var i=0;i<3;i++)spawnPellet();
   }
-}
-function blipPos(b){
-  var rad=b.a*Math.PI/180;
-  return {x:Math.round(CX+Math.cos(rad)*b.r*RX),y:Math.round(CY-Math.sin(rad)*b.r*RY)};
-}
-function render(showPhrase){
-  var grid=[],r,c;
-  for(r=0;r<ROWS;r++){grid.push(new Array(COLS).fill(' '));}
-  for(r=0;r<ROWS;r++)for(c=0;c<COLS;c++){
-    var rr=cellR(c,r);
-    if(rr<=1){
-      if(Math.abs(rr-1)<0.06||Math.abs(rr-0.66)<0.06||Math.abs(rr-0.33)<0.06)grid[r][c]='.';
-      var d=angDiff(cellAngle(c,r),angle);
-      if(d<2)grid[r][c]='#';
-      else if(d<8)grid[r][c]='*';
-      else if(d<20)grid[r][c]='+';
-      else if(d<40&&grid[r][c]===' ')grid[r][c]='.';
+  function spawnPellet(){
+    var tries=0;
+    while(tries++<200){
+      var s=SKILLS[Math.floor(Math.random()*SKILLS.length)];
+      var x=2+Math.floor(Math.random()*(W-4-s.length));
+      var y=1+Math.floor(Math.random()*(H-2));
+      var clash=false;
+      for(var i=0;i<snake.length;i++){if(Math.abs(snake[i].x-x)<s.length+1&&snake[i].y===y){clash=true;break;}}
+      if(!clash){pellets.push({x:x,y:y,text:s});return;}
     }
   }
-  grid[10][35]='+';grid[10][36]='+';grid[11][35]='+';grid[11][36]='+';
-  for(var i=0;i<BLIPS.length;i++){
-    var b=BLIPS[i],p=blipPos(b),age=ping[b.t];
-    var ch=age===undefined?'o':(age<10?'@':(age<25?'O':(age<45?'o':'.')));
-    if(p.y>=0&&p.y<ROWS&&p.x>=0&&p.x<COLS)grid[p.y][p.x]=ch;
-    var lx=p.x+2;
-    if(lx+b.t.length>COLS)lx=p.x-1-b.t.length;
-    for(var k=0;k<b.t.length;k++){
-      var cx=lx+k;
-      if(cx>=0&&cx<COLS&&p.y>=0&&p.y<ROWS)grid[p.y][cx]=b.t[k];
+  function step(){
+    frame++;
+    dir=pendingDir;
+    var head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+    if(head.x<0||head.x>=W||head.y<0||head.y>=H){reset();return;}
+    for(var i=0;i<snake.length;i++){if(snake[i].x===head.x&&snake[i].y===head.y){reset();return;}}
+    snake.unshift(head);
+    var ate=-1;
+    for(var j=0;j<pellets.length;j++){
+      var p=pellets[j];
+      if(head.y===p.y&&head.x>=p.x&&head.x<p.x+p.text.length){ate=j;break;}
+    }
+    if(ate>=0){pellets.splice(ate,1);spawnPellet();}
+    else{snake.pop();}
+    if(frame%6===0){
+      var target=pellets.length?pellets[0]:null;
+      var opts=[];
+      if(target){
+        if(target.x>head.x)opts.push({x:1,y:0});
+        if(target.x<head.x)opts.push({x:-1,y:0});
+        if(target.y>head.y)opts.push({x:0,y:1});
+        if(target.y<head.y)opts.push({x:0,y:-1});
+      }
+      opts.push({x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1});
+      var d=opts[Math.floor(Math.random()*opts.length)];
+      if(!(d.x===-dir.x&&d.y===-dir.y))pendingDir=d;
+    }
+    render();
+  }
+  function render(){
+    var grid=[];
+    for(var y=0;y<H;y++){grid.push(new Array(W).fill(' '));}
+    for(var j=0;j<pellets.length;j++){
+      var p=pellets[j];
+      for(var k=0;k<p.text.length;k++){grid[p.y][p.x+k]=p.text[k];}
+    }
+    for(var i=snake.length-1;i>=0;i--){
+      var s=snake[i];
+      grid[s.y][s.x]= i===0 ? '●' : '█';
+    }
+    pre.textContent=grid.map(function(r){return r.join('');}).join('\n');
+  }
+  function start(){
+    reset();render();
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+    timer=setInterval(step,140);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        if(es[0].isIntersecting){if(!timer)timer=setInterval(step,140);}
+        else{clearInterval(timer);timer=null;}
+      }).observe(pre);
     }
   }
-  if(showPhrase){
-    for(var k=0;k<PHRASE.length;k++){grid[PHRASE_ROW][PHRASE_COL+k]=PHRASE[k];}
-  }
-  var out='';
-  for(r=0;r<ROWS;r++){out+=grid[r].join('')+'\n';}
-  board.textContent=out;
-}
-function staticFrame(){
-  angle=120;
-  var ages=[5,20,40,60,8,30,50,15];
-  for(var i=0;i<BLIPS.length;i++){ping[BLIPS[i].t]=ages[i];}
-  render(true);
-}
-if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  staticFrame();
-  return;
-}
-var running=false,raf=null,last=0;
-function animate(ts){
-  if(!running)return;
-  if(ts-last>=50){step();render(angle<=18);last=ts;}
-  raf=requestAnimationFrame(animate);
-}
-function start(){if(running)return;running=true;last=0;raf=requestAnimationFrame(animate);}
-function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null;}
-render(false);
-if('IntersectionObserver' in window){
-  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){start();}else{stop();}});},{threshold:.15}).observe(board);
-}else{start();}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}
+  else{start();}
 })();
 </script>
 

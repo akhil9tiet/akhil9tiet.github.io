@@ -4176,85 +4176,67 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- glyph: snake eating skill names (2026-11-20) -->
-<section class="glyph" aria-hidden="true"><pre id="glyph-snake"></pre></section>
+<!-- glyph: matrix digital rain spelling AKHIL GUPTA (2026-11-22) -->
+<section class="glyph" aria-hidden="true"><canvas id="glyph-matrix"></canvas></section>
 <style>
 .glyph{margin:0;padding:0;width:100%;min-height:100vh;min-height:100svh;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.glyph pre{margin:0;padding:0;background:#000;color:#4ade80;font:14px/1.15 ui-monospace,Menlo,Consolas,monospace;white-space:pre;text-align:left}
+.glyph canvas{display:block;width:100%;height:100%}
 </style>
 <script>
 (function(){
-  var pre=document.getElementById('glyph-snake');
-  var W=72,H=22;
-  var SKILLS=['LLM','RAG','AGENT','OSS','TESLA','AI','MCP','API','CUDA','RUST'];
-  var snake,dir,pendingDir,pellets,frame,timer;
-  function reset(){
-    snake=[{x:36,y:11},{x:35,y:11},{x:34,y:11},{x:33,y:11}];
-    dir={x:1,y:0};pendingDir=dir;pellets=[];frame=0;
-    for(var i=0;i<3;i++)spawnPellet();
+  var canvas=document.getElementById('glyph-matrix');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var CHARS='AKHILGUPTA0123456789アイキルグプタ';
+  var FONT=16, cols=[], drops=[], W=0, H=0, raf=null, last=0;
+  function resize(){
+    var r=canvas.parentElement.getBoundingClientRect();
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    W=Math.max(320,Math.floor(r.width)); H=Math.max(320,Math.floor(r.height));
+    canvas.width=W*dpr; canvas.height=H*dpr;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.font=FONT+'px monospace';
+    var n=Math.floor(W/FONT);
+    cols=[]; drops=[];
+    for(var i=0;i<n;i++){cols.push(CHARS[Math.floor(Math.random()*CHARS.length)]);drops.push(Math.floor(Math.random()*H/FONT));}
   }
-  function spawnPellet(){
-    var tries=0;
-    while(tries++<200){
-      var s=SKILLS[Math.floor(Math.random()*SKILLS.length)];
-      var x=2+Math.floor(Math.random()*(W-4-s.length));
-      var y=1+Math.floor(Math.random()*(H-2));
-      var clash=false;
-      for(var i=0;i<snake.length;i++){if(Math.abs(snake[i].x-x)<s.length+1&&snake[i].y===y){clash=true;break;}}
-      if(!clash){pellets.push({x:x,y:y,text:s});return;}
-    }
-  }
-  function step(){
-    frame++;
-    dir=pendingDir;
-    var head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
-    if(head.x<0||head.x>=W||head.y<0||head.y>=H){reset();return;}
-    for(var i=0;i<snake.length;i++){if(snake[i].x===head.x&&snake[i].y===head.y){reset();return;}}
-    snake.unshift(head);
-    var ate=-1;
-    for(var j=0;j<pellets.length;j++){
-      var p=pellets[j];
-      if(head.y===p.y&&head.x>=p.x&&head.x<p.x+p.text.length){ate=j;break;}
-    }
-    if(ate>=0){pellets.splice(ate,1);spawnPellet();}
-    else{snake.pop();}
-    if(frame%6===0){
-      var target=pellets.length?pellets[0]:null;
-      var opts=[];
-      if(target){
-        if(target.x>head.x)opts.push({x:1,y:0});
-        if(target.x<head.x)opts.push({x:-1,y:0});
-        if(target.y>head.y)opts.push({x:0,y:1});
-        if(target.y<head.y)opts.push({x:0,y:-1});
+  function drawStatic(){
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+    ctx.font=FONT+'px monospace';
+    for(var x=0;x<W;x+=FONT){
+      for(var y=0;y<H;y+=FONT){
+        if(Math.random()<0.12){ctx.fillStyle='rgba(0,255,65,0.55)';ctx.fillText(CHARS[Math.floor(Math.random()*CHARS.length)],x,y);}
       }
-      opts.push({x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1});
-      var d=opts[Math.floor(Math.random()*opts.length)];
-      if(!(d.x===-dir.x&&d.y===-dir.y))pendingDir=d;
     }
-    render();
+    ctx.fillStyle='#00ff41'; ctx.font='bold '+Math.min(64,Math.floor(W/12))+'px monospace'; ctx.textAlign='center';
+    ctx.fillText('AKHIL GUPTA',W/2,H/2);
   }
-  function render(){
-    var grid=[];
-    for(var y=0;y<H;y++){grid.push(new Array(W).fill(' '));}
-    for(var j=0;j<pellets.length;j++){
-      var p=pellets[j];
-      for(var k=0;k<p.text.length;k++){grid[p.y][p.x+k]=p.text[k];}
+  function frame(t){
+    if(t-last<50){raf=requestAnimationFrame(frame);return;}
+    last=t;
+    ctx.fillStyle='rgba(0,0,0,0.12)'; ctx.fillRect(0,0,W,H);
+    ctx.font=FONT+'px monospace';
+    for(var i=0;i<cols.length;i++){
+      var ch=CHARS[Math.floor(Math.random()*CHARS.length)];
+      var x=i*FONT, y=drops[i]*FONT;
+      ctx.fillStyle='#00ff41'; ctx.fillText(ch,x,y);
+      ctx.fillStyle='rgba(0,255,65,0.65)'; ctx.fillText(CHARS[Math.floor(Math.random()*CHARS.length)],x,y-FONT);
+      if(y>H && Math.random()>0.975){drops[i]=0;}
+      drops[i]++;
     }
-    for(var i=snake.length-1;i>=0;i--){
-      var s=snake[i];
-      grid[s.y][s.x]= i===0 ? '●' : '█';
-    }
-    pre.textContent=grid.map(function(r){return r.join('');}).join('\n');
+    raf=requestAnimationFrame(frame);
   }
   function start(){
-    reset();render();
-    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
-    timer=setInterval(step,140);
+    resize();
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){drawStatic();return;}
+    window.addEventListener('resize',resize);
+    raf=requestAnimationFrame(frame);
     if('IntersectionObserver' in window){
       new IntersectionObserver(function(es){
-        if(es[0].isIntersecting){if(!timer)timer=setInterval(step,140);}
-        else{clearInterval(timer);timer=null;}
-      }).observe(pre);
+        if(es[0].isIntersecting){if(!raf)raf=requestAnimationFrame(frame);}
+        else{if(raf)cancelAnimationFrame(raf);raf=null;}
+      }).observe(canvas);
     }
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}

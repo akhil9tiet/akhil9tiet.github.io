@@ -32,6 +32,7 @@ Merged contributions to AI and developer-tooling projects:
 - **NVIDIA NVSentinel** — apply node labels before fault-quarantine restart in CEL E2E test ([PR #2308](https://github.com/NVIDIA/NVSentinel/pull/2308))
 - **Microsoft winappCli** — return exit code 1 on parse errors ([PR #1016](https://github.com/microsoft/winappCli/pull/1016))
 - **Microsoft PyRIT** — escape union types in generated API parameter tables ([PR #4140](https://github.com/microsoft/PyRIT/pull/4140))
+- **NVIDIA cluster-readiness-engine** — reject `--results-file` without `--wait` and fail on write errors ([PR #572](https://github.com/NVIDIA/cluster-readiness-engine/pull/572))
 
 See the full list of [pull requests](https://github.com/pulls?q=is%3Apr+author%3Aakhil9tiet).
 

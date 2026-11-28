@@ -4186,98 +4186,19 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
 /></noscript>
 
-<!-- glyph: falling tetrominoes (2026-11-25) -->
-<section class="glyph" aria-hidden="true"><canvas id="glyph-tetris"></canvas></section>
+<!-- glyph: starfield warp (2026-11-28) -->
+<section class="glyph" aria-hidden="true"><canvas id="glyph-starfield"></canvas></section>
 <style>
 .glyph{margin:0;padding:0;width:100%;min-height:100vh;min-height:100svh;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .glyph canvas{display:block}
 </style>
 <script>
 (function(){
-  var canvas=document.getElementById('glyph-tetris');
+  var canvas=document.getElementById('glyph-starfield');
   if(!canvas)return;
   var ctx=canvas.getContext('2d');
-  var COLS=10, ROWS=20, CELL=0, OX=0, OY=0, W=0, H=0, raf=null, last=0, DROP_MS=420;
-  var SHAPES={
-    I:{c:'#00e5e5',m:[[1,1,1,1]]},
-    O:{c:'#f0e000',m:[[1,1],[1,1]]},
-    T:{c:'#b000f0',m:[[0,1,0],[1,1,1]]},
-    S:{c:'#00e600',m:[[0,1,1],[1,1,0]]},
-    Z:{c:'#f00000',m:[[1,1,0],[0,1,1]]},
-    J:{c:'#0050f0',m:[[1,0,0],[1,1,1]]},
-    L:{c:'#f0a000',m:[[0,0,1],[1,1,1]]}
-  };
-  var KEYS=Object.keys(SHAPES);
-  var board=[], cur=null, flash=[];
-  function newBoard(){board=[];for(var y=0;y<ROWS;y++){var r=[];for(var x=0;x<COLS;x++)r.push(null);board.push(r);}}
-  function rndPiece(){
-    var k=KEYS[Math.floor(Math.random()*KEYS.length)];
-    var s=SHAPES[k];
-    var m=s.m.map(function(row){return row.slice();});
-    return {m:m,c:s.c,x:Math.floor((COLS-m[0].length)/2),y:0};
-  }
-  function collides(p,dx,dy,mat){
-    mat=mat||p.m;
-    for(var y=0;y<mat.length;y++)for(var x=0;x<mat[y].length;x++){
-      if(!mat[y][x])continue;
-      var nx=p.x+x+(dx||0), ny=p.y+y+(dy||0);
-      if(nx<0||nx>=COLS||ny>=ROWS)return true;
-      if(ny>=0&&board[ny][nx])return true;
-    }
-    return false;
-  }
-  function rotate(m){
-    var r=[];
-    for(var x=0;x<m[0].length;x++){var row=[];for(var y=m.length-1;y>=0;y--)row.push(m[y][x]);r.push(row);}
-    return r;
-  }
-  function lock(){
-    for(var y=0;y<cur.m.length;y++)for(var x=0;x<cur.m[y].length;x++){
-      if(cur.m[y][x]&&cur.y+y>=0)board[cur.y+y][cur.x+x]=cur.c;
-    }
-    var cleared=[];
-    for(var yy=ROWS-1;yy>=0;yy--){
-      var full=true;
-      for(var xx=0;xx<COLS;xx++)if(!board[yy][xx]){full=false;break;}
-      if(full)cleared.push(yy);
-    }
-    for(var i=0;i<cleared.length;i++)board.splice(cleared[i],1);
-    for(var j=0;j<cleared.length;j++){var r2=[];for(var xx2=0;xx2<COLS;xx2++)r2.push(null);board.unshift(r2);}
-    flash=cleared;
-    cur=rndPiece();
-    if(collides(cur,0,0))newBoard();
-  }
-  function step(){
-    if(Math.random()<0.35){var r=rotate(cur.m);if(!collides(cur,0,0,r))cur.m=r;}
-    if(Math.random()<0.25){var dir=Math.random()<0.5?-1:1;if(!collides(cur,dir,0))cur.x+=dir;}
-    if(!collides(cur,0,1))cur.y++;
-    else lock();
-  }
-  function drawCell(x,y,c){
-    ctx.fillStyle=c;
-    ctx.fillRect(OX+x*CELL+1,OY+y*CELL+1,CELL-2,CELL-2);
-    ctx.fillStyle='rgba(255,255,255,0.25)';
-    ctx.fillRect(OX+x*CELL+1,OY+y*CELL+1,CELL-2,3);
-  }
-  function draw(){
-    ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
-    for(var y=0;y<ROWS;y++)for(var x=0;x<COLS;x++)if(board[y][x])drawCell(x,y,board[y][x]);
-    if(cur)for(var py=0;py<cur.m.length;py++)for(var px=0;px<cur.m[py].length;px++)
-      if(cur.m[py][px]&&cur.y+py>=0)drawCell(cur.x+px,cur.y+py,cur.c);
-  }
-  function drawStatic(){
-    ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
-    newBoard();
-    var seed=[['I',0,17],['Z',0,18],['O',3,18],['S',5,18],['T',7,18]];
-    for(var i=0;i<seed.length;i++){
-      var s=SHAPES[seed[i][0]];
-      for(var y=0;y<s.m.length;y++)for(var x=0;x<s.m[y].length;x++)
-        if(s.m[y][x]&&board[seed[i][2]+y])board[seed[i][2]+y][seed[i][1]+x]=s.c;
-    }
-    for(var yy=0;yy<ROWS;yy++)for(var xx=0;xx<COLS;xx++)if(board[yy][xx])drawCell(xx,yy,board[yy][xx]);
-    var p=SHAPES.T;for(var qy=0;qy<p.m.length;qy++)for(var qx=0;qx<p.m[qy].length;qx++)
-      if(p.m[qy][qx])drawCell(4+qx,14+qy,p.c);
-  }
+  var W=0,H=0,raf=null,CX=0,CY=0,stars=[],N=380,SPEED=0.0016;
+  var COLORS=['#ffffff','#cfe8ff','#ffe9a8','#9fd8ff'];
   function resize(){
     var r=canvas.parentElement.getBoundingClientRect();
     var dpr=Math.min(window.devicePixelRatio||1,2);
@@ -4285,15 +4206,42 @@ src="https://www.facebook.com/tr?id=1398015018457496&ev=PageView&noscript=1"
     canvas.width=W*dpr;canvas.height=H*dpr;
     canvas.style.width=W+'px';canvas.style.height=H+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    CELL=Math.max(14,Math.floor(Math.min(W/(COLS+2),H/(ROWS+2))));
-    OX=Math.floor((W-COLS*CELL)/2);OY=Math.floor((H-ROWS*CELL)/2);
+    CX=W/2;CY=H/2;
+  }
+  function newStar(randomZ){
+    return {x:(Math.random()*2-1)*W,y:(Math.random()*2-1)*H,z:randomZ?Math.random():1,
+            c:COLORS[Math.floor(Math.random()*COLORS.length)]};
+  }
+  function seed(){
+    stars=[];for(var i=0;i<N;i++)stars.push(newStar(true));
+  }
+  function drawStatic(){
+    ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i],sx=CX+s.x*(1-s.z*0.6),sy=CY+s.y*(1-s.z*0.6);
+      ctx.fillStyle=s.c;ctx.globalAlpha=0.35+0.65*(1-s.z);
+      ctx.fillRect(sx-1,sy-1,2,2);
+    }
+    ctx.globalAlpha=1;
   }
   function frame(t){
-    if(t-last<DROP_MS){raf=requestAnimationFrame(frame);return;}
-    last=t;step();draw();raf=requestAnimationFrame(frame);
+    ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i];
+      var pz=s.z;s.z-=SPEED*(0.4+s.z);
+      if(s.z<=0.02){stars[i]=newStar(false);continue;}
+      var sx=CX+s.x/s.z,sy=CY+s.y/s.z;
+      var px=CX+s.x/pz,py=CY+s.y/pz;
+      var w=1.6*(1-s.z)+0.4;
+      ctx.strokeStyle=s.c;ctx.globalAlpha=0.25+0.75*(1-s.z);
+      ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(sx,sy);ctx.stroke();
+      if(s.z<0.25){ctx.fillStyle='#fff';ctx.fillRect(sx-w/2,sy-w/2,w,w);}
+    }
+    ctx.globalAlpha=1;
+    raf=requestAnimationFrame(frame);
   }
   function start(){
-    resize();newBoard();cur=rndPiece();
+    resize();seed();
     if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){drawStatic();return;}
     window.addEventListener('resize',resize);
     raf=requestAnimationFrame(frame);
